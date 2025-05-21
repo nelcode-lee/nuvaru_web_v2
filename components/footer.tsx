@@ -98,8 +98,7 @@ export function Footer() {
             <h3 className="mb-4 text-lg font-semibold text-white">Contact</h3>
             <ul className="space-y-2">
               <li>Hull, East Yorkshire, UK</li>
-              <li>info@nuvaru.com</li>
-              <li>+44 (0)1482 000000</li>
+              <li>info@nuvaru.co.uk</li>
             </ul>
           </div>
         </div>
