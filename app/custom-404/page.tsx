@@ -1,5 +1,5 @@
-// This is a server component with no client-side hooks
-export default function NotFound() {
+// This is a completely static page with no client components
+export default function Custom404() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center">
       <h1 className="text-6xl font-bold text-purple-900 mb-4">404</h1>
