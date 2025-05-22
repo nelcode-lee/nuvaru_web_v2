@@ -20,9 +20,34 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Case Studies | Nuvaru - AI Transformation Consultancy",
+  title: "AI Transformation Case Studies",
   description:
-    "Explore real-world examples of how our AI solutions have transformed businesses across various industries.",
+    "Explore real-world examples of how our AI solutions have transformed businesses across logistics, customer service, and sales with measurable results.",
+  keywords: [
+    "AI case studies",
+    "business transformation",
+    "logistics AI",
+    "customer service AI",
+    "sales automation",
+    "AI success stories",
+  ],
+  alternates: {
+    canonical: "/case-studies",
+  },
+  openGraph: {
+    title: "Case Studies | Nuvaru - AI Transformation Consultancy",
+    description:
+      "Explore real-world examples of how our AI solutions have transformed businesses across various industries.",
+    url: "/case-studies",
+    images: [
+      {
+        url: "/og-case-studies.jpg", // Create this image for social sharing
+        width: 1200,
+        height: 630,
+        alt: "Nuvaru AI Case Studies",
+      },
+    ],
+  },
 }
 
 export default function CaseStudiesPage() {
