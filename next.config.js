@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Next.js 14 configuration
+  // Remove the static export configuration
+  // output: "export",
+  // distDir: "out",
+
+  // Keep these settings
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -10,11 +14,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Skip the problematic page during build
-  output: "export", // Use static export
-  distDir: "out",
-  // Disable the automatic 404 page generation
-  trailingSlash: true, // This helps with static exports
+  // Remove trailingSlash
+  // trailingSlash: true,
 }
 
 module.exports = nextConfig
