@@ -4,26 +4,8 @@ import { Footer } from "@/components/footer"
 import { ChatInterface } from "@/components/chat-interface"
 
 export const metadata: Metadata = {
-  title: "Chat with Our AI Assistant",
-  description:
-    "Get instant answers about AI transformation, our services, and how we can help your business grow with intelligent solutions.",
-  keywords: ["AI assistant", "AI chat", "business AI", "AI consultation", "AI help"],
-  alternates: {
-    canonical: "/chat",
-  },
-  openGraph: {
-    title: "AI Assistant | Nuvaru - AI Transformation Consultancy",
-    description: "Chat with our AI assistant to learn more about how AI can transform your business operations.",
-    url: "/chat",
-    images: [
-      {
-        url: "/og-chat.jpg", // Create this image for social sharing
-        width: 1200,
-        height: 630,
-        alt: "Nuvaru AI Assistant",
-      },
-    ],
-  },
+  title: "AI Assistant | Nuvaru - AI Transformation Consultancy",
+  description: "Chat with our AI assistant to learn more about how AI can transform your business operations.",
 }
 
 export default function ChatPage() {

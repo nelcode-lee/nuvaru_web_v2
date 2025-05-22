@@ -8,34 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
 export const metadata: Metadata = {
-  title: "AI Services for UK Businesses",
-  description:
-    "Explore our comprehensive AI services designed to transform your business operations, drive efficiency, and accelerate growth with custom AI solutions.",
-  keywords: [
-    "AI services",
-    "custom AI solutions",
-    "process automation",
-    "data analysis",
-    "GDPR compliance",
-    "AI implementation",
-  ],
-  alternates: {
-    canonical: "/services",
-  },
-  openGraph: {
-    title: "AI Services | Nuvaru - AI Transformation Consultancy",
-    description:
-      "Explore our comprehensive AI services designed to transform your business operations and drive growth.",
-    url: "/services",
-    images: [
-      {
-        url: "/og-services.jpg", // Create this image for social sharing
-        width: 1200,
-        height: 630,
-        alt: "Nuvaru AI Services",
-      },
-    ],
-  },
+  title: "Services | Nuvaru - AI Transformation Consultancy",
+  description: "Explore our comprehensive AI services designed to transform your business operations and drive growth.",
 }
 
 export default function ServicesPage() {
