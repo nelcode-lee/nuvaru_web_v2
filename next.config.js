@@ -1,8 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable automatic static optimization for problematic routes
+  // Disable the feature that's causing the error
   experimental: {
-    // This will force the 404 page to be generated at runtime
     missingSuspenseWithCSRBailout: false,
   },
   eslint: {
@@ -14,16 +13,17 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Add custom 404 page handling
-  async redirects() {
-    return [
-      // Redirect any non-existent routes to a custom static 404 page
-      {
-        source: "/_not-found",
-        destination: "/custom-404",
-        permanent: false,
-      },
-    ]
+  // Handle 404 errors with rewrites
+  async rewrites() {
+    return {
+      fallback: [
+        {
+          source: "/:path*",
+          destination: "/custom-404",
+          // This will only be triggered if the path doesn't match any existing page
+        },
+      ],
+    }
   },
 }
 
