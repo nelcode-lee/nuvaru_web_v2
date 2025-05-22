@@ -81,7 +81,12 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-icon.png" }],
   },
-  themeColor: "#0f172a",
+  viewport: {
+    themeColor: "#0f172a",
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+  },
 }
 
 export default function RootLayout({
