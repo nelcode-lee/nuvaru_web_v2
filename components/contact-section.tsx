@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Mail, MapPin, MessageSquare } from "lucide-react"
+import { analytics } from "@/lib/analytics"
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -37,6 +38,10 @@ export function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Track the form submission
+    analytics.contactFormSubmit(formData.serviceType)
+
     // Handle form submission - would connect to a server action in a real implementation
     console.log("Form submitted:", formData)
     alert("Thank you for your inquiry! We'll be in touch soon.")
