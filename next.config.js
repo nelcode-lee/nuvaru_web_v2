@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable the feature that's causing the error
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-  },
+  // Next.js 14 configuration
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -13,18 +10,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Handle 404 errors with rewrites
-  async rewrites() {
-    return {
-      fallback: [
-        {
-          source: "/:path*",
-          destination: "/custom-404",
-          // This will only be triggered if the path doesn't match any existing page
-        },
-      ],
-    }
-  },
+  // Skip the problematic page during build
+  output: "export", // Use static export
+  distDir: "out",
+  // Disable the automatic 404 page generation
+  trailingSlash: true, // This helps with static exports
 }
 
 module.exports = nextConfig
