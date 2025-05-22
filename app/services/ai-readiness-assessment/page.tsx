@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { generateMetadata } from "@/components/page-seo"
 import Image from "next/image"
 import Link from "next/link"
 import { Navbar } from "@/components/navbar"
@@ -7,11 +8,23 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle2, ArrowRight, FileText, BarChart3, Shield, Users, Database, Brain } from "lucide-react"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = generateMetadata({
   title: "AI Readiness Assessment | Nuvaru - AI Transformation Consultancy",
   description:
-    "Our comprehensive AI Readiness Assessment helps organizations understand their current capabilities, identify gaps, and create a roadmap for successful AI adoption.",
-}
+    "Evaluate your organisation's AI readiness with our comprehensive assessment. Identify opportunities, gaps, and create a strategic roadmap for successful AI adoption.",
+  keywords: [
+    "AI readiness assessment UK",
+    "AI maturity evaluation",
+    "business AI readiness",
+    "AI capability assessment",
+    "AI implementation roadmap",
+    "AI strategy UK",
+    "data infrastructure evaluation",
+    "AI opportunity identification",
+    "AI gap analysis",
+    "AI readiness framework",
+  ],
+})
 
 export default function AIReadinessAssessmentPage() {
   const dimensions = [
