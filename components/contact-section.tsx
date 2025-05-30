@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,51 +8,13 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Mail, MapPin, MessageSquare } from "lucide-react"
-import { analytics } from "@/lib/analytics"
+import { submitContactForm } from "@/app/actions/contact"
+import { useActionState } from "react"
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: "",
-    company: "",
-    email: "",
-    phone: "",
-    challenge: "",
-    source: "",
-    serviceType: "ai-readiness", // Default value
-  })
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSelectChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, source: value }))
-  }
-
-  const handleRadioChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, serviceType: value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    // Track the form submission
-    analytics.contactFormSubmit(formData.serviceType)
-
-    // Handle form submission - would connect to a server action in a real implementation
-    console.log("Form submitted:", formData)
-    alert("Thank you for your inquiry! We'll be in touch soon.")
-    setFormData({
-      name: "",
-      company: "",
-      email: "",
-      phone: "",
-      challenge: "",
-      source: "",
-      serviceType: "ai-readiness",
-    })
-  }
+  // Replace the existing formData useState and handleSubmit function with:
+  const [state, formAction] = useActionState(submitContactForm, null)
+  const [isPending, startTransition] = useState(false)
 
   return (
     <section id="contact" className="py-20 bg-white">
@@ -87,7 +47,7 @@ export function ContactSection() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-900">Email Us</h3>
-                    <p className="text-gray-600">info@nuvaru.com</p>
+                    <p className="text-gray-600">lee@nuvaru.com</p>
                     <p className="text-gray-600">support@nuvaru.com</p>
                   </div>
                 </div>
@@ -136,40 +96,23 @@ export function ContactSection() {
 
           <div className="bg-gradient-to-br from-violet-50 to-blue-50 p-8 rounded-lg shadow-md">
             <h3 className="mb-6 text-2xl font-bold text-gray-900">Contact Form</h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form action={formAction} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="name">Name *</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full"
-                  placeholder="Your name"
-                />
+                <Input id="name" name="name" required className="w-full" placeholder="Your name" />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="company">Company *</Label>
-                <Input
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  required
-                  className="w-full"
-                  placeholder="Your company name"
-                />
+                <Input id="company" name="company" required className="w-full" placeholder="Your company name" />
               </div>
 
               <div className="space-y-2 mt-6">
                 <Label>What service are you most interested in?</Label>
                 <RadioGroup
                   defaultValue="ai-readiness"
-                  value={formData.serviceType}
-                  onValueChange={handleRadioChange}
                   className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2"
+                  name="serviceType"
                 >
                   <div className="flex items-center space-x-2 bg-white/60 p-3 rounded-md">
                     <RadioGroupItem value="ai-readiness" id="ai-readiness" />
@@ -216,8 +159,6 @@ export function ContactSection() {
                   id="email"
                   name="email"
                   type="email"
-                  value={formData.email}
-                  onChange={handleChange}
                   required
                   className="w-full"
                   placeholder="your.email@company.com"
@@ -226,15 +167,7 @@ export function ContactSection() {
 
               <div className="space-y-2">
                 <Label htmlFor="phone">Phone (optional)</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full"
-                  placeholder="Your phone number"
-                />
+                <Input id="phone" name="phone" type="tel" className="w-full" placeholder="Your phone number" />
               </div>
 
               <div className="space-y-2">
@@ -242,8 +175,6 @@ export function ContactSection() {
                 <Textarea
                   id="challenge"
                   name="challenge"
-                  value={formData.challenge}
-                  onChange={handleChange}
                   required
                   className="w-full min-h-[100px]"
                   placeholder="Tell us about your business challenges and what you're hoping to achieve"
@@ -252,7 +183,7 @@ export function ContactSection() {
 
               <div className="space-y-2">
                 <Label htmlFor="source">How did you hear about us?</Label>
-                <Select onValueChange={handleSelectChange} value={formData.source}>
+                <Select name="source">
                   <SelectTrigger id="source" className="w-full">
                     <SelectValue placeholder="Select an option" />
                   </SelectTrigger>
@@ -266,10 +197,19 @@ export function ContactSection() {
                 </Select>
               </div>
 
-              <Button type="submit" className="w-full bg-gradient-brand hover:bg-brand-purple-dark">
-                Submit Enquiry
+              <Button
+                type="submit"
+                disabled={isPending}
+                className="w-full bg-gradient-brand hover:bg-brand-purple-dark"
+              >
+                {isPending ? "Submitting..." : "Submit Enquiry"}
               </Button>
             </form>
+            {state && (
+              <div className={`mt-4 text-center ${state.success ? "text-green-600" : "text-red-600"}`}>
+                {state.message}
+              </div>
+            )}
           </div>
         </div>
       </div>

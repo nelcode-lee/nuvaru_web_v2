@@ -50,12 +50,12 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <a
-            href="mailto:info@nuvaru.com?subject=Hi%20Lee%20-%20I%20want%20to%20know%20more%20about%20your%20services"
+          <Link
+            href="/book-consultation"
             className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-brand text-white hover:bg-brand-purple-dark h-10 px-4 py-2"
           >
             Book a Consultation
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -104,13 +104,13 @@ export function Navbar() {
             >
               Contact
             </Link>
-            <a
-              href="mailto:info@nuvaru.com?subject=Hi%20Lee%20-%20I%20want%20to%20know%20more%20about%20your%20services"
+            <Link
+              href="/book-consultation"
               className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-gradient-brand text-white hover:bg-brand-purple-dark h-10 px-4 py-2 mt-2"
               onClick={() => setIsMenuOpen(false)}
             >
               Book a Consultation
-            </a>
+            </Link>
           </div>
         </div>
       )}
