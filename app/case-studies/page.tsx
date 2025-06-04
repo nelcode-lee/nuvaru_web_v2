@@ -14,9 +14,9 @@ import {
   Clock,
   PieChart,
   Truck,
-  ShoppingCart,
   CheckCircle2,
   MessageSquare,
+  Leaf,
 } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -108,43 +108,44 @@ export default function CaseStudiesPage() {
       secondaryImage: "/nuvaru-customer-service-agent.png",
     },
     {
-      id: "cold-outreach",
-      title: "Intelligent Cold Outreach System",
-      industry: "Sales",
+      id: "sustainability-compliance",
+      title: "Sustainability Compliance Assistant",
+      industry: "Environmental Compliance",
       challenge:
-        "Sales teams spending excessive time on cold outreach with low conversion rates, manual follow-ups, and difficulty personalizing messages at scale",
+        "UK haulage operations struggling with complex environmental regulations, carbon footprint tracking, ULEZ compliance, and sustainability reporting",
       solution:
-        "AI-powered cold outreach system that analyzes prospect data, personalizes messaging, automates follow-ups, and identifies high-potential leads",
+        "Comprehensive AI-powered dashboard with real-time compliance monitoring, carbon footprint analysis, and automated reporting",
       results: [
-        "78% reduction in outreach time",
-        "3.2x higher response rates",
-        "42% increase in qualified leads",
-        "68% improvement in sales team productivity",
+        "100% regulatory compliance achievement",
+        "35% carbon footprint reduction",
+        "£50,000 annual cost savings through optimized environmental performance",
+        "98% reduction in compliance-related penalties",
       ],
-      image: "/sales-growth-road.png",
+      image: "/sustainability-compliance-dashboard.jpg",
+      link: "https://v0-sustainability-compliance-assis.vercel.app/",
       extended: true,
       features: [
-        "Prospect analysis using AI to identify ideal targets",
-        "Personalized message generation based on prospect profiles",
-        "Automated multi-channel follow-up sequences",
-        "Response sentiment analysis to prioritize leads",
-        "A/B testing of messaging to optimize performance",
-        "Integration with CRM systems for seamless workflow",
+        "Real-time ULEZ, CAZ, and Euro 6 compliance monitoring",
+        "Carbon footprint tracking with trend analysis",
+        "Automated SECR and OCRS reporting",
+        "AI-powered sustainability recommendations",
+        "Fleet emissions optimization and maintenance scheduling",
+        "Regulatory deadline notifications and compliance calendar",
       ],
       testimonial: {
         quote:
-          "The intelligent outreach system has transformed our sales process. We're reaching more qualified prospects with less effort, and our conversion rates have skyrocketed.",
-        author: "Michael Roberts",
-        position: "Sales Director",
-        company: "Growth Partners Ltd",
+          "The Sustainability Compliance Assistant has revolutionized how we manage our environmental obligations. We've eliminated compliance penalties while significantly reducing our carbon footprint.",
+        author: "Emma Richards",
+        position: "Environmental Manager",
+        company: "GreenHaul Logistics Ltd",
       },
       metrics: {
-        outreachTime: "78%",
-        responseRate: "320%",
-        qualifiedLeads: "42%",
-        productivity: "68%",
+        complianceRate: "100%",
+        carbonReduction: "35%",
+        costSavings: "£50k",
+        reportingEfficiency: "95%",
       },
-      secondaryImage: "/sales-dashboard-analytics.png",
+      secondaryImage: "/sustainability-dashboard-ui.png",
     },
   ]
 
@@ -196,7 +197,11 @@ export default function CaseStudiesPage() {
                             {study.industry}
                           </Badge>
                           <p className="text-white text-sm">
-                            {index === 0 ? "AI-powered traffic monitoring system for route optimization" : ""}
+                            {index === 0
+                              ? "AI-powered traffic monitoring system for route optimization"
+                              : index === 2
+                                ? "Eco-friendly transport operations with environmental compliance monitoring"
+                                : ""}
                           </p>
                         </div>
                       </div>
@@ -271,6 +276,7 @@ export default function CaseStudiesPage() {
                               <BarChart3 key="1" className="h-8 w-8 text-brand-purple" />,
                               <PieChart key="2" className="h-8 w-8 text-brand-purple" />,
                               <Clock key="3" className="h-8 w-8 text-brand-blue" />,
+                              <Leaf key="4" className="h-8 w-8 text-green-600" />,
                             ]
 
                             const labels = {
@@ -286,15 +292,29 @@ export default function CaseStudiesPage() {
                               responseRate: "Increase in Response Rate",
                               qualifiedLeads: "Increase in Qualified Leads",
                               productivity: "Productivity Improvement",
+                              carbonReduction: "Carbon Reduction",
+                              reportingEfficiency: "Reporting Efficiency",
                             }
 
                             return (
                               <div
                                 key={key}
-                                className="rounded-lg bg-gradient-to-br from-blue-50 to-violet-50 p-4 text-center"
+                                className={`rounded-lg bg-gradient-to-br ${
+                                  index === 2 ? "from-green-50 to-green-100" : "from-blue-50 to-violet-50"
+                                } p-4 text-center`}
                               >
-                                <div className="mb-2 flex justify-center">{icons[i % icons.length]}</div>
-                                <div className="text-3xl font-bold text-brand-blue">{value}</div>
+                                <div className="mb-2 flex justify-center">
+                                  {index === 2 && key === "carbonReduction" ? (
+                                    <Leaf className="h-8 w-8 text-green-600" />
+                                  ) : (
+                                    icons[i % icons.length]
+                                  )}
+                                </div>
+                                <div
+                                  className={`text-3xl font-bold ${index === 2 ? "text-green-600" : "text-brand-blue"}`}
+                                >
+                                  {value}
+                                </div>
                                 <p className="text-sm text-gray-600">{labels[key as keyof typeof labels] || key}</p>
                               </div>
                             )
@@ -304,7 +324,11 @@ export default function CaseStudiesPage() {
                       <ul className="space-y-2">
                         {study.results.map((result, i) => (
                           <li key={i} className="flex items-start">
-                            <CheckCircle2 className="h-5 w-5 text-green-600 mr-2 flex-shrink-0 mt-0.5" />
+                            <CheckCircle2
+                              className={`h-5 w-5 ${
+                                index === 2 ? "text-green-600" : "text-green-600"
+                              } mr-2 flex-shrink-0 mt-0.5`}
+                            />
                             <span className="text-gray-700">{result}</span>
                           </li>
                         ))}
@@ -314,12 +338,16 @@ export default function CaseStudiesPage() {
                     <div className="flex flex-wrap gap-4">
                       {study.link && (
                         <Link href={study.link} target="_blank" rel="noopener noreferrer">
-                          <Button className="bg-gradient-brand hover:bg-brand-purple-dark">
+                          <Button
+                            className={`${
+                              index === 2 ? "bg-gradient-to-r from-green-600 to-green-500" : "bg-gradient-brand"
+                            } hover:opacity-90`}
+                          >
                             {index === 0
                               ? "Experience the Transport Manager AI"
                               : index === 1
                                 ? "Try the Customer Service Agent"
-                                : "View Demo"}
+                                : "Experience EcoHaulage Dashboard"}
                           </Button>
                         </Link>
                       )}
@@ -387,16 +415,16 @@ export default function CaseStudiesPage() {
             <Card className="border-2 border-gray-100 transition-all hover:border-violet-100 hover:shadow-md">
               <CardContent className="p-6">
                 <div className="mb-4">
-                  <ShoppingCart className="h-10 w-10 text-brand-blue" />
+                  <Leaf className="h-10 w-10 text-green-600" />
                 </div>
-                <h3 className="text-xl font-bold mb-2">Sales & Marketing</h3>
+                <h3 className="text-xl font-bold mb-2">Environmental Compliance</h3>
                 <p className="text-gray-600 mb-4">
-                  Intelligent outreach systems, lead scoring, and personalized marketing solutions that increase
-                  conversion rates and sales efficiency.
+                  Comprehensive sustainability solutions for UK transport operations, ensuring regulatory compliance
+                  while reducing environmental impact and costs.
                 </p>
-                <Link href="#cold-outreach">
-                  <Button variant="outline" className="w-full border-brand-blue text-brand-blue hover:bg-blue-50">
-                    View Sales Case Studies
+                <Link href="#sustainability-compliance">
+                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
+                    View Sustainability Case Studies
                   </Button>
                 </Link>
               </CardContent>
@@ -414,12 +442,12 @@ export default function CaseStudiesPage() {
               Let's discuss how we can apply similar solutions to address your specific business challenges.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <a
-                href="mailto:info@nuvaru.co.uk?subject=Consultation%20Request%20from%20Case%20Studies%20Page"
+              <Link
+                href="/book-consultation"
                 className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-white text-brand-purple hover:bg-blue-50 py-6 px-8"
               >
                 Book a Free Consultation
-              </a>
+              </Link>
               <Button className="bg-purple-900 text-white hover:bg-purple-800 text-lg py-6 px-8 border-0">
                 Contact Us <ArrowRight className="ml-2 h-5 w-5" />
               </Button>

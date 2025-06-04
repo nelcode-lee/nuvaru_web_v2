@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Bot, BarChart3, Clock, Brain, MessageSquare } from "lucide-react"
+import { Bot, BarChart3, Brain, MessageSquare, Leaf } from "lucide-react"
 import Link from "next/link"
 
 export function AIAgentsSection() {
@@ -19,10 +19,10 @@ export function AIAgentsSection() {
       color: "from-violet-600 to-violet-400",
     },
     {
-      title: "Operations Assistant",
-      icon: <Clock className="h-8 w-8 text-white" />,
+      title: "Sustainability Compliance Assistant",
+      icon: <Leaf className="h-8 w-8 text-white" />,
       description:
-        "Automates scheduling, resource allocation, and process monitoring, reducing operational overhead by 42%.",
+        "Monitors UK haulage operations for environmental compliance, tracking carbon footprint, ULEZ requirements, and providing AI-powered sustainability recommendations.",
       color: "from-green-600 to-green-400",
     },
     {
@@ -117,8 +117,8 @@ export function AIAgentsSection() {
               <h3 className="text-2xl font-bold mb-2">See AI Agents in Action</h3>
               <h3 className="text-xl font-semibold mb-4">Virtual Transport Manager</h3>
               <p className="mb-6">
-                Explore our cutting-edge virtual-transport-manager-app, where logistics meets intelligent
-                automation. Our Virtual Transport Manager tool helps you plan smarter and deliver more efficiently.
+                Explore our cutting-edge virtual-transport-manager-app, where logistics meets intelligent automation.
+                Our Virtual Transport Manager tool helps you plan smarter and deliver more efficiently.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a

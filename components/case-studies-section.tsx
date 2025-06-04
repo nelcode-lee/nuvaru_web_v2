@@ -31,15 +31,17 @@ export function CaseStudiesSection() {
       extended: false,
     },
     {
-      title: "Cold Outreach System",
-      industry: "Sales",
+      title: "Sustainability Compliance Assistant",
+      industry: "Environmental Compliance",
       challenge:
-        "Sales teams spending excessive time on cold outreach with low conversion rates, manual follow-ups, and difficulty personalizing messages at scale",
+        "UK haulage operations struggling with complex environmental regulations, carbon footprint tracking, ULEZ compliance, and sustainability reporting requirements",
       solution:
-        "AI-powered cold outreach system that analyzes prospect data, personalizes messaging, automates follow-ups, and identifies high-potential leads",
-      results: "78% reduction in outreach time, 3.2x higher response rates, 42% increase in qualified leads",
-      image: "/sales-growth-road.png",
-      extended: false,
+        "Comprehensive AI-powered dashboard monitoring environmental impact, real-time compliance tracking for ULEZ/CAZ/Euro 6 standards, carbon footprint analysis, and automated sustainability reporting",
+      results:
+        "100% regulatory compliance achievement, 35% carbon footprint reduction, £50,000 annual cost savings through optimized environmental performance",
+      image: "/sustainability-compliance-dashboard.jpg",
+      link: "https://v0-sustainability-compliance-assis.vercel.app/",
+      extended: true,
     },
   ]
 
@@ -61,6 +63,13 @@ export function CaseStudiesSection() {
                 {index === 0 && (
                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2">
                     <p className="text-white text-xs">AI-powered traffic monitoring system for route optimization</p>
+                  </div>
+                )}
+                {index === 2 && (
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2">
+                    <p className="text-white text-xs">
+                      Eco-friendly transport operations with environmental compliance monitoring
+                    </p>
                   </div>
                 )}
               </div>
@@ -85,7 +94,7 @@ export function CaseStudiesSection() {
                   <h4 className="font-semibold text-gray-900">Results:</h4>
                   <p className="text-gray-500">{study.results}</p>
                 </div>
-                {study.extended && (
+                {study.extended && index === 0 && (
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <h4 className="font-semibold text-gray-900 mb-2">Key Features:</h4>
                     <ul className="text-gray-500 text-sm space-y-1">
@@ -98,9 +107,22 @@ export function CaseStudiesSection() {
                     </ul>
                   </div>
                 )}
+                {study.extended && index === 2 && (
+                  <div className="mt-4 pt-4 border-t border-gray-100">
+                    <h4 className="font-semibold text-gray-900 mb-2">Key Features:</h4>
+                    <ul className="text-gray-500 text-sm space-y-1">
+                      <li>• Real-time ULEZ, CAZ, and Euro 6 compliance monitoring</li>
+                      <li>• Carbon footprint tracking with trend analysis</li>
+                      <li>• Automated SECR and OCRS reporting</li>
+                      <li>• AI-powered sustainability recommendations</li>
+                      <li>• Fleet emissions optimization and maintenance scheduling</li>
+                      <li>• Regulatory deadline notifications and compliance calendar</li>
+                    </ul>
+                  </div>
+                )}
               </CardContent>
               <CardFooter className="flex flex-col items-start gap-3">
-                {study.link ? (
+                {study.link && (
                   <Link
                     href={study.link}
                     target="_blank"
@@ -111,12 +133,8 @@ export function CaseStudiesSection() {
                       ? "Experience the Transport Manager AI"
                       : index === 1
                         ? "Try the Customer Service Agent"
-                        : "View Demo"}
+                        : "Experience EcoHaulage Dashboard"}
                   </Link>
-                ) : (
-                  <button className="text-brand-purple hover:text-brand-purple-dark font-medium">
-                    Read full case study →
-                  </button>
                 )}
               </CardFooter>
             </Card>
