@@ -98,7 +98,7 @@ export function SnapshotSection() {
         {/* CTA */}
         <div className="text-center">
           <Link href="/services">
-            <button className="bg-gradient-brand text-white hover:bg-brand-purple-dark text-lg py-4 px-8 rounded-md font-medium transition-colors">
+            <button className="bg-brand-gold text-white hover:bg-brand-gold-dark text-lg py-4 px-8 rounded-md font-medium transition-colors">
               Discover Our Approach
             </button>
           </Link>

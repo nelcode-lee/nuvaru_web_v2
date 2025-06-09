@@ -1,59 +1,62 @@
 import Image from "next/image"
-import { Bot, BarChart3, Brain, MessageSquare, Leaf } from "lucide-react"
+import { Bot, TruckIcon, Route, Warehouse, LineChart } from "lucide-react"
 import Link from "next/link"
 
 export function AIAgentsSection() {
   const agentCards = [
     {
-      title: "Customer Support Agent",
-      icon: <MessageSquare className="h-8 w-8 text-white" />,
+      title: "Route Optimisation Agent",
+      icon: <Route className="h-8 w-8 text-white" />,
       description:
-        "Handles customer queries 24/7 with 92% resolution rate, reducing support costs by 60% while improving satisfaction scores.",
+        "Goal-based AI that analyses real-time traffic, weather, and delivery constraints to determine optimal routes, reducing fuel costs by 15% and transit times by 22%.",
+      color: "from-brand-gold to-amber-500",
+    },
+    {
+      title: "Fleet Management Agent",
+      icon: <TruckIcon className="h-8 w-8 text-white" />,
+      description:
+        "Utility-based AI that maximises vehicle allocation, load capacities, and minimises empty runs, improving fleet utilisation by 42% while monitoring driver safety patterns.",
       color: "from-blue-600 to-blue-400",
     },
     {
-      title: "Data Analysis Agent",
-      icon: <BarChart3 className="h-8 w-8 text-white" />,
+      title: "Warehouse Automation Agent",
+      icon: <Warehouse className="h-8 w-8 text-white" />,
       description:
-        "Continuously analyses business data to identify trends, anomalies, and opportunities that human analysts might miss.",
+        "Learning agent that coordinates AMRs, optimises picking routes, and manages inventory placement, reducing warehouse operating costs by 31% and improving accuracy to 99.8%.",
       color: "from-violet-600 to-violet-400",
     },
     {
-      title: "Sustainability Compliance Assistant",
-      icon: <Leaf className="h-8 w-8 text-white" />,
+      title: "Supply Chain Visibility Agent",
+      icon: <LineChart className="h-8 w-8 text-white" />,
       description:
-        "Monitors UK haulage operations for environmental compliance, tracking carbon footprint, ULEZ requirements, and providing AI-powered sustainability recommendations.",
+        "Predictive analytics agent providing end-to-end visibility, real-time tracking, and proactive alerts for potential disruptions across your entire logistics network.",
       color: "from-green-600 to-green-400",
-    },
-    {
-      title: "Knowledge Agent",
-      icon: <Brain className="h-8 w-8 text-white" />,
-      description:
-        "Connects to your business documents and systems to provide instant, accurate information to employees and customers.",
-      color: "from-amber-600 to-amber-400",
     },
   ]
 
   const businessOutcomes = [
     {
-      stat: "73%",
-      label: "Reduction in Response Time",
-      description: "AI agents respond instantly to queries, eliminating wait times for customers and employees",
+      stat: "27%",
+      label: "Reduction in Transportation Costs",
+      description:
+        "AI-powered route optimisation and load planning significantly reduce fuel consumption and delivery expenses",
     },
     {
-      stat: "47%",
-      label: "Increase in Operational Efficiency",
-      description: "Automated workflows and intelligent resource allocation optimize business processes",
+      stat: "35%",
+      label: "Improvement in On-Time Deliveries",
+      description:
+        "Predictive analytics and real-time traffic monitoring ensure reliable delivery schedules and customer satisfaction",
     },
     {
-      stat: "3.2x",
-      label: "Return on Investment",
-      description: "Businesses see significant ROI within the first year of implementing AI agents",
+      stat: "42%",
+      label: "Increase in Fleet Utilisation",
+      description: "Intelligent scheduling and backhaul optimisation maximise vehicle capacity and reduce empty miles",
     },
     {
       stat: "24/7",
-      label: "Continuous Operation",
-      description: "AI agents work around the clock without breaks, ensuring constant business coverage",
+      label: "Supply Chain Visibility",
+      description:
+        "Real-time tracking and automated alerts provide complete transparency across the entire logistics network",
     },
   ]
 
@@ -63,14 +66,12 @@ export function AIAgentsSection() {
         <div className="text-center mb-24">
           <div className="inline-flex items-center justify-center p-2 bg-blue-100 rounded-full mb-4">
             <Bot className="h-6 w-6 text-brand-blue mr-2" />
-            <span className="text-brand-blue font-medium">AI Agents</span>
+            <span className="text-brand-blue font-medium">Logistics AI Agents</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Intelligent AI Agents That Transform Business Performance
-          </h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Specialised AI Agents for Supply Chain Excellence</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our AI agents work tirelessly behind the scenes, automating tasks, providing insights, and delivering
-            exceptional experiences for your customers and employees.
+            Our purpose-built AI agents optimise every aspect of your logistics operations, from route planning and
+            fleet management to warehouse automation and supply chain visibility.
           </p>
         </div>
 
@@ -140,7 +141,7 @@ export function AIAgentsSection() {
             <div className="relative min-h-[300px] md:min-h-0">
               <Image
                 src="/uk-freight-analytics.png"
-                alt="UK road freight with AI analytics overlay showing route optimization and efficiency metrics"
+                alt="UK road freight with AI analytics overlay showing route optimisation and efficiency metrics"
                 fill
                 className="object-cover"
               />

@@ -58,6 +58,9 @@ const config = {
           blue: "#2563eb", // blue-600
           purple: "#8b5cf6", // violet-500
           "purple-dark": "#7c3aed", // violet-600
+          gold: "#f59e0b", // amber-500
+          "gold-dark": "#d97706", // amber-600
+          "gold-light": "#fbbf24", // amber-400
           gradient: {
             start: "#2563eb", // blue-600
             end: "#8b5cf6", // violet-500
@@ -85,6 +88,7 @@ const config = {
       },
       backgroundImage: {
         "gradient-brand": "linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)",
+        "gradient-gold": "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
       },
     },
   },

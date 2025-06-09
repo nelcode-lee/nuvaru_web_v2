@@ -19,23 +19,27 @@ export function HeroSection() {
           {/* Left column - Text content */}
           <div className="text-left max-w-xl">
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-              The Business AI and Automation Agency
+              AI & Automation for Logistics and Supply Chain Excellence
             </h1>
             <p className="mb-8 text-xl text-blue-100">
-              Empowering SMEs Through AI and Automation: We turn strategic insight into measurable impact by embedding next-generation
-              artificial intelligence into the heart of everyday business—driving innovation, efficiency, and
-              competitive edge for the future.
+              We partner with logistics and supply chain businesses to unlock competitive advantage through advanced AI
+              and automation. Our solutions deliver{" "}
+              <span className="text-brand-gold font-semibold">high-impact, low-cost results</span>—streamlining
+              operations, reducing inefficiencies, and driving smarter, faster decision-making.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/#contact"
-                className="bg-white text-brand-purple hover:bg-blue-50 text-lg py-6 px-8 rounded-md font-medium"
+                className="bg-brand-gold hover:bg-brand-gold-dark text-white text-lg py-6 px-8 rounded-md font-medium transition-colors"
               >
                 Start Today!
               </Link>
-              <button className="bg-gray-200 text-gray-800 hover:bg-gray-300 text-lg py-6 px-8 border-0 rounded-md font-medium">
+              <Link
+                href="/services"
+                className="bg-white/10 text-white hover:bg-white/20 text-lg py-6 px-8 border border-white/30 rounded-md font-medium transition-colors"
+              >
                 View Our Services
-              </button>
+              </Link>
             </div>
           </div>
 

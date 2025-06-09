@@ -1,27 +1,30 @@
-import { Truck, Users, Calculator, Building2 } from "lucide-react"
+import { Truck, Package, Warehouse, Factory } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export function IndustryExpertiseSection() {
   const industries = [
     {
-      title: "Logistics & Supply Chain",
-      icon: <Truck className="h-12 w-12 text-brand-blue" />,
-      description: "Optimise routes, predict maintenance needs, and automate inventory management",
+      title: "Road Transport & Haulage",
+      icon: <Truck className="h-12 w-12 text-brand-gold" />,
+      description:
+        "Route optimisation, fleet management, predictive maintenance, and driver safety monitoring for maximum efficiency",
     },
     {
-      title: "Recruitment & Talent Acquisition",
-      icon: <Users className="h-12 w-12 text-brand-purple" />,
-      description: "Streamline candidate screening, match skills to roles, and predict hiring success",
+      title: "Distribution & Fulfilment",
+      icon: <Package className="h-12 w-12 text-brand-gold" />,
+      description:
+        "Last-mile delivery optimisation, order processing automation, and real-time shipment tracking systems",
     },
     {
-      title: "Payroll & Finance",
-      icon: <Calculator className="h-12 w-12 text-brand-blue" />,
-      description: "Automate financial processes, detect anomalies, and forecast cash flow",
+      title: "Warehousing & Storage",
+      icon: <Warehouse className="h-12 w-12 text-brand-gold" />,
+      description:
+        "Automated storage systems, robotic picking, inventory optimisation, and warehouse management solutions",
     },
     {
-      title: "Small-to-Medium Enterprises",
-      icon: <Building2 className="h-12 w-12 text-brand-purple" />,
-      description: "Affordable AI solutions scaled to fit growing businesses",
+      title: "Manufacturing & Production",
+      icon: <Factory className="h-12 w-12 text-brand-gold" />,
+      description: "Production planning, quality control automation, supply chain integration, and demand forecasting",
     },
   ]
 
@@ -31,7 +34,7 @@ export function IndustryExpertiseSection() {
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">Industry Expertise</h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-500">
-            We specialise in bringing AI solutions to these key industries
+            Specialised AI solutions tailored for every sector of the logistics and supply chain ecosystem
           </p>
         </div>
 

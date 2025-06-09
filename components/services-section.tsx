@@ -66,7 +66,9 @@ export function ServicesSection() {
                 <CardTitle className="text-xl font-bold">{service.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-base text-gray-500 mb-4">{service.description}</CardDescription>
+                <CardDescription className="text-base text-gray-500 mb-4">
+                  {service.description.replace(/optimization/g, "optimisation")}
+                </CardDescription>
                 <Link href={service.link} passHref>
                   <Button variant="outline" className="text-brand-purple border-brand-purple hover:bg-violet-50">
                     Learn More

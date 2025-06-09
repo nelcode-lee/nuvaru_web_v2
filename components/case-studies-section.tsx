@@ -11,9 +11,9 @@ export function CaseStudiesSection() {
       challenge:
         "Rising fuel costs, traffic congestion, inefficient resource allocation, and complex compliance requirements in flatbed transport operations",
       solution:
-        "UK Transport Manager AI system with real-time traffic analysis, dynamic fuel optimization, intelligent vehicle selection, and automated compliance management",
+        "UK Transport Manager AI system with real-time traffic analysis, dynamic fuel optimisation, intelligent vehicle selection, and automated compliance management",
       results:
-        "17% average cost reduction, 14% revenue increase through optimized backhaul utilization, 98% compliance incident reduction, and 23% improvement in customer satisfaction",
+        "17% average cost reduction, 14% revenue increase through optimised backhaul utilization, 98% compliance incident reduction, and 23% improvement in customer satisfaction",
       image: "/highway-monitoring-system.png",
       link: "https://virtual-transport-manager.vercel.app/",
       extended: true,
@@ -62,7 +62,7 @@ export function CaseStudiesSection() {
                 <Image src={study.image || "/placeholder.svg"} alt={study.title} fill className="object-cover" />
                 {index === 0 && (
                   <div className="absolute bottom-0 left-0 right-0 bg-black/60 p-2">
-                    <p className="text-white text-xs">AI-powered traffic monitoring system for route optimization</p>
+                    <p className="text-white text-xs">AI-powered traffic monitoring system for route optimisation</p>
                   </div>
                 )}
                 {index === 2 && (
@@ -101,7 +101,7 @@ export function CaseStudiesSection() {
                       <li>• Real-time traffic analysis with advanced APIs</li>
                       <li>• Dynamic fuel price integration saving £0.05-0.08 per liter</li>
                       <li>• Optimal vehicle selection based on cargo specifications</li>
-                      <li>• Driver hours optimization with regulatory compliance</li>
+                      <li>• Driver hours optimisation with regulatory compliance</li>
                       <li>• Approved routes database for heavy/oversized loads</li>
                       <li>• Environmental zone management for city restrictions</li>
                     </ul>
@@ -115,7 +115,7 @@ export function CaseStudiesSection() {
                       <li>• Carbon footprint tracking with trend analysis</li>
                       <li>• Automated SECR and OCRS reporting</li>
                       <li>• AI-powered sustainability recommendations</li>
-                      <li>• Fleet emissions optimization and maintenance scheduling</li>
+                      <li>• Fleet emissions optimisation and maintenance scheduling</li>
                       <li>• Regulatory deadline notifications and compliance calendar</li>
                     </ul>
                   </div>
