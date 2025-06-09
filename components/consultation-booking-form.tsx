@@ -55,7 +55,7 @@ export function ConsultationBookingForm() {
     setFormStatus({})
 
     // Track the consultation booking
-    analytics.consultationBooked(formData.primaryService)
+    analytics.consultationBooking(formData.primaryService)
 
     try {
       // Format the message for email
@@ -128,7 +128,7 @@ Submitted at: ${new Date().toLocaleString("en-GB")}
       setFormStatus({
         success: false,
         message:
-          "Sorry, there was an error submitting your booking. Please try again or email us directly at lee@nuvaru.co.uk",
+          "Sorry, there was an error submitting your booking. Please try again or email us directly at ontario2801@gmail.com",
       })
     } finally {
       setIsSubmitting(false)
