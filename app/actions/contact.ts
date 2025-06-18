@@ -54,7 +54,7 @@ Submitted from: Nuvaru Contact Form
       },
       body: JSON.stringify({
         from: 'website@nuvaru.co.uk',
-        to: 'ontario2801@gmail.com',
+        to: 'info@nuvaru.co.uk',
         subject: `New Contact Form Submission from ${formData.name}`,
         text: emailContent,
       }),
@@ -62,7 +62,7 @@ Submitted from: Nuvaru Contact Form
     */
 
     // For now, log the submission (in production, this would be the actual email sending)
-    console.log("Contact form submission for ontario2801@gmail.com:", emailContent)
+    console.log("Contact form submission for info@nuvaru.co.uk:", emailContent)
 
     return {
       success: true,
@@ -73,7 +73,7 @@ Submitted from: Nuvaru Contact Form
     return {
       success: false,
       message:
-        "Sorry, there was an error submitting your form. Please try again or email us directly at ontario2801@gmail.com",
+        "Sorry, there was an error submitting your form. Please try again or email us directly at info@nuvaru.co.uk",
     }
   }
 }
@@ -115,7 +115,7 @@ Please contact this prospect within 24 hours to schedule their consultation.
       },
       body: JSON.stringify({
         from: 'website@nuvaru.co.uk',
-        to: 'ontario2801@gmail.com',
+        to: 'info@nuvaru.co.uk',
         subject: `New Consultation Booking Request from ${formData.name} - ${formData.company}`,
         text: emailContent,
       }),
@@ -123,7 +123,7 @@ Please contact this prospect within 24 hours to schedule their consultation.
     */
 
     // For now, log the submission (in production, this would be the actual email sending)
-    console.log("Consultation booking for ontario2801@gmail.com:", emailContent)
+    console.log("Consultation booking for info@nuvaru.co.uk:", emailContent)
 
     return {
       success: true,
@@ -134,7 +134,7 @@ Please contact this prospect within 24 hours to schedule their consultation.
     return {
       success: false,
       message:
-        "Sorry, there was an error submitting your booking. Please try again or email us directly at ontario2801@gmail.com",
+        "Sorry, there was an error submitting your booking. Please try again or email us directly at info@nuvaru.co.uk",
     }
   }
 }
