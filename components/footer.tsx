@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Linkedin, Twitter, Facebook, Instagram } from "lucide-react"
+import { Linkedin, Facebook, Music, Youtube } from "lucide-react"
 
 export function Footer() {
   return (
@@ -13,21 +13,21 @@ export function Footer() {
               growth.
             </p>
             <div className="flex space-x-4">
-              <Link href="#" className="hover:text-white">
+              <Link href="https://www.linkedin.com/in/lee-w-65413533b" className="hover:text-white">
                 <Linkedin size={20} />
                 <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link href="#" className="hover:text-white">
-                <Twitter size={20} />
-                <span className="sr-only">Twitter</span>
               </Link>
               <Link href="#" className="hover:text-white">
                 <Facebook size={20} />
                 <span className="sr-only">Facebook</span>
               </Link>
               <Link href="#" className="hover:text-white">
-                <Instagram size={20} />
-                <span className="sr-only">Instagram</span>
+                <Music size={20} />
+                <span className="sr-only">TikTok</span>
+              </Link>
+              <Link href="#" className="hover:text-white">
+                <Youtube size={20} />
+                <span className="sr-only">YouTube</span>
               </Link>
             </div>
           </div>

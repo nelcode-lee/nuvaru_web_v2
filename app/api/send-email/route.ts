@@ -13,7 +13,7 @@ export async function POST(request: Request) {
     // In a production environment, you would use an email service like Resend, SendGrid, etc.
     // For now, we'll log the email that would be sent
     console.log(`
------ EMAIL TO: ontario2801@gmail.com -----
+----- EMAIL TO: info@nuvaru.co.uk -----
 From: ${name} <${email}>
 Subject: ${subject || "New message from Nuvaru website"}
 
@@ -26,7 +26,7 @@ ${message}
     /*
     const { data, error } = await resend.emails.send({
       from: 'Nuvaru Website <website@nuvaru.co.uk>',
-      to: ['ontario2801@gmail.com'],
+      to: ['info@nuvaru.co.uk'],
       subject: subject || `New message from ${name}`,
       text: message,
       reply_to: email,

@@ -19,9 +19,8 @@ export function AIResponsesShowcase() {
     {
       type: "insight",
       icon: <BarChart3 className="h-5 w-5 text-blue-500" />,
-      content:
-        "Our AI agents fine-tune the parameters and constraints that apply to your business to get the most out of AI.",
-      highlight: "40% Average operational cost reduction",
+      content: "Our AI agents, custom software and automations don't replace teams, they enhance them.",
+      highlight: "40% increased productivity",
     },
     {
       type: "alert",

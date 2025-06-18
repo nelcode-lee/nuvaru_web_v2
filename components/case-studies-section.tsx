@@ -127,7 +127,7 @@ export function CaseStudiesSection() {
                     href={study.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white bg-brand-blue hover:bg-brand-blue/90 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+                    className="text-white hover:bg-brand-blue/90 px-4 py-2 rounded-md text-sm font-medium transition-colors bg-brand-gold"
                   >
                     {index === 0
                       ? "Experience the Transport Manager AI"

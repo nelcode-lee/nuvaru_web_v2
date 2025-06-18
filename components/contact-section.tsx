@@ -47,8 +47,8 @@ export function ContactSection() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-900">Email Us</h3>
-                    <p className="text-gray-600">lee@nuvaru.com</p>
-                    <p className="text-gray-600">support@nuvaru.com</p>
+                    <p className="text-gray-600">info@nuvaru.co.uk</p>
+                    <p className="text-gray-600">support@nuvaru.co.uk</p>
                   </div>
                 </div>
 
