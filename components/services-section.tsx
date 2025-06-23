@@ -13,7 +13,7 @@ export function ServicesSection() {
     },
     {
       title: "Custom AI Solution Development",
-      description: "Tailored AI tools designed specifically for your business needs",
+      description: "Tailored agentic AI systems designed specifically for your business needs",
       icon: <Cog className="h-10 w-10 text-brand-blue" />,
       link: "/services/custom-ai-solutions",
     },
@@ -48,10 +48,11 @@ export function ServicesSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">
-            AI Solutions for Real Business Challenges
+            Agentic AI Solutions for Real Business Challenges
           </h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-500">
-            We provide practical AI solutions that address specific business needs and deliver measurable results.
+            We provide practical agentic AI solutions that address specific business needs and deliver measurable
+            results through autonomous, intelligent agents.
           </p>
         </div>
 

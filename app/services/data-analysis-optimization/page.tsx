@@ -38,7 +38,7 @@ export default function DataAnalysisOptimizationPage() {
     {
       title: "AI-Powered Analytics",
       icon: <BarChart3 className="h-10 w-10 text-brand-blue" />,
-      definition: "AI processes large datasets in seconds, identifying trends humans might miss.",
+      definition: "Agentic AI autonomously processes large datasets in seconds, identifying trends humans might miss.",
       example: "Spotting seasonal demand spikes to adjust inventory and staffing.",
     },
     {
@@ -191,10 +191,10 @@ export default function DataAnalysisOptimizationPage() {
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              Data Analysis & Optimization for UK SMEs: Smarter Decisions, Stronger Businesses
+              Agentic AI Data Analysis & Optimization for UK SMEs: Smarter Decisions, Stronger Businesses
             </h1>
             <p className="mb-6 text-xl text-blue-100">
-              Turn Data into Your Competitive Edge with AI-Powered Insights and Actionable Intelligence
+              Turn Data into Your Competitive Edge with Agentic AI-Powered Insights and Actionable Intelligence
             </p>
           </div>
         </div>
@@ -208,9 +208,9 @@ export default function DataAnalysisOptimizationPage() {
             <div className="bg-gradient-to-br from-blue-50 to-violet-50 p-6 rounded-lg border border-blue-100 mb-8">
               <p className="text-lg text-gray-700 italic">
                 "UK SMEs generate vast amounts of data—sales, customer behavior, operations—but lack the time or tools
-                to unlock its value. AI analyzes your data at lightning speed, revealing hidden patterns, predicting
-                trends, and prescribing optimizations. Transform raw numbers into actionable strategies that cut costs,
-                boost revenue, and future-proof your business."
+                to unlock its value. Agentic AI analyzes your data autonomously at lightning speed, revealing hidden
+                patterns, predicting trends, and prescribing optimizations. Transform raw numbers into actionable
+                strategies that cut costs, boost revenue, and future-proof your business."
               </p>
             </div>
           </div>
@@ -221,7 +221,7 @@ export default function DataAnalysisOptimizationPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            What Are AI-Driven Data Analysis & Optimization?
+            What Are Agentic AI-Driven Data Analysis & Optimization?
           </h2>
           <div className="grid gap-8 md:grid-cols-3">
             {analysisTypes.map((type, index) => (

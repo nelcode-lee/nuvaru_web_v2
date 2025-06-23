@@ -33,19 +33,20 @@ export default function CustomAISolutionsPage() {
     {
       title: "AI Agents",
       icon: <Bot className="h-10 w-10 text-brand-blue" />,
-      definition: "Autonomous software programs that perform tasks (e.g., customer support, data analysis).",
+      definition:
+        "Autonomous agentic software programs that perform tasks independently (e.g., customer support, data analysis).",
       example: "A chatbot resolving 80% of FAQs, freeing up your team.",
     },
     {
       title: "AI Multi-Agent Systems",
       icon: <Network className="h-10 w-10 text-brand-purple" />,
-      definition: "Teams of AI agents collaborating to solve complex problems.",
+      definition: "Teams of agentic AI agents collaborating autonomously to solve complex problems.",
       example: "Agents for inventory, sales, and logistics working together to optimise supply chains.",
     },
     {
       title: "AI Workflows",
       icon: <Workflow className="h-10 w-10 text-brand-blue" />,
-      definition: "Automated processes that connect tasks, data, and people.",
+      definition: "Automated processes powered by agentic AI that connect tasks, data, and people intelligently.",
       example: "Automating invoice processing, approval, and payment in 24/7 finance workflows.",
     },
   ]
@@ -148,10 +149,11 @@ export default function CustomAISolutionsPage() {
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              Empowering UK SMEs with AI: Smarter Workflows, Smarter Growth
+              Empowering UK SMEs with Agentic AI: Smarter Workflows, Smarter Growth
             </h1>
             <p className="mb-6 text-xl text-blue-100">
-              Harness the Power of AI Agents and Automated Workflows to Save Time, Reduce Costs, and Scale Your Business
+              Harness the Power of Agentic AI Agents and Automated Workflows to Save Time, Reduce Costs, and Scale Your
+              Business
             </p>
           </div>
         </div>
@@ -164,9 +166,9 @@ export default function CustomAISolutionsPage() {
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Introduction</h2>
             <div className="bg-gradient-to-br from-blue-50 to-violet-50 p-6 rounded-lg border border-blue-100 mb-8">
               <p className="text-lg text-gray-700 italic">
-                "UK SMEs face fierce competition, tight margins, and ever-growing demands. AI is no longer just for big
-                corporations. With AI agents and workflows, your business can automate repetitive tasks, make
-                data-driven decisions, and focus on what matters: growth."
+                "UK SMEs face fierce competition, tight margins, and ever-growing demands. Agentic AI is no longer just
+                for big corporations. With autonomous AI agents and workflows, your business can automate repetitive
+                tasks, make data-driven decisions, and focus on what matters: growth."
               </p>
             </div>
           </div>
@@ -177,7 +179,7 @@ export default function CustomAISolutionsPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            What Are AI Agents, Multi-Agent Systems & Workflows?
+            What Are Agentic AI Agents, Multi-Agent Systems & Workflows?
           </h2>
           <div className="grid gap-8 md:grid-cols-3">
             {aiTypes.map((type, index) => (

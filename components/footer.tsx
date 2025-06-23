@@ -9,8 +9,8 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="text-xl font-bold text-white">Nuvaru</h3>
             <p className="text-gray-400">
-              AI transformation consultancy helping businesses leverage technology to drive efficiency and optimise
-              growth.
+              Agentic AI transformation consultancy helping businesses leverage autonomous intelligent agents to drive
+              efficiency and optimise growth.
             </p>
             <div className="flex space-x-4">
               <Link href="https://www.linkedin.com/in/lee-w-65413533b" className="hover:text-white">

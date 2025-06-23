@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server"
+import { Resend } from "resend"
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: Request) {
   try {
@@ -10,28 +13,36 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Name, email, and message are required" }, { status: 400 })
     }
 
-    // In a production environment, you would use an email service like Resend, SendGrid, etc.
-    // For now, we'll log the email that would be sent
-    console.log(`
------ EMAIL TO: ontario2801@gmail.com -----
-From: ${name} <${email}>
-Subject: ${subject || "New message from Nuvaru website"}
-
-${message}
------ END EMAIL -----
-    `)
-
-    // In production, you would send the actual email here
-    // Example with Resend:
-    /*
+    // Send the actual email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'Nuvaru Website <website@nuvaru.co.uk>',
-      to: ['ontario2801@gmail.com'],
+      from: "Nuvaru Website <website@nuvaru.co.uk>",
+      to: ["info@nuvaru.co.uk"],
       subject: subject || `New message from ${name}`,
-      text: message,
+      html: `
+    <h3>New message from Nuvaru website</h3>
+    <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Subject:</strong> ${subject || "No subject"}</p>
+    <p><strong>Message:</strong></p>
+    <p>${message.replace(/\n/g, "<br>")}</p>
+  `,
       reply_to: email,
-    });
-    */
+    })
+
+    if (error) {
+      console.error("Resend error:", error)
+      return NextResponse.json({ error: "Failed to send email" }, { status: 500 })
+    }
+
+    // Remove or comment out the console.log section since we're now sending real emails.
+    // console.log(`
+    // ----- EMAIL TO: info@nuvaru.co.uk -----
+    // From: ${name} <${email}>
+    // Subject: ${subject || "New message from Nuvaru website"}
+
+    // ${message}
+    // ----- END EMAIL -----
+    // `)
 
     return NextResponse.json({ success: true })
   } catch (error) {

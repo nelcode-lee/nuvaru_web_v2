@@ -128,7 +128,7 @@ Submitted at: ${new Date().toLocaleString("en-GB")}
       setFormStatus({
         success: false,
         message:
-          "Sorry, there was an error submitting your booking. Please try again or email us directly at ontario2801@gmail.com",
+          "Sorry, there was an error submitting your booking. Please try again or email us directly at info@nuvaru.co.uk",
       })
     } finally {
       setIsSubmitting(false)

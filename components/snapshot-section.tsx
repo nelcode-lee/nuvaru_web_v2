@@ -6,10 +6,12 @@ export function SnapshotSection() {
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Transforming Businesses Through AI & Automation</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Transforming Businesses Through Agentic AI & Automation
+          </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            At Nuvaru, we simplify your journey into AI and automation, delivering measurable results without the
-            complexity.
+            At Nuvaru, we simplify your journey into agentic AI and automation, delivering measurable results through
+            autonomous intelligent agents without the complexity.
           </p>
         </div>
 
@@ -55,8 +57,8 @@ export function SnapshotSection() {
           <div className="text-center mb-10">
             <h3 className="text-2xl font-bold mb-4">Our Approach</h3>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              We translate complex AI and automation concepts into practical business solutions. No technical
-              jargon—just clear pathways to improved efficiency and growth.
+              We translate complex agentic AI and automation concepts into practical business solutions. No technical
+              jargon—just clear pathways to improved efficiency and growth through intelligent autonomous agents.
             </p>
           </div>
 

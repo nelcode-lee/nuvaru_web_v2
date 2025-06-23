@@ -19,11 +19,11 @@ export function HeroSection() {
           {/* Left column - Text content */}
           <div className="text-left max-w-xl">
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-              AI & Automation for Logistics and Supply Chain Excellence
+              Agentic AI & Automation for Logistics and Supply Chain Excellence
             </h1>
             <p className="mb-8 text-xl text-blue-100">
-              We partner with logistics and supply chain businesses to unlock competitive advantage through advanced AI
-              and automation. Our solutions deliver{" "}
+              We partner with logistics and supply chain businesses to unlock competitive advantage through advanced
+              agentic AI and automation. Our intelligent agent solutions deliver{" "}
               <span className="text-brand-gold font-semibold">high-impact, low-cost results</span>—streamlining
               operations, reducing inefficiencies, and driving smarter, faster decision-making.
             </p>

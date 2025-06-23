@@ -34,19 +34,22 @@ export default function ProcessAutomationPage() {
     {
       title: "Task Automation",
       icon: <Bot className="h-10 w-10 text-brand-blue" />,
-      definition: "AI agents handle repetitive tasks like data entry, appointment scheduling, or report generation.",
+      definition:
+        "Agentic AI agents autonomously handle repetitive tasks like data entry, appointment scheduling, or report generation.",
       example: "Automatically sync customer orders across your CRM, inventory, and accounting software.",
     },
     {
       title: "Multi-Agent Workflow Systems",
       icon: <Network className="h-10 w-10 text-brand-purple" />,
-      definition: "Coordinated AI agents managing end-to-end processes (e.g., order fulfillment, lead nurturing).",
+      definition:
+        "Coordinated agentic AI agents autonomously managing end-to-end processes (e.g., order fulfillment, lead nurturing).",
       example: "Agents for sales, shipping, and support collaborate to resolve customer issues in real time.",
     },
     {
       title: "Intelligent Decision-Making",
       icon: <Brain className="h-10 w-10 text-brand-blue" />,
-      definition: "AI analyzes data to trigger actions (e.g., restocking inventory, escalating support tickets).",
+      definition:
+        "Agentic AI autonomously analyzes data to trigger actions (e.g., restocking inventory, escalating support tickets).",
       example: "Predictive analytics auto-adjusts staffing levels based on seasonal demand.",
     },
   ]
@@ -185,10 +188,10 @@ export default function ProcessAutomationPage() {
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              Process Automation for UK SMEs: Work Smarter, Grow Faster
+              Agentic AI Process Automation for UK SMEs: Work Smarter, Grow Faster
             </h1>
             <p className="mb-6 text-xl text-blue-100">
-              Transform Repetitive Tasks into Strategic Growth with AI-Driven Automation
+              Transform Repetitive Tasks into Strategic Growth with Agentic AI-Driven Automation
             </p>
           </div>
         </div>
@@ -202,8 +205,8 @@ export default function ProcessAutomationPage() {
             <div className="bg-gradient-to-br from-blue-50 to-violet-50 p-6 rounded-lg border border-blue-100 mb-8">
               <p className="text-lg text-gray-700 italic">
                 "UK SMEs waste countless hours on manual processes—data entry, invoicing, customer inquiries, and more.
-                Process automation powered by AI agents and workflows lets you reclaim time, slash errors, and focus on
-                innovation. Discover how to turn routine tasks into automated growth engines."
+                Agentic AI process automation powered by autonomous agents and workflows lets you reclaim time, slash
+                errors, and focus on innovation. Discover how to turn routine tasks into automated growth engines."
               </p>
             </div>
           </div>
@@ -213,7 +216,9 @@ export default function ProcessAutomationPage() {
       {/* What Is AI-Driven Process Automation? */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">What Is AI-Driven Process Automation?</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            What Is Agentic AI-Driven Process Automation?
+          </h2>
           <div className="grid gap-8 md:grid-cols-3">
             {automationTypes.map((type, index) => (
               <Card
