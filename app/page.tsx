@@ -8,6 +8,7 @@ import { CaseStudiesSection } from "@/components/case-studies-section"
 import { AboutSection } from "@/components/about-section"
 import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
+import { WebsiteOptimizationSection } from "@/components/website-optimization-section"
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <SnapshotSection />
+      <WebsiteOptimizationSection />
       <AIAgentsSection />
       <ServicesSection />
       <IndustryExpertiseSection />

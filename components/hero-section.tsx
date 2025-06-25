@@ -10,7 +10,7 @@ export function HeroSection() {
       </div>
 
       {/* Network pattern overlay */}
-      <div className="absolute inset-0 z-0 opacity-15">
+      <div className="absolute inset-0 z-0 opacity-30">
         <img src="/network-pattern.png" alt="" className="w-full h-full object-cover" />
       </div>
 
@@ -19,13 +19,10 @@ export function HeroSection() {
           {/* Left column - Text content */}
           <div className="text-left max-w-xl">
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Agentic AI & Automation for Logistics and Supply Chain Excellence
+              We Build What's Next
             </h1>
             <p className="mb-8 text-xl text-blue-100">
-              We partner with logistics and supply chain businesses to unlock competitive advantage through advanced
-              agentic AI and automation. Our intelligent agent solutions deliver{" "}
-              <span className="text-brand-gold font-semibold">high-impact, low-cost results</span>—streamlining
-              operations, reducing inefficiencies, and driving smarter, faster decision-making.
+              Transforming your business with powerful web, AI, and automation solutions for impactful results.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link

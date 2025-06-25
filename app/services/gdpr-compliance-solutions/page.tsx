@@ -50,7 +50,7 @@ export default function GDPRComplianceSolutionsPage() {
       title: "Automated Data Protection Impact Assessments (DPIAs)",
       icon: <ClipboardList className="h-10 w-10 text-brand-purple" />,
       description:
-        "AI algorithms assist in identifying and analyzing potential risks in new data processing activities, automatically generating DPIAs that meet legal requirements and internal governance standards.",
+        "AI algorithms assist in identifying and analysing potential risks in new data processing activities, automatically generating DPIAs that meet legal requirements and internal governance standards.",
     },
     {
       title: "Comprehensive Reporting & Audit Trails",
@@ -233,7 +233,7 @@ export default function GDPRComplianceSolutionsPage() {
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Comprehensive GDPR Protection</h2>
               <p className="text-lg text-gray-700 mb-6">
                 Our AI-powered GDPR compliance platform provides a complete shield for your business data, ensuring
-                continuous compliance with all aspects of data protection regulations while minimizing manual effort.
+                continuous compliance with all aspects of data protection regulations while minimising manual effort.
               </p>
               <ul className="space-y-4">
                 <li className="flex items-start">

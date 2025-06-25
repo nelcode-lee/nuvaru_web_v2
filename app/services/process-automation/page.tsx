@@ -49,7 +49,7 @@ export default function ProcessAutomationPage() {
       title: "Intelligent Decision-Making",
       icon: <Brain className="h-10 w-10 text-brand-blue" />,
       definition:
-        "Agentic AI autonomously analyzes data to trigger actions (e.g., restocking inventory, escalating support tickets).",
+        "Agentic AI autonomously analyses data to trigger actions (e.g., restocking inventory, escalating support tickets).",
       example: "Predictive analytics auto-adjusts staffing levels based on seasonal demand.",
     },
   ]
@@ -76,7 +76,7 @@ export default function ProcessAutomationPage() {
       icon: <BarChart3 className="h-10 w-10 text-brand-purple" />,
       features: [
         "Lead Nurturing Workflows: Auto-send personalized emails based on behavior.",
-        "Social Media Automation: Schedule posts, analyze engagement, and suggest content.",
+        "Social Media Automation: Schedule posts, analyse engagement, and suggest content.",
       ],
     },
     {
@@ -84,7 +84,7 @@ export default function ProcessAutomationPage() {
       icon: <Users className="h-10 w-10 text-brand-blue" />,
       features: [
         "Onboarding Workflows: Automate document signing, training, and equipment setup.",
-        "Shift Scheduling: AI optimizes staff rosters based on demand and availability.",
+        "Shift Scheduling: AI optimises staff rosters based on demand and availability.",
       ],
     },
     {
@@ -92,7 +92,7 @@ export default function ProcessAutomationPage() {
       icon: <TruckIcon className="h-10 w-10 text-brand-purple" />,
       features: [
         "Smart Replenishment: AI predicts stock needs and places orders with suppliers.",
-        "Delivery Routing: Automatically optimize routes to reduce fuel costs and delays.",
+        "Delivery Routing: Automatically optimise routes to reduce fuel costs and delays.",
       ],
     },
   ]
@@ -180,7 +180,7 @@ export default function ProcessAutomationPage() {
         <div className="absolute right-0 bottom-0 w-1/3 h-2/3 z-0 opacity-80 hidden lg:block">
           <Image
             src="/automation.jpg"
-            alt="Process automation illustration showing workflow optimization"
+            alt="Process automation illustration showing workflow optimisation"
             fill
             className="object-contain object-right-bottom"
           />
@@ -276,7 +276,7 @@ export default function ProcessAutomationPage() {
       {/* Benefits for UK SMEs */}
       <section className="py-16 bg-gradient-to-br from-blue-50 to-violet-50">
         <div className="container mx-auto px-4 md:px-6">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Benefits for UK SMEs</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Key Benefits of Automation for UK SMEs</h2>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {benefits.map((benefit, index) => (
               <div key={index} className="text-center">

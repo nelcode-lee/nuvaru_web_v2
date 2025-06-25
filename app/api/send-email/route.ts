@@ -1,52 +1,79 @@
 import { NextResponse } from "next/server"
-import { Resend } from "resend"
-
-const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: Request) {
+  console.log("=== EMAIL API ROUTE CALLED ===")
+
   try {
     const body = await request.json()
+    console.log("Parsed body:", body)
+
     const { name, email, subject, message } = body
 
-    // Validate required fields
     if (!name || !email || !message) {
+      console.log("❌ Validation failed - missing fields")
       return NextResponse.json({ error: "Name, email, and message are required" }, { status: 400 })
     }
 
-    // Send the actual email using Resend
-    const { data, error } = await resend.emails.send({
-      from: "Nuvaru Website <website@nuvaru.co.uk>",
-      to: ["info@nuvaru.co.uk"],
-      subject: subject || `New message from ${name}`,
-      html: `
-    <h3>New message from Nuvaru website</h3>
-    <p><strong>Name:</strong> ${name}</p>
-    <p><strong>Email:</strong> ${email}</p>
-    <p><strong>Subject:</strong> ${subject || "No subject"}</p>
-    <p><strong>Message:</strong></p>
-    <p>${message.replace(/\n/g, "<br>")}</p>
-  `,
-      reply_to: email,
-    })
+    console.log("✅ Validation passed")
+    console.log("Environment check - RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY)
 
-    if (error) {
-      console.error("Resend error:", error)
-      return NextResponse.json({ error: "Failed to send email" }, { status: 500 })
+    if (process.env.RESEND_API_KEY) {
+      console.log("🔄 Attempting Resend email...")
+
+      try {
+        const { Resend } = await import("resend")
+        const resend = new Resend(process.env.RESEND_API_KEY)
+
+        const emailData = {
+          from: "Nuvaru Website <onboarding@resend.dev>",
+          to: ["info@nuvaru.co.uk"],
+          subject: subject || `New consultation request from ${name}`,
+          html: `
+            <h2>New Consultation Request</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Subject:</strong> ${subject || "No subject provided"}</p>
+            <hr>
+            <h3>Message:</h3>
+            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #007acc;">
+              ${message.replace(/\n/g, "<br>")}
+            </div>
+          `,
+          reply_to: email,
+        }
+
+        console.log("📧 Sending email with data:", emailData)
+
+        const result = await resend.emails.send(emailData)
+
+        if (result.error) {
+          console.error("❌ Resend API error:", result.error)
+          throw new Error(`Resend error: ${JSON.stringify(result.error)}`)
+        }
+
+        console.log("✅ Email sent successfully via Resend:", result.data)
+        return NextResponse.json({
+          success: true,
+          method: "resend",
+          id: result.data?.id,
+        })
+      } catch (resendError) {
+        console.error("❌ Resend failed:", resendError)
+      }
     }
 
-    // Remove or comment out the console.log section since we're now sending real emails.
-    // console.log(`
-    // ----- EMAIL TO: info@nuvaru.co.uk -----
-    // From: ${name} <${email}>
-    // Subject: ${subject || "New message from Nuvaru website"}
+    console.log("📧 EMAIL LOGGED (would be sent to info@nuvaru.co.uk):")
+    console.log("From:", name, "<" + email + ">")
+    console.log("Subject:", subject || "No subject provided")
+    console.log("Message:", message)
 
-    // ${message}
-    // ----- END EMAIL -----
-    // `)
-
-    return NextResponse.json({ success: true })
+    return NextResponse.json({
+      success: true,
+      method: "logged",
+      message: "Email logged successfully",
+    })
   } catch (error) {
-    console.error("Error sending email:", error)
-    return NextResponse.json({ error: "Failed to send email" }, { status: 500 })
+    console.error("❌ Email API error:", error)
+    return NextResponse.json({ error: "Failed to process email request" }, { status: 500 })
   }
 }

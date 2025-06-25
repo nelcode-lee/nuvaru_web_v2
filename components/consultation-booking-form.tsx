@@ -54,8 +54,15 @@ export function ConsultationBookingForm() {
     setIsSubmitting(true)
     setFormStatus({})
 
+    console.log("=== FORM SUBMISSION STARTED ===")
+    console.log("Form data:", formData)
+
     // Track the consultation booking
-    analytics.consultationBooking(formData.primaryService)
+    try {
+      analytics.consultationBooking(formData.primaryService)
+    } catch (analyticsError) {
+      console.log("Analytics error (non-critical):", analyticsError)
+    }
 
     try {
       // Format the message for email
@@ -81,6 +88,8 @@ Consultation Type: ${formData.consultationType}
 Submitted at: ${new Date().toLocaleString("en-GB")}
       `.trim()
 
+      console.log("Sending email with message:", message)
+
       // Send the email using our API route
       const response = await fetch("/api/send-email", {
         method: "POST",
@@ -95,12 +104,15 @@ Submitted at: ${new Date().toLocaleString("en-GB")}
         }),
       })
 
+      console.log("API response status:", response.status)
+
       const result = await response.json()
+      console.log("API response data:", result)
 
       if (result.success) {
         setFormStatus({
           success: true,
-          message: "Thank you! We'll contact you within 24 hours to schedule your consultation.",
+          message: `Thank you! We'll contact you within 24 hours to schedule your consultation. ${result.method === "logged" ? "(Email logged to console for testing)" : ""}`,
         })
 
         // Reset form
@@ -120,7 +132,7 @@ Submitted at: ${new Date().toLocaleString("en-GB")}
       } else {
         setFormStatus({
           success: false,
-          message: "There was an error submitting your request. Please try again or contact us directly.",
+          message: `There was an error submitting your request: ${result.error || "Unknown error"}. Please try again or contact us directly.`,
         })
       }
     } catch (error) {
@@ -132,6 +144,7 @@ Submitted at: ${new Date().toLocaleString("en-GB")}
       })
     } finally {
       setIsSubmitting(false)
+      console.log("=== FORM SUBMISSION COMPLETED ===")
     }
   }
 

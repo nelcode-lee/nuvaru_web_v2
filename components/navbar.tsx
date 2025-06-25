@@ -1,16 +1,100 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown } from "lucide-react"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const servicesRef = useRef<HTMLDivElement>(null)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
+
+  const handleSectionScroll = (sectionId: string) => {
+    // First navigate to home page if not already there
+    if (window.location.pathname !== "/") {
+      window.location.href = `/#${sectionId}`
+      return
+    }
+
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+    setIsMenuOpen(false)
+    setIsServicesOpen(false)
+  }
+
+  // Close services dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (servicesRef.current && !servicesRef.current.contains(event.target as Node)) {
+        setIsServicesOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  const servicesItems = [
+    {
+      title: "View All Services",
+      href: "/services",
+      isSection: false,
+    },
+    {
+      title: "Website Development",
+      href: "/services/website-development",
+      isSection: false,
+    },
+    {
+      title: "Web Portal Development",
+      href: "/services/web-portal-development",
+      isSection: false,
+    },
+    {
+      title: "Web App Development",
+      href: "/services/web-app-development",
+      isSection: false,
+    },
+    {
+      title: "AI Readiness Assessment",
+      href: "/services/ai-readiness-assessment",
+      isSection: false,
+    },
+    {
+      title: "AI Solution Development",
+      href: "/services/custom-ai-solutions",
+      isSection: false,
+    },
+    {
+      title: "Process Automation",
+      href: "/services/process-automation",
+      isSection: false,
+    },
+    {
+      title: "Data Analytics",
+      href: "/services/data-analysis-optimization",
+      isSection: false,
+    },
+    {
+      title: "GDPR Compliance Solutions",
+      href: "/services/gdpr-compliance-solutions",
+      isSection: false,
+    },
+    {
+      title: "AI Implementation & Training",
+      href: "/services/ai-implementation-training",
+      isSection: false,
+    },
+  ]
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
@@ -35,9 +119,45 @@ export function Navbar() {
           <Link href="/" className="text-sm font-medium hover:text-brand-gold transition-colors">
             Home
           </Link>
-          <Link href="/services" className="text-sm font-medium hover:text-brand-gold transition-colors">
-            Services
-          </Link>
+
+          {/* Services Dropdown */}
+          <div className="relative" ref={servicesRef}>
+            <button
+              onClick={() => setIsServicesOpen(!isServicesOpen)}
+              className="flex items-center text-sm font-medium hover:text-brand-gold transition-colors"
+            >
+              Services
+              <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {isServicesOpen && (
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                <div className="py-2">
+                  {servicesItems.map((item, index) => (
+                    <div key={index}>
+                      {item.isSection ? (
+                        <button
+                          onClick={() => handleSectionScroll(item.sectionId!)}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-gold transition-colors"
+                        >
+                          {item.title}
+                        </button>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-gold transition-colors"
+                          onClick={() => setIsServicesOpen(false)}
+                        >
+                          {item.title}
+                        </Link>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           <Link href="/case-studies" className="text-sm font-medium hover:text-brand-gold transition-colors">
             Case Studies
           </Link>
@@ -75,13 +195,32 @@ export function Navbar() {
             >
               Home
             </Link>
-            <Link
-              href="/services"
-              className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Services
-            </Link>
+
+            {/* Mobile Services Section */}
+            <div className="border-l-2 border-gray-200 pl-4">
+              <div className="text-sm font-medium py-2 text-gray-900 mb-2">Services</div>
+              {servicesItems.map((item, index) => (
+                <div key={index}>
+                  {item.isSection ? (
+                    <button
+                      onClick={() => handleSectionScroll(item.sectionId!)}
+                      className="block w-full text-left text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
+                    >
+                      {item.title}
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="block text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+
             <Link
               href="/case-studies"
               className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"

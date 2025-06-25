@@ -1,4 +1,4 @@
-import { BarChart3, Cog, Database, LineChart, Users, Shield } from "lucide-react"
+import { BarChart3, Cog, Database, LineChart, Users, Shield, Monitor } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -10,6 +10,12 @@ export function ServicesSection() {
       description: "Evaluate your company's data infrastructure and identify AI opportunities",
       icon: <Database className="h-10 w-10 text-brand-purple" />,
       link: "/services/ai-readiness-assessment",
+    },
+    {
+      title: "Website Development & Optimisation",
+      description: "Modern React websites that convert visitors into customers with lightning-fast performance",
+      icon: <Monitor className="h-10 w-10 text-brand-gold" />,
+      link: "/#website-optimization",
     },
     {
       title: "Custom AI Solution Development",

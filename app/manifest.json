@@ -1,17 +1,12 @@
 {
-  "name": "Nuvaru - AI Transformation Consultancy",
+  "name": "Nuvaru - AI Solutions & Consulting",
   "short_name": "Nuvaru",
-  "description": "AI transformation consultancy helping UK businesses leverage technology to drive efficiency and optimize growth.",
+  "description": "Transform your business with agentic AI solutions. Custom AI development, process automation, and data optimization services.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#0f172a",
+  "theme_color": "#8B5CF6",
   "icons": [
-    {
-      "src": "/favicon.ico",
-      "sizes": "16x16",
-      "type": "image/x-icon"
-    },
     {
       "src": "/icon-192.png",
       "sizes": "192x192",

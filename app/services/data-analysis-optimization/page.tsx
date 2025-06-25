@@ -29,7 +29,7 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Data Analysis & Optimization | Nuvaru - AI Transformation Consultancy",
+  title: "Data Analysis & Optimisation | Nuvaru - AI Transformation Consultancy",
   description: "Turn data into your competitive edge with AI-powered insights and actionable intelligence for UK SMEs.",
 }
 
@@ -48,7 +48,7 @@ export default function DataAnalysisOptimizationPage() {
       example: "Predicting customer churn and automating retention campaigns.",
     },
     {
-      title: "Prescriptive Optimization",
+      title: "Prescriptive Optimisation",
       icon: <TrendingUp className="h-10 w-10 text-brand-blue" />,
       definition: "AI recommends actions to improve KPIs (e.g., pricing, marketing spend).",
       example: "Adjusting ad bids in real time to maximize ROI.",
@@ -57,10 +57,10 @@ export default function DataAnalysisOptimizationPage() {
 
   const services = [
     {
-      title: "Sales & Revenue Optimization",
+      title: "Sales & Revenue Optimisation",
       icon: <ShoppingCart className="h-10 w-10 text-brand-purple" />,
       features: [
-        "Demand Forecasting: AI agents analyze market trends, weather, and events to predict sales.",
+        "Demand Forecasting: AI agents analyse market trends, weather, and events to predict sales.",
         "Dynamic Pricing: Automatically adjust prices based on demand, competition, and inventory.",
       ],
     },
@@ -69,7 +69,7 @@ export default function DataAnalysisOptimizationPage() {
       icon: <Gauge className="h-10 w-10 text-brand-blue" />,
       features: [
         "Process Mining: AI maps workflows to identify bottlenecks (e.g., slow order fulfillment).",
-        "Resource Allocation: Optimize staff schedules, energy use, or machinery maintenance.",
+        "Resource Allocation: Optimise staff schedules, energy use, or machinery maintenance.",
       ],
     },
     {
@@ -93,7 +93,7 @@ export default function DataAnalysisOptimizationPage() {
       icon: <Megaphone className="h-10 w-10 text-brand-purple" />,
       features: [
         "Campaign Attribution: AI identifies which channels drive conversions.",
-        "Content Optimization: Automatically A/B test ads, emails, or web copy.",
+        "Content Optimisation: Automatically A/B test ads, emails, or web copy.",
       ],
     },
   ]
@@ -101,7 +101,7 @@ export default function DataAnalysisOptimizationPage() {
   const benefits = [
     {
       title: "Speed",
-      description: "Analyze data 100x faster than manual methods.",
+      description: "Analyse data 100x faster than manual methods.",
       icon: <Clock className="h-8 w-8 text-white" />,
     },
     {
@@ -125,7 +125,7 @@ export default function DataAnalysisOptimizationPage() {
     {
       title: "Birmingham Logistics Company",
       challenge: "Rising fuel costs and delayed deliveries.",
-      solution: "AI analyzed GPS and traffic data to optimize delivery routes.",
+      solution: "AI analysed GPS and traffic data to optimise delivery routes.",
       result: "22% fuel savings, 95% on-time deliveries.",
       icon: <Truck className="h-10 w-10 text-brand-blue" />,
     },
@@ -146,7 +146,7 @@ export default function DataAnalysisOptimizationPage() {
     },
     {
       title: "Post-Pandemic Recovery",
-      description: "Optimize resources in uncertain markets.",
+      description: "Optimise resources in uncertain markets.",
       icon: <Calculator className="h-6 w-6 text-brand-blue" />,
     },
     {
@@ -191,7 +191,7 @@ export default function DataAnalysisOptimizationPage() {
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-              Agentic AI Data Analysis & Optimization for UK SMEs: Smarter Decisions, Stronger Businesses
+              Agentic AI Data Analysis & Optimisation for UK SMEs: Smarter Decisions, Stronger Businesses
             </h1>
             <p className="mb-6 text-xl text-blue-100">
               Turn Data into Your Competitive Edge with Agentic AI-Powered Insights and Actionable Intelligence
@@ -208,8 +208,8 @@ export default function DataAnalysisOptimizationPage() {
             <div className="bg-gradient-to-br from-blue-50 to-violet-50 p-6 rounded-lg border border-blue-100 mb-8">
               <p className="text-lg text-gray-700 italic">
                 "UK SMEs generate vast amounts of data—sales, customer behavior, operations—but lack the time or tools
-                to unlock its value. Agentic AI analyzes your data autonomously at lightning speed, revealing hidden
-                patterns, predicting trends, and prescribing optimizations. Transform raw numbers into actionable
+                to unlock its value. Agentic AI analyses your data autonomously at lightning speed, revealing hidden
+                patterns, predicting trends, and prescribing optimisations. Transform raw numbers into actionable
                 strategies that cut costs, boost revenue, and future-proof your business."
               </p>
             </div>
@@ -221,7 +221,7 @@ export default function DataAnalysisOptimizationPage() {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            What Are Agentic AI-Driven Data Analysis & Optimization?
+            What Are Agentic AI-Driven Data Analysis & Optimisation?
           </h2>
           <div className="grid gap-8 md:grid-cols-3">
             {analysisTypes.map((type, index) => (
@@ -346,7 +346,7 @@ export default function DataAnalysisOptimizationPage() {
         <div className="container mx-auto px-4 md:px-6">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">Case Studies</h2>
           <p className="text-center text-gray-700 mb-12 max-w-2xl mx-auto">
-            See how UK businesses are transforming operations with data analysis and optimization
+            See how UK businesses are transforming operations with data analysis and optimisation
           </p>
           <div className="grid gap-8 md:grid-cols-2">
             {caseStudies.map((study, index) => (
@@ -470,7 +470,7 @@ export default function DataAnalysisOptimizationPage() {
             <div className="text-center">
               <p className="text-lg text-gray-700 mb-6">
                 Our visualizations transform complex data into clear, actionable insights that anyone in your
-                organization can understand and use to make better decisions.
+                organisation can understand and use to make better decisions.
               </p>
             </div>
           </div>

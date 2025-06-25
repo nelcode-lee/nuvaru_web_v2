@@ -121,7 +121,7 @@ export default function AIImplementationTrainingPage() {
         {
           subtitle: "Performance Audits",
           points: [
-            "Quarterly reviews to optimize AI models and workflows.",
+            "Quarterly reviews to optimise AI models and workflows.",
             "Example: A logistics client reduced delivery delays by 35% post-audit.",
           ],
         },
@@ -178,7 +178,7 @@ export default function AIImplementationTrainingPage() {
     },
     {
       title: "No One-Size-Fits-All",
-      description: "Customized plans for your industry, size, and goals.",
+      description: "Customised plans for your industry, size, and goals.",
       icon: <Wrench className="h-6 w-6 text-brand-purple" />,
     },
   ]
@@ -190,7 +190,7 @@ export default function AIImplementationTrainingPage() {
     },
     {
       question: "What if our team resists AI?",
-      answer: "We specialize in change management—83% of employees embrace AI after our training.",
+      answer: "We specialise in change management—83% of employees embrace AI after our training.",
     },
     {
       question: "Do you support legacy systems?",
@@ -342,7 +342,7 @@ export default function AIImplementationTrainingPage() {
                   <BarChart3 className="h-8 w-8 text-white" />
                 </div>
                 <div className="mt-8 md:mt-16 text-center">
-                  <h3 className="font-bold text-gray-900">Optimization</h3>
+                  <h3 className="font-bold text-gray-900">Optimisation</h3>
                   <p className="text-sm text-gray-600 mt-2">Refine and expand</p>
                 </div>
               </div>
@@ -501,7 +501,7 @@ export default function AIImplementationTrainingPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Role-Specific Training</h4>
-                    <p className="text-gray-700">Customized content for executives, managers, and staff</p>
+                    <p className="text-gray-700">Customised content for executives, managers, and staff</p>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -549,7 +549,7 @@ export default function AIImplementationTrainingPage() {
               <div className="w-16 h-16 mx-auto bg-gradient-brand rounded-full flex items-center justify-center mb-4">
                 <UserCheck className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-lg font-bold mb-2">Personalized</h3>
+              <h3 className="text-lg font-bold mb-2">Personalised</h3>
               <p className="text-gray-600">
                 Role-specific training tailored to each team member's needs and skill level
               </p>
