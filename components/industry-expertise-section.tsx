@@ -1,4 +1,4 @@
-import { Truck, Package, Warehouse, Factory } from "lucide-react"
+import { Truck, HardHat, Warehouse, Cog } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export function IndustryExpertiseSection() {
@@ -10,21 +10,22 @@ export function IndustryExpertiseSection() {
         "Route optimisation, fleet management, predictive maintenance, and driver safety monitoring for maximum efficiency",
     },
     {
-      title: "Distribution & Fulfilment",
-      icon: <Package className="h-12 w-12 text-brand-gold" />,
-      description:
-        "Last-mile delivery optimisation, order processing automation, and real-time shipment tracking systems",
-    },
-    {
       title: "Warehousing & Storage",
       icon: <Warehouse className="h-12 w-12 text-brand-gold" />,
       description:
         "Automated storage systems, robotic picking, inventory optimisation, and warehouse management solutions",
     },
     {
-      title: "Manufacturing & Production",
-      icon: <Factory className="h-12 w-12 text-brand-gold" />,
-      description: "Production planning, quality control automation, supply chain integration, and demand forecasting",
+      title: "Construction & Building",
+      icon: <HardHat className="h-12 w-12 text-brand-gold" />,
+      description:
+        "Project management automation, resource allocation, safety monitoring, and progress tracking for construction projects",
+    },
+    {
+      title: "Engineering & Design",
+      icon: <Cog className="h-12 w-12 text-brand-gold" />,
+      description:
+        "CAD automation, design optimisation, project coordination, and technical documentation management for engineering projects",
     },
   ]
 

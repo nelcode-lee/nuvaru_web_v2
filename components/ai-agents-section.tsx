@@ -1,35 +1,35 @@
 import Image from "next/image"
-import { Bot, TruckIcon, Route, Warehouse, LineChart } from "lucide-react"
+import { Bot, TruckIcon, Route, LineChart } from "lucide-react"
 import Link from "next/link"
 
 export function AIAgentsSection() {
   const agentCards = [
     {
-      title: "Route Optimisation Agent",
-      icon: <Route className="h-8 w-8 text-white" />,
+      title: "Model-Based Reflex Agents",
+      icon: <Bot className="h-8 w-8 text-white" />,
       description:
-        "Agentic AI that autonomously analyses real-time traffic, weather, and delivery constraints to determine optimal routes, reducing fuel costs by 15% and transit times by 22%.",
+        "Intelligent agents that maintain internal models of your business environment, enabling them to make informed decisions even with incomplete information. Perfect for dynamic supply chain management and real-time operational adjustments.",
       color: "from-brand-gold to-amber-500",
     },
     {
-      title: "Fleet Management Agent",
-      icon: <TruckIcon className="h-8 w-8 text-white" />,
+      title: "Goal-Based Agents",
+      icon: <Route className="h-8 w-8 text-white" />,
       description:
-        "Autonomous agentic AI that maximises vehicle allocation, load capacities, and minimises empty runs, improving fleet utilisation by 42% while monitoring driver safety patterns.",
+        "Strategic AI agents that work backwards from your desired outcomes to determine optimal action sequences. Ideal for complex logistics planning, resource allocation, and achieving specific KPIs with autonomous decision-making.",
       color: "from-blue-600 to-blue-400",
     },
     {
-      title: "Warehouse Automation Agent",
-      icon: <Warehouse className="h-8 w-8 text-white" />,
+      title: "Utility-Based Agents",
+      icon: <LineChart className="h-8 w-8 text-white" />,
       description:
-        "Self-learning agentic AI that coordinates AMRs, optimises picking routes, and manages inventory placement, reducing warehouse operating costs by 31% and improving accuracy to 99.8%.",
+        "Sophisticated agents that evaluate multiple competing objectives and make trade-off decisions to maximise overall business value. Essential for cost optimisation, risk management, and balancing conflicting business priorities.",
       color: "from-violet-600 to-violet-400",
     },
     {
-      title: "Supply Chain Visibility Agent",
-      icon: <LineChart className="h-8 w-8 text-white" />,
+      title: "Learning Agents",
+      icon: <TruckIcon className="h-8 w-8 text-white" />,
       description:
-        "Predictive agentic AI providing end-to-end visibility, real-time tracking, and proactive alerts for potential disruptions across your entire logistics network.",
+        "Adaptive AI agents that continuously improve performance through experience and feedback. They evolve with your business, becoming more effective over time at predicting patterns, optimising processes, and delivering better outcomes.",
       color: "from-green-600 to-green-400",
     },
   ]
@@ -95,22 +95,6 @@ export function AIAgentsSection() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Business Outcomes */}
-        <div className="mb-28">
-          <h3 className="text-2xl font-bold text-center mb-16">Measurable Business Outcomes</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {businessOutcomes.map((outcome, index) => (
-              <div key={index} className="bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
-                <div className="text-4xl font-bold bg-gradient-brand bg-clip-text text-transparent mb-2">
-                  {outcome.stat}
-                </div>
-                <h4 className="text-lg font-semibold mb-3">{outcome.label}</h4>
-                <p className="text-gray-600 text-sm">{outcome.description}</p>
-              </div>
-            ))}
-          </div>
         </div>
 
         {/* Case Study Preview */}

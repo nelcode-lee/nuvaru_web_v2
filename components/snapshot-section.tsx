@@ -54,13 +54,7 @@ export function SnapshotSection() {
 
         {/* Our Approach */}
         <div className="mb-16">
-          <div className="text-center mb-10">
-            <h3 className="text-2xl font-bold mb-4">Our Approach</h3>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              We translate complex agentic AI and automation concepts into practical business solutions. No technical
-              jargon—just clear pathways to improved efficiency and growth through intelligent autonomous agents.
-            </p>
-          </div>
+          <div className="text-lg text-gray-600 max-w-3xl mx-auto"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-white rounded-xl border border-gray-100 p-6 shadow-sm hover:shadow-md transition-shadow">
