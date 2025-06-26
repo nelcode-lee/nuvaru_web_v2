@@ -1,41 +1,38 @@
 import { type NextRequest, NextResponse } from "next/server"
-
-// Simple response generator without external API calls
-function generateAgentResponse(userMessage: string): string {
-  const message = userMessage.toLowerCase()
-
-  if (message.includes("hello") || message.includes("hi") || message.includes("hey")) {
-    return "Hello! I'm Nuvaru's AI assistant. We're based in Hull, UK and help businesses transform with AI. How can I help you today?"
-  }
-
-  if (message.includes("service")) {
-    return "We offer AI Readiness Assessment, Custom AI Solutions, Process Automation, Data Analysis, GDPR Compliance, and AI Training. Which service interests you most?"
-  }
-
-  if (message.includes("consultation") || message.includes("book")) {
-    return "Great! We offer free 30-minute consultations. Visit /book-consultation to schedule yours. What specific AI challenges are you facing?"
-  }
-
-  return "I'm here to help with questions about Nuvaru's AI services. We're based in Hull, UK and specialize in AI transformation for businesses. What would you like to know?"
-}
+import { getResponseForQuery } from "@/lib/site-content"
 
 export async function POST(request: NextRequest) {
   try {
-    const { messages } = await request.json()
+    const body = await request.json()
+    const { messages } = body
 
+    console.log("Chat agent received:", { messages })
+
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json({ error: "Messages array is required" }, { status: 400 })
+    }
+
+    // Get the last user message
     const lastMessage = messages[messages.length - 1]
-    const userMessage = lastMessage?.content || ""
+    const userQuery = lastMessage?.content || ""
 
-    const responseText = generateAgentResponse(userMessage)
+    if (!userQuery.trim()) {
+      return NextResponse.json({ error: "Message content is required" }, { status: 400 })
+    }
 
-    return NextResponse.json({ message: responseText })
+    console.log("Processing query:", userQuery)
+
+    // Get contextual response based on site content
+    const response = getResponseForQuery(userQuery)
+
+    console.log("Generated response:", response)
+
+    return NextResponse.json({
+      message: response,
+      timestamp: new Date().toISOString(),
+    })
   } catch (error) {
-    console.error("Chat API error:", error)
-    return NextResponse.json(
-      {
-        error: "I'm having trouble responding right now. Please contact us directly at lee@nuvaru.co.uk",
-      },
-      { status: 500 },
-    )
+    console.error("Chat agent error:", error)
+    return NextResponse.json({ error: "Failed to process chat request" }, { status: 500 })
   }
 }
