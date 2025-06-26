@@ -6,7 +6,6 @@ import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
-const sql = neon(process.env.DATABASE_URL!)
 
 function getClientIP(headersList: Headers): string {
   const forwarded = headersList.get("x-forwarded-for")
@@ -26,14 +25,17 @@ export async function submitContactForm(formData: FormData) {
     const email = formData.get("email") as string
     const phone = formData.get("phone") as string
     const company = formData.get("company") as string
-    const serviceType = formData.get("service-type") as string
+    const serviceType = formData.get("serviceType") as string
     const message = formData.get("message") as string
 
     console.log("Form data:", { name, email, company, serviceType })
 
     // Validate required fields
     if (!name || !email || !message) {
-      throw new Error("Name, email, and message are required")
+      return {
+        success: false,
+        message: "Name, email, and message are required",
+      }
     }
 
     // Email validation
@@ -45,32 +47,53 @@ export async function submitContactForm(formData: FormData) {
       }
     }
 
-    // Insert into database
-    await sql`
-      INSERT INTO contact_submissions (
-        name, 
-        email, 
-        phone, 
-        company, 
-        service_type, 
-        message,
-        ip_address, 
-        user_agent,
-        created_at
-      ) VALUES (
-        ${name}, 
-        ${email}, 
-        ${phone || null}, 
-        ${company}, 
-        ${serviceType || "General Inquiry"}, 
-        ${message},
-        ${clientIP}, 
-        ${userAgent},
-        NOW()
-      )
-    `
+    // Check if DATABASE_URL exists
+    if (!process.env.DATABASE_URL) {
+      console.error("DATABASE_URL not found")
+      return {
+        success: false,
+        message: "Database not configured. Please contact us directly at info@nuvaru.co.uk",
+      }
+    }
 
-    console.log("✅ Contact stored in database successfully")
+    const sql = neon(process.env.DATABASE_URL)
+
+    // Insert into database
+    try {
+      const result = await sql`
+        INSERT INTO contact_submissions (
+          name, 
+          email, 
+          phone, 
+          company, 
+          service_type, 
+          message,
+          ip_address, 
+          user_agent,
+          created_at
+        ) VALUES (
+          ${name}, 
+          ${email}, 
+          ${phone || null}, 
+          ${company || null}, 
+          ${serviceType || "General Inquiry"}, 
+          ${message},
+          ${clientIP}, 
+          ${userAgent},
+          NOW()
+        )
+        RETURNING id
+      `
+
+      console.log("✅ Contact stored in database successfully with ID:", result[0]?.id)
+    } catch (dbError) {
+      console.error("Database storage failed:", dbError)
+      return {
+        success: false,
+        message:
+          "Sorry, there was an error storing your message. Please try again or contact us directly at info@nuvaru.co.uk",
+      }
+    }
 
     // Try to send email notification (secondary - not critical)
     if (process.env.RESEND_API_KEY) {
@@ -78,22 +101,23 @@ export async function submitContactForm(formData: FormData) {
         const { data, error } = await resend.emails.send({
           from: "onboarding@resend.dev",
           to: ["info@nuvaru.co.uk"],
-          subject: `New Contact Form Submission from ${name} - ${company}`,
+          subject: `New Contact Form Submission from ${name}${company ? ` - ${company}` : ""}`,
           html: `
             <h2>New Contact Form Submission</h2>
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Company:</strong> ${company}</p>
+            <p><strong>Company:</strong> ${company || "Not provided"}</p>
             <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-            <p><strong>Service Interest:</strong> ${serviceType || "Not specified"}</p>
+            <p><strong>Service Interest:</strong> ${serviceType || "General Inquiry"}</p>
             <hr>
             <h3>Message:</h3>
-            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #007acc;">
+            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #007acc; border-radius: 4px;">
               ${message.replace(/\n/g, "<br>")}
             </div>
             <hr>
-            <p><small>Submitted at: ${new Date().toLocaleString("en-GB")}</small></p>
+            <p><small>Submitted at: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}</small></p>
             <p><small>IP: ${clientIP}</small></p>
+            <p><small>User Agent: ${userAgent}</small></p>
           `,
           reply_to: email,
         })
@@ -115,7 +139,8 @@ export async function submitContactForm(formData: FormData) {
     console.error("Contact form submission error:", error)
     return {
       success: false,
-      message: "Sorry, there was an error submitting your enquiry. Please try again.",
+      message:
+        "Sorry, there was an error submitting your enquiry. Please try again or contact us directly at info@nuvaru.co.uk",
     }
   }
 }

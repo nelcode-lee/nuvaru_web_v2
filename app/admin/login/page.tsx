@@ -9,13 +9,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Lock, User } from "lucide-react"
+import { Eye, EyeOff, LogIn } from "lucide-react"
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,6 +25,8 @@ export default function AdminLogin() {
     setError("")
 
     try {
+      console.log("Attempting login...")
+
       const response = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -33,13 +36,16 @@ export default function AdminLogin() {
       })
 
       const data = await response.json()
+      console.log("Login response:", data)
 
-      if (response.ok) {
+      if (response.ok && data.success) {
+        console.log("Login successful, redirecting...")
         router.push("/admin/contacts")
       } else {
         setError(data.error || "Login failed")
       }
     } catch (error) {
+      console.error("Login error:", error)
       setError("Network error. Please try again.")
     } finally {
       setLoading(false)
@@ -48,66 +54,98 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1">
-          <div className="flex items-center justify-center mb-4">
-            <div className="w-12 h-12 bg-brand-gold rounded-full flex items-center justify-center">
-              <Lock className="w-6 h-6 text-white" />
-            </div>
-          </div>
-          <CardTitle className="text-2xl font-bold text-center">Admin Login</CardTitle>
-          <CardDescription className="text-center">Enter your credentials to access the admin panel</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="username">Username</Label>
-              <div className="relative">
-                <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+      <div className="max-w-md w-full space-y-8">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900">Admin Login</h1>
+          <p className="mt-2 text-gray-600">Sign in to access the admin panel</p>
+        </div>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <LogIn className="h-5 w-5" />
+              Authentication Required
+            </CardTitle>
+            <CardDescription>Enter your admin credentials to access contact submissions</CardDescription>
+          </CardHeader>
+          <CardContent>
+            {error && (
+              <Alert variant="destructive" className="mb-4">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <Label htmlFor="username">Username</Label>
                 <Input
                   id="username"
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="pl-10"
+                  required
                   placeholder="Enter username"
-                  required
-                  disabled={loading}
+                  className="mt-1"
                 />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10"
-                  placeholder="Enter password"
-                  required
-                  disabled={loading}
-                />
+
+              <div>
+                <Label htmlFor="password">Password</Label>
+                <div className="relative mt-1">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder="Enter password"
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4 text-gray-400" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-gray-400" />
+                    )}
+                  </button>
+                </div>
               </div>
+
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Signing in...
+                  </>
+                ) : (
+                  <>
+                    <LogIn className="h-4 w-4 mr-2" />
+                    Sign In
+                  </>
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-600">
+                <strong>Default credentials:</strong>
+              </p>
+              <p className="text-sm text-gray-500">
+                Username: admin
+                <br />
+                Password: nuvaru2024!
+              </p>
+              <p className="text-xs text-gray-400 mt-2">
+                Change these in your environment variables for production use.
+              </p>
             </div>
-            {error && (
-              <Alert variant="destructive">
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Signing in..." : "Sign In"}
-            </Button>
-          </form>
-          <div className="mt-6 text-center text-sm text-gray-600">
-            <p>Default credentials:</p>
-            <p className="font-mono">Username: admin</p>
-            <p className="font-mono">Password: nuvaru2024!</p>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

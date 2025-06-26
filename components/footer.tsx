@@ -60,6 +60,11 @@ export function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <a href="#chat" className="hover:text-white">
+                  Chat with AI
+                </a>
+              </li>
             </ul>
           </div>
 

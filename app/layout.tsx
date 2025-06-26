@@ -8,7 +8,7 @@ import { Analytics } from "@/components/analytics"
 import { GoogleTag } from "@/components/google-tag"
 import { OrganizationStructuredData } from "@/components/structured-data"
 import { CookieConsent } from "@/components/cookie-consent"
-import { ChatAgent } from "@/components/chat-agent"
+import { ChatButton } from "@/components/chat-button"
 import { Suspense } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -102,7 +102,7 @@ export default function RootLayout({
           <Suspense fallback={null}>
             <OrganizationStructuredData />
             {children}
-            <ChatAgent />
+            <ChatButton />
             <CookieConsent />
             <Toaster />
             <Analytics />

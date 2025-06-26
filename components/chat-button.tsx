@@ -1,11 +1,40 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { MessageCircle, X } from "lucide-react"
 import { ChatAgent } from "./chat-agent"
 
 export function ChatButton() {
   const [isOpen, setIsOpen] = useState(false)
+
+  // Listen for hash changes to open chat from links
+  useEffect(() => {
+    const handleHashChange = () => {
+      if (window.location.hash === "#chat") {
+        setIsOpen(true)
+        // Remove the hash from URL without triggering navigation
+        window.history.replaceState(null, "", window.location.pathname)
+      }
+    }
+
+    // Check on mount
+    handleHashChange()
+
+    // Listen for hash changes
+    window.addEventListener("hashchange", handleHashChange)
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange)
+    }
+  }, [])
+
+  // Global function to open chat (can be called from anywhere)
+  useEffect(() => {
+    ;(window as any).openNuvaruChat = () => setIsOpen(true)
+    return () => {
+      delete (window as any).openNuvaruChat
+    }
+  }, [])
 
   return (
     <>
@@ -28,7 +57,7 @@ export function ChatButton() {
           <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setIsOpen(false)} />
 
           {/* Chat Container */}
-          <div className="relative bg-white rounded-lg shadow-2xl w-full max-w-md h-[600px] max-h-[80vh] flex flex-col">
+          <div className="relative bg-white rounded-lg shadow-2xl w-full max-w-md h-[600px] max-h-[80vh] flex flex-col animate-in slide-in-from-bottom-4 duration-300">
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b bg-brand-gold text-white rounded-t-lg">
               <div className="flex items-center space-x-3">
