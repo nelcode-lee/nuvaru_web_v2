@@ -2,8 +2,8 @@
 
 import { Resend } from "resend"
 import { neon } from "@neondatabase/serverless"
-import { redirect } from "next/navigation"
 import { headers } from "next/headers"
+import { redirect } from "next/navigation"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 const sql = neon(process.env.DATABASE_URL!)
@@ -24,20 +24,16 @@ export async function submitContactForm(formData: FormData) {
 
     const name = formData.get("name") as string
     const email = formData.get("email") as string
-    const company = formData.get("company") as string
     const phone = formData.get("phone") as string
+    const company = formData.get("company") as string
     const serviceType = formData.get("service-type") as string
-    const challenge = formData.get("challenge") as string
-    const source = formData.get("source") as string
+    const message = formData.get("message") as string
 
     console.log("Form data:", { name, email, company, serviceType })
 
-    // Input validation
-    if (!name || !email || !company || !challenge) {
-      return {
-        success: false,
-        message: "Please fill in all required fields.",
-      }
+    // Validate required fields
+    if (!name || !email || !message) {
+      throw new Error("Name, email, and message are required")
     }
 
     // Email validation
@@ -49,97 +45,77 @@ export async function submitContactForm(formData: FormData) {
       }
     }
 
-    // Check if Resend API key exists
-    if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY not found")
-      return {
-        success: false,
-        message: "Email service not configured. Please contact us directly at info@nuvaru.co.uk",
+    // Insert into database
+    await sql`
+      INSERT INTO contact_submissions (
+        name, 
+        email, 
+        phone, 
+        company, 
+        service_type, 
+        message,
+        ip_address, 
+        user_agent,
+        created_at
+      ) VALUES (
+        ${name}, 
+        ${email}, 
+        ${phone || null}, 
+        ${company}, 
+        ${serviceType || "General Inquiry"}, 
+        ${message},
+        ${clientIP}, 
+        ${userAgent},
+        NOW()
+      )
+    `
+
+    console.log("✅ Contact stored in database successfully")
+
+    // Try to send email notification (secondary - not critical)
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const { data, error } = await resend.emails.send({
+          from: "onboarding@resend.dev",
+          to: ["info@nuvaru.co.uk"],
+          subject: `New Contact Form Submission from ${name} - ${company}`,
+          html: `
+            <h2>New Contact Form Submission</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Company:</strong> ${company}</p>
+            <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+            <p><strong>Service Interest:</strong> ${serviceType || "Not specified"}</p>
+            <hr>
+            <h3>Message:</h3>
+            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #007acc;">
+              ${message.replace(/\n/g, "<br>")}
+            </div>
+            <hr>
+            <p><small>Submitted at: ${new Date().toLocaleString("en-GB")}</small></p>
+            <p><small>IP: ${clientIP}</small></p>
+          `,
+          reply_to: email,
+        })
+
+        if (error) {
+          console.error("Resend error:", error)
+        } else {
+          console.log("✅ Email notification sent successfully:", data)
+        }
+      } catch (emailError) {
+        console.error("Email sending failed:", emailError)
+        // Don't fail the form submission if email fails
       }
     }
 
-    try {
-      const { data, error } = await resend.emails.send({
-        from: "onboarding@resend.dev", // Use Resend's default domain
-        to: ["info@nuvaru.co.uk"],
-        subject: `New Contact Form Submission from ${name} - ${company}`,
-        html: `
-          <h2>New Contact Form Submission</h2>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <p><strong>Company:</strong> ${company}</p>
-          <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-          <p><strong>Service Interest:</strong> ${serviceType || "Not specified"}</p>
-          <p><strong>How they heard about us:</strong> ${source || "Not specified"}</p>
-          <hr>
-          <h3>Message:</h3>
-          <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #007acc;">
-            ${challenge.replace(/\n/g, "<br>")}
-          </div>
-          <hr>
-          <p><small>Submitted at: ${new Date().toLocaleString("en-GB")}</small></p>
-        `,
-        reply_to: email,
-      })
-
-      if (error) {
-        console.error("Resend error:", error)
-        throw new Error(`Resend error: ${JSON.stringify(error)}`)
-      }
-
-      console.log("✅ Email sent successfully:", data)
-
-      // Insert into database with security info
-      await sql`
-        INSERT INTO contact_submissions (
-          name, 
-          email, 
-          phone, 
-          company, 
-          service_type, 
-          source, 
-          challenge,
-          ip_address, 
-          user_agent,
-          created_at
-        ) VALUES (
-          ${name}, 
-          ${email}, 
-          ${phone}, 
-          ${company}, 
-          ${serviceType}, 
-          ${source}, 
-          ${challenge},
-          ${clientIP}, 
-          ${userAgent},
-          NOW()
-        )
-      `
-
-      // Redirect to thank you page or back to contact with success message
-      redirect("/?submitted=true")
-    } catch (emailError) {
-      console.error("Email sending failed:", emailError)
-
-      // Log the submission for manual follow-up
-      console.log("📧 CONTACT FORM LOGGED (Email failed):")
-      console.log("Name:", name)
-      console.log("Email:", email)
-      console.log("Company:", company)
-      console.log("Service:", serviceType)
-      console.log("Message:", challenge)
-
-      return {
-        success: false,
-        message:
-          "There was an issue sending your message. Please contact us directly at info@nuvaru.co.uk or try again later.",
-      }
-    }
+    // Redirect to success page
+    redirect("/?success=true")
   } catch (error) {
-    console.error("Contact form error:", error)
+    console.error("Contact form submission error:", error)
     return {
       success: false,
-      message: "Sorry, there was an error submitting your message. Please contact us directly at info@nuvaru.co.uk",
+      message: "Sorry, there was an error submitting your enquiry. Please try again.",
     }
   }
 }

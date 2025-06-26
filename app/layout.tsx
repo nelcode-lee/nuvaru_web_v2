@@ -1,41 +1,32 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { Suspense } from "react"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/toaster"
+import { Analytics } from "@/components/analytics"
 import { GoogleTag } from "@/components/google-tag"
 import { OrganizationStructuredData } from "@/components/structured-data"
 import { CookieConsent } from "@/components/cookie-consent"
-import { ChatButton } from "@/components/chat-button"
+import { ChatAgent } from "@/components/chat-agent"
+import { Suspense } from "react"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Nuvaru - AI Transformation Consultancy",
-    default: "Nuvaru - AI Transformation Consultancy for UK Businesses",
+    default: "Nuvaru - AI Solutions & Consulting",
+    template: "%s | Nuvaru",
   },
   description:
-    "UK-based AI consultancy helping businesses implement custom AI solutions, process automation, data analysis, and GDPR compliance. Serving SMEs across the United Kingdom.",
+    "Transform your business with agentic AI solutions. Custom AI development, process automation, and data optimization services.",
   keywords: [
-    "AI consultancy UK",
-    "artificial intelligence solutions",
-    "business process automation",
-    "AI transformation",
-    "data analysis UK",
-    "custom AI solutions",
-    "GDPR compliance tools",
-    "AI implementation",
-    "UK SME technology",
-    "AI readiness assessment",
-    "machine learning consultancy",
-    "business automation UK",
-    "AI for logistics",
-    "AI for customer service",
-    "AI for sales",
-    "AI for finance",
-    "AI for recruitment",
-    "AI training UK",
+    "AI solutions",
+    "artificial intelligence",
+    "automation",
+    "data analysis",
+    "business consulting",
+    "machine learning",
   ],
   authors: [{ name: "Nuvaru" }],
   creator: "Nuvaru",
@@ -45,49 +36,55 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL("https://nuvaru.co.uk"), // Replace with your actual domain
+  metadataBase: new URL("https://www.nuvaru.co.uk"),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     type: "website",
     locale: "en_GB",
-    url: "https://nuvaru.co.uk",
-    title: "Nuvaru - AI Transformation Consultancy for UK Businesses",
+    url: "https://www.nuvaru.co.uk",
+    title: "Nuvaru - AI Solutions & Consulting",
     description:
-      "AI transformation consultancy helping UK businesses leverage technology to drive efficiency and optimize growth.",
+      "Transform your business with agentic AI solutions. Custom AI development, process automation, and data optimization services.",
     siteName: "Nuvaru",
     images: [
       {
-        url: "/ai-logo.png",
+        url: "/nuvaru-logo.png",
         width: 1200,
         height: 630,
-        alt: "Nuvaru - AI Transformation Consultancy",
+        alt: "Nuvaru - AI Solutions & Consulting",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nuvaru - AI Transformation Consultancy for UK Businesses",
+    title: "Nuvaru - AI Solutions & Consulting",
     description:
-      "AI transformation consultancy helping UK businesses leverage technology to drive efficiency and optimize growth.",
-    images: ["/ai-logo.png"],
+      "Transform your business with agentic AI solutions. Custom AI development, process automation, and data optimization services.",
+    images: ["/nuvaru-logo.png"],
   },
-  generator: "Next.js",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   verification: {
-    google: "tbQnQiTk3kykjMb6T95lOZ6eUHinkNVYv4THA5feCVU",
+    google: "your-google-verification-code",
   },
-  manifest: "/manifest.json",
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "16x16" },
-      { url: "/icon.png", sizes: "32x32" },
-    ],
-    apple: [{ url: "/apple-icon.png" }],
-  },
-  viewport: {
-    themeColor: "#0f172a",
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
+    generator: 'v0.dev'
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 }
 
 export default function RootLayout({
@@ -96,17 +93,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <OrganizationStructuredData />
+        <GoogleTag />
       </head>
       <body className={inter.className}>
-        {children}
-        <Suspense fallback={null}>
-          <GoogleTag />
-        </Suspense>
-        <CookieConsent />
-        <ChatButton />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
+          <Suspense fallback={null}>
+            <OrganizationStructuredData />
+            {children}
+            <ChatAgent />
+            <CookieConsent />
+            <Toaster />
+            <Analytics />
+          </Suspense>
+        </ThemeProvider>
       </body>
     </html>
   )

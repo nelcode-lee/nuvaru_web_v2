@@ -1,33 +1,29 @@
--- Create contact submissions table with security fields
+-- Create contact_submissions table
 CREATE TABLE IF NOT EXISTS contact_submissions (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL,
-  phone VARCHAR(50),
   company VARCHAR(255),
-  service VARCHAR(255) NOT NULL,
+  phone VARCHAR(50),
+  service_type VARCHAR(100),
   message TEXT NOT NULL,
-  ip_address VARCHAR(45),
-  user_agent TEXT,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  
-  -- Add indexes for performance
-  INDEX idx_created_at (created_at),
-  INDEX idx_email (email),
-  INDEX idx_service (service)
+  status VARCHAR(50) DEFAULT 'new',
+  notes TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Add audit log table for admin actions
-CREATE TABLE IF NOT EXISTS admin_audit_log (
-  id SERIAL PRIMARY KEY,
-  action VARCHAR(100) NOT NULL,
-  resource_type VARCHAR(50),
-  resource_id INTEGER,
-  ip_address VARCHAR(45),
-  user_agent TEXT,
-  details JSONB,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  
-  INDEX idx_action (action),
-  INDEX idx_created_at (created_at)
+-- Create index for faster queries
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_created_at ON contact_submissions(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_contact_submissions_status ON contact_submissions(status);
+
+-- Insert a test record
+INSERT INTO contact_submissions (name, email, company, phone, service_type, message) 
+VALUES (
+  'Test User', 
+  'test@example.com', 
+  'Test Company', 
+  '+44 123 456 7890', 
+  'AI Readiness Assessment', 
+  'This is a test contact submission to verify the database is working correctly.'
 );
