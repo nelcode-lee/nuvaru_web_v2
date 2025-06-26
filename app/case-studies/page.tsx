@@ -145,7 +145,7 @@ export default function CaseStudiesPage() {
         costSavings: "£50k",
         reportingEfficiency: "95%",
       },
-      secondaryImage: "/sustainability-dashboard-ui.png",
+      secondaryImage: "/uk-compliance-interface.png",
     },
   ]
 

@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         const resend = new Resend(process.env.RESEND_API_KEY)
 
         const emailData = {
-          from: "Nuvaru Website <onboarding@resend.dev>",
+          from: "noreply@nuvaru.co.uk", // Use your verified domain
           to: ["info@nuvaru.co.uk"],
           subject: subject || `New consultation request from ${name}`,
           html: `
@@ -59,10 +59,12 @@ export async function POST(request: Request) {
         })
       } catch (resendError) {
         console.error("❌ Resend failed:", resendError)
+        // Fall through to logging
       }
     }
 
-    console.log("📧 EMAIL LOGGED (would be sent to info@nuvaru.co.uk):")
+    // Fallback: Log the email details
+    console.log("📧 EMAIL LOGGED (Resend not available):")
     console.log("From:", name, "<" + email + ">")
     console.log("Subject:", subject || "No subject provided")
     console.log("Message:", message)
@@ -70,7 +72,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       method: "logged",
-      message: "Email logged successfully",
+      message: "Email logged successfully (check server logs)",
     })
   } catch (error) {
     console.error("❌ Email API error:", error)

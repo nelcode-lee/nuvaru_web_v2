@@ -150,6 +150,24 @@ export function ContactSection() {
                       AI Implementation & Training
                     </Label>
                   </div>
+                  <div className="flex items-center space-x-2 bg-white/60 p-3 rounded-md">
+                    <RadioGroupItem value="website-development" id="website-development" />
+                    <Label htmlFor="website-development" className="cursor-pointer">
+                      Website Development
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2 bg-white/60 p-3 rounded-md">
+                    <RadioGroupItem value="web-app-development" id="web-app-development" />
+                    <Label htmlFor="web-app-development" className="cursor-pointer">
+                      Web App Development
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-2 bg-white/60 p-3 rounded-md">
+                    <RadioGroupItem value="web-portal-development" id="web-portal-development" />
+                    <Label htmlFor="web-portal-development" className="cursor-pointer">
+                      Web Portal Development
+                    </Label>
+                  </div>
                 </RadioGroup>
               </div>
 

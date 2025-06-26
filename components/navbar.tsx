@@ -228,14 +228,12 @@ export function Navbar() {
             >
               Case Studies
             </Link>
-            <Link
-              href="/#about"
-              className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-              scroll={false}
+            <button
+              onClick={() => handleSectionScroll("about")}
+              className="block w-full text-left text-sm font-medium py-2 hover:text-brand-gold transition-colors"
             >
               About
-            </Link>
+            </button>
             <Link
               href="/#contact"
               className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"

@@ -277,14 +277,16 @@ export default function WebsiteDevelopmentPage() {
 
             <div className="space-y-12">
               {/* First Impressions */}
-              <div className="bg-white rounded-xl p-8 shadow-sm">
-                <div className="flex items-start gap-6">
-                  <div className="bg-red-100 p-4 rounded-full flex-shrink-0">
+              <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm">
+                <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6 text-center md:text-left">
+                  <div className="bg-red-100 p-4 rounded-full flex-shrink-0 mx-auto md:mx-0">
                     <Lightbulb className="h-8 w-8 text-red-600" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">First Impressions Are Everything</h3>
-                    <p className="text-lg text-gray-700 leading-relaxed">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                      First Impressions Are Everything
+                    </h3>
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed">
                       When a potential client lands on your website, they're not just looking for information—they're
                       judging you. They're making a split-second decision about whether you're a professional, reliable
                       company they can trust. If your site looks like it's from 2005, it tells them you haven't kept up
@@ -296,21 +298,21 @@ export default function WebsiteDevelopmentPage() {
               </div>
 
               {/* Getting Things Done */}
-              <div className="bg-white rounded-xl p-8 shadow-sm">
-                <div className="flex items-start gap-6">
-                  <div className="bg-orange-100 p-4 rounded-full flex-shrink-0">
+              <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm">
+                <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6 text-center md:text-left">
+                  <div className="bg-orange-100 p-4 rounded-full flex-shrink-0 mx-auto md:mx-0">
                     <Target className="h-8 w-8 text-orange-600" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
                       It's Not Just About Looking Good; It's About Getting Things Done
                     </h3>
-                    <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed mb-4">
                       A high-performing website is a powerful tool. A slow, clunky site is like a salesperson who keeps
                       getting lost on the way to a meeting. It's frustrating, and clients will just give up and go to
                       your competitor who has their act together.
                     </p>
-                    <p className="text-lg text-gray-700 leading-relaxed">
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed">
                       A fresh, modern React site is fast, easy to use, and intuitive. It guides visitors exactly where
                       they need to go, whether that's to download a case study, request a quote, or simply learn more
                       about what you do. It's all about making their journey effortless. When it's easy for them, you
@@ -321,14 +323,14 @@ export default function WebsiteDevelopmentPage() {
               </div>
 
               {/* Trust Building */}
-              <div className="bg-white rounded-xl p-8 shadow-sm">
-                <div className="flex items-start gap-6">
-                  <div className="bg-green-100 p-4 rounded-full flex-shrink-0">
+              <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm">
+                <div className="flex flex-col md:flex-row md:items-start gap-4 md:gap-6 text-center md:text-left">
+                  <div className="bg-green-100 p-4 rounded-full flex-shrink-0 mx-auto md:mx-0">
                     <Shield className="h-8 w-8 text-green-600" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">It Builds Trust and Confidence</h3>
-                    <p className="text-lg text-gray-700 leading-relaxed">
+                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">It Builds Trust and Confidence</h3>
+                    <p className="text-base md:text-lg text-gray-700 leading-relaxed">
                       Think of your website as a trust-builder. When a potential client sees that your site is clean,
                       professional, and full of useful information like case studies and testimonials, they start to
                       feel confident in your business. It shows you take your work seriously and are an expert in your

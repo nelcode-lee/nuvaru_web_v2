@@ -1,5 +1,7 @@
 import { Database, Cog, LineChart, BarChart3, Shield, Users } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
+import { ChevronRight } from "lucide-react"
 
 export function ServicesSection() {
   const services = [
@@ -102,6 +104,123 @@ export function ServicesSection() {
               </div>
             </div>
           ))}
+        </div>
+        {/* Web Services Cards */}
+        <div className="mt-16">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Web Development Services</h3>
+            <p className="text-gray-600">Modern, high-performance web solutions that drive business growth</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Web Design & Development */}
+            <Link href="/services/website-development" className="group block">
+              <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 h-full transition-all duration-300 hover:shadow-xl hover:border-violet-200 hover:-translate-y-1">
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-700 p-6 relative h-48 overflow-hidden">
+                  <div className="absolute inset-0 opacity-20">
+                    <Image src="/network-pattern.png" alt="" fill className="object-cover" />
+                  </div>
+                  <div className="relative z-10">
+                    <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                      <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">Web Design & Development</h3>
+                  </div>
+                  <div className="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold text-gray-800">
+                    Modern & Fast
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4">
+                    Professional websites built with React and modern technologies to enhance your digital presence and
+                    convert visitors into customers.
+                  </p>
+                  <div className="flex items-center text-brand-purple font-medium group-hover:translate-x-1 transition-transform">
+                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Web Portal Development */}
+            <Link href="/services/web-portal-development" className="group block">
+              <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 h-full transition-all duration-300 hover:shadow-xl hover:border-violet-200 hover:-translate-y-1">
+                <div className="bg-gradient-to-r from-blue-500 to-cyan-700 p-6 relative h-48 overflow-hidden">
+                  <div className="absolute inset-0 opacity-20">
+                    <Image src="/network-pattern.png" alt="" fill className="object-cover" />
+                  </div>
+                  <div className="relative z-10">
+                    <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                      <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">Web Portal Development</h3>
+                  </div>
+                  <div className="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold text-gray-800">
+                    Secure & Scalable
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4">
+                    Custom web portals for employee access, client management, and business operations with secure
+                    authentication and role-based permissions.
+                  </p>
+                  <div className="flex items-center text-brand-purple font-medium group-hover:translate-x-1 transition-transform">
+                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Web App Development */}
+            <Link href="/services/web-app-development" className="group block">
+              <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 h-full transition-all duration-300 hover:shadow-xl hover:border-violet-200 hover:-translate-y-1">
+                <div className="bg-gradient-to-r from-emerald-500 to-teal-700 p-6 relative h-48 overflow-hidden">
+                  <div className="absolute inset-0 opacity-20">
+                    <Image src="/network-pattern.png" alt="" fill className="object-cover" />
+                  </div>
+                  <div className="relative z-10">
+                    <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                      <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="text-xl font-bold text-white mb-2">Web App Development</h3>
+                  </div>
+                  <div className="absolute bottom-4 right-4 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold text-gray-800">
+                    Interactive & Responsive
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-gray-600 mb-4">
+                    Progressive web applications that work seamlessly across all devices, providing native app-like
+                    experiences through the browser.
+                  </p>
+                  <div className="flex items-center text-brand-purple font-medium group-hover:translate-x-1 transition-transform">
+                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </section>
