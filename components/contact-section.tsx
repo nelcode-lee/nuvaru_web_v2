@@ -1,6 +1,4 @@
 "use client"
-
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -12,9 +10,7 @@ import { submitContactForm } from "@/app/actions/contact"
 import { useActionState } from "react"
 
 export function ContactSection() {
-  // Replace the existing formData useState and handleSubmit function with:
-  const [state, formAction] = useActionState(submitContactForm, null)
-  const [isPending, startTransition] = useState(false)
+  const [state, formAction, isPending] = useActionState(submitContactForm, null)
 
   return (
     <section id="contact" className="py-20 bg-white">

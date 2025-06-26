@@ -3,12 +3,27 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { Menu, X, ChevronDown, User } from "lucide-react"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const servicesRef = useRef<HTMLDivElement>(null)
+
+  // Check login status on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch("/api/auth/check")
+        const data = await response.json()
+        setIsLoggedIn(data.authenticated)
+      } catch (error) {
+        setIsLoggedIn(false)
+      }
+    }
+    checkAuth()
+  }, [])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -27,6 +42,16 @@ export function Navbar() {
     }
     setIsMenuOpen(false)
     setIsServicesOpen(false)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" })
+      setIsLoggedIn(false)
+      window.location.href = "/"
+    } catch (error) {
+      console.error("Logout failed:", error)
+    }
   }
 
   // Close services dropdown when clicking outside
@@ -170,6 +195,32 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
+          {isLoggedIn ? (
+            <div className="flex items-center gap-2">
+              <Link
+                href="/admin/contacts"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white h-10 px-4 py-2"
+              >
+                <User className="w-4 h-4 mr-2" />
+                Admin
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 text-gray-700 hover:bg-gray-50 h-10 px-4 py-2"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/admin/login"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white h-10 px-4 py-2"
+            >
+              <User className="w-4 h-4 mr-2" />
+              Login
+            </Link>
+          )}
+
           <Link
             href="/book-consultation"
             className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-brand-gold hover:bg-brand-gold-dark text-white h-10 px-4 py-2"
@@ -241,6 +292,37 @@ export function Navbar() {
             >
               Contact
             </Link>
+
+            {/* Mobile Admin/Login */}
+            {isLoggedIn ? (
+              <div className="border-t pt-4 mt-4">
+                <Link
+                  href="/admin/contacts"
+                  className="block text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Admin Panel
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout()
+                    setIsMenuOpen(false)
+                  }}
+                  className="block w-full text-left text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/admin/login"
+                className="text-sm font-medium py-2 hover:text-brand-gold transition-colors border-t pt-4 mt-4"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Admin Login
+              </Link>
+            )}
+
             <Link
               href="/book-consultation"
               className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-brand-gold hover:bg-brand-gold-dark text-white h-10 px-4 py-2 mt-2"
