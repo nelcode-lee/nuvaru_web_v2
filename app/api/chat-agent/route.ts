@@ -1,65 +1,41 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { generateText } from "ai"
-import { openai } from "@ai-sdk/openai"
 
-const NUVARU_CONTEXT = `
-You are the Nuvaru AI Assistant, representing Nuvaru - a UK-based AI transformation consultancy. You help businesses implement custom AI solutions, process automation, data analysis, and GDPR compliance.
+// Simple response generator without external API calls
+function generateAgentResponse(userMessage: string): string {
+  const message = userMessage.toLowerCase()
 
-ABOUT NUVARU:
-- UK-based AI consultancy specializing in business transformation
-- Serves SMEs across the United Kingdom
-- Expert in logistics optimization, customer service automation, and environmental compliance
-- Offers free 30-minute consultations
+  if (message.includes("hello") || message.includes("hi") || message.includes("hey")) {
+    return "Hello! I'm Nuvaru's AI assistant. We're based in Hull, UK and help businesses transform with AI. How can I help you today?"
+  }
 
-SERVICES:
-1. AI Readiness Assessment - Evaluate current systems and AI potential
-2. Custom AI Solutions - Tailored AI implementations for specific business needs
-3. Process Automation - Streamline operations and reduce manual work
-4. Data Analysis & Optimization - Turn data into actionable insights
-5. GDPR Compliance Solutions - Ensure data protection compliance
-6. AI Implementation Training - Train teams on new AI systems
+  if (message.includes("service")) {
+    return "We offer AI Readiness Assessment, Custom AI Solutions, Process Automation, Data Analysis, GDPR Compliance, and AI Training. Which service interests you most?"
+  }
 
-CASE STUDIES:
-1. Transport Manager AI - Logistics optimization saving 40% on fuel costs
-2. Customer Service Agent - 24/7 automated support reducing response time by 85%
-3. Sustainability Compliance Assistant - Environmental compliance with 35% carbon reduction
+  if (message.includes("consultation") || message.includes("book")) {
+    return "Great! We offer free 30-minute consultations. Visit /book-consultation to schedule yours. What specific AI challenges are you facing?"
+  }
 
-PRICING:
-- Free initial consultation (30 minutes)
-- Custom quotes based on project scope and requirements
-- Flexible payment terms available
-- ROI-focused pricing with measurable outcomes
-
-PROCESS:
-1. Free consultation to understand needs
-2. Detailed assessment and proposal
-3. Custom solution development
-4. Implementation and training
-5. Ongoing support and optimization
-
-Be helpful, professional, and knowledgeable. Always encourage users to book a free consultation for detailed discussions. If asked about specific pricing, explain that costs vary based on requirements and suggest a consultation for accurate quotes.
-`
+  return "I'm here to help with questions about Nuvaru's AI services. We're based in Hull, UK and specialize in AI transformation for businesses. What would you like to know?"
+}
 
 export async function POST(request: NextRequest) {
   try {
     const { messages } = await request.json()
 
-    const { text } = await generateText({
-      model: openai("gpt-4o"),
-      messages: [
-        {
-          role: "system",
-          content: NUVARU_CONTEXT,
-        },
-        ...messages,
-      ],
-      temperature: 0.7,
-      maxTokens: 500,
-    })
+    const lastMessage = messages[messages.length - 1]
+    const userMessage = lastMessage?.content || ""
 
-    return NextResponse.json({ message: text })
+    const responseText = generateAgentResponse(userMessage)
+
+    return NextResponse.json({ message: responseText })
   } catch (error) {
     console.error("Chat API error:", error)
-    return NextResponse.json({ error: "Failed to process chat message" }, { status: 500 })
+    return NextResponse.json(
+      {
+        error: "I'm having trouble responding right now. Please contact us directly at lee@nuvaru.co.uk",
+      },
+      { status: 500 },
+    )
   }
 }
