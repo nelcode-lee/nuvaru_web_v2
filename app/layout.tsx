@@ -7,7 +7,6 @@ import { Toaster } from "@/components/ui/toaster"
 import { Analytics } from "@/components/analytics"
 import { GoogleTag } from "@/components/google-tag"
 import { OrganizationStructuredData } from "@/components/structured-data"
-import { CookieConsent } from "@/components/cookie-consent"
 import { ChatButton } from "@/components/chat-button"
 import { Suspense } from "react"
 
@@ -103,7 +102,6 @@ export default function RootLayout({
             <OrganizationStructuredData />
             {children}
             <ChatButton />
-            <CookieConsent />
             <Toaster />
             <Analytics />
           </Suspense>

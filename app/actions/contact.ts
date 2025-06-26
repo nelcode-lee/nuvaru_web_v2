@@ -1,150 +1,132 @@
 "use server"
 
-import { Resend } from "resend"
 import { neon } from "@neondatabase/serverless"
-import { headers } from "next/headers"
-import { redirect } from "next/navigation"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-function getClientIP(headersList: Headers): string {
-  const forwarded = headersList.get("x-forwarded-for")
-  const realIP = headersList.get("x-real-ip")
-  return forwarded?.split(",")[0] || realIP || "unknown"
+async function wakeUpDatabase(sql: any, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      console.log(`[SERVER] Database wake-up attempt ${i + 1}/${maxRetries}`)
+      await sql`SELECT 1`
+      console.log("[SERVER] ✅ Database is awake")
+      return true
+    } catch (error) {
+      console.log(`[SERVER] Database wake-up attempt ${i + 1} failed:`, error)
+      if (i < maxRetries - 1) {
+        console.log("[SERVER] Waiting 2 seconds before retry...")
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+      }
+    }
+  }
+  return false
 }
 
 export async function submitContactForm(formData: FormData) {
-  try {
-    console.log("=== CONTACT FORM SUBMISSION ===")
+  const contactData = {
+    name: formData.get("name") as string,
+    email: formData.get("email") as string,
+    phone: formData.get("phone") as string,
+    company: formData.get("company") as string,
+    service_type: formData.get("service_type") as string,
+    message: formData.get("message") as string,
+  }
 
-    const headersList = await headers()
-    const clientIP = getClientIP(headersList)
-    const userAgent = headersList.get("user-agent") || "unknown"
+  console.log("[SERVER] === CONTACT FORM SUBMISSION ===")
+  console.log("[SERVER] Contact data:", contactData)
 
-    const name = formData.get("name") as string
-    const email = formData.get("email") as string
-    const phone = formData.get("phone") as string
-    const company = formData.get("company") as string
-    const serviceType = formData.get("serviceType") as string
-    const message = formData.get("message") as string
+  // Always log the contact submission
+  console.log("[SERVER] 📧 NEW CONTACT SUBMISSION:")
+  console.log("[SERVER] Name:", contactData.name)
+  console.log("[SERVER] Email:", contactData.email)
+  console.log("[SERVER] Phone:", contactData.phone)
+  console.log("[SERVER] Company:", contactData.company)
+  console.log("[SERVER] Service:", contactData.service_type)
+  console.log("[SERVER] Message:", contactData.message)
 
-    console.log("Form data:", { name, email, company, serviceType })
+  let databaseSuccess = false
+  let emailSuccess = false
 
-    // Validate required fields
-    if (!name || !email || !message) {
-      return {
-        success: false,
-        message: "Name, email, and message are required",
-      }
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return {
-        success: false,
-        message: "Please enter a valid email address",
-      }
-    }
-
-    // Check if DATABASE_URL exists
-    if (!process.env.DATABASE_URL) {
-      console.error("DATABASE_URL not found")
-      return {
-        success: false,
-        message: "Database not configured. Please contact us directly at info@nuvaru.co.uk",
-      }
-    }
-
-    const sql = neon(process.env.DATABASE_URL)
-
-    // Insert into database
+  // Try to save to database
+  if (process.env.DATABASE_URL) {
     try {
-      const result = await sql`
+      console.log("[SERVER] Attempting to save to database...")
+      const sql = neon(process.env.DATABASE_URL)
+
+      // Wake up the database first
+      const isAwake = await wakeUpDatabase(sql)
+      if (!isAwake) {
+        throw new Error("Failed to wake up database after multiple attempts")
+      }
+
+      await sql`
         INSERT INTO contact_submissions (
-          name, 
-          email, 
-          phone, 
-          company, 
-          service_type, 
-          message,
-          ip_address, 
-          user_agent,
-          created_at
+          name, email, phone, company, service_type, message, status, created_at, updated_at
         ) VALUES (
-          ${name}, 
-          ${email}, 
-          ${phone || null}, 
-          ${company || null}, 
-          ${serviceType || "General Inquiry"}, 
-          ${message},
-          ${clientIP}, 
-          ${userAgent},
+          ${contactData.name},
+          ${contactData.email},
+          ${contactData.phone || ""},
+          ${contactData.company || ""},
+          ${contactData.service_type || ""},
+          ${contactData.message},
+          'new',
+          NOW(),
           NOW()
         )
-        RETURNING id
       `
-
-      console.log("✅ Contact stored in database successfully with ID:", result[0]?.id)
-    } catch (dbError) {
-      console.error("Database storage failed:", dbError)
-      return {
-        success: false,
-        message:
-          "Sorry, there was an error storing your message. Please try again or contact us directly at info@nuvaru.co.uk",
-      }
+      console.log("[SERVER] ✅ Contact saved to database successfully")
+      databaseSuccess = true
+    } catch (error) {
+      console.error("[SERVER] ❌ Database save failed:", error)
+      console.log("[SERVER] 💾 Contact logged to console for manual follow-up")
     }
-
-    // Try to send email notification (secondary - not critical)
-    if (process.env.RESEND_API_KEY) {
-      try {
-        const { data, error } = await resend.emails.send({
-          from: "onboarding@resend.dev",
-          to: ["info@nuvaru.co.uk"],
-          subject: `New Contact Form Submission from ${name}${company ? ` - ${company}` : ""}`,
-          html: `
-            <h2>New Contact Form Submission</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
-            <p><strong>Company:</strong> ${company || "Not provided"}</p>
-            <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-            <p><strong>Service Interest:</strong> ${serviceType || "General Inquiry"}</p>
-            <hr>
-            <h3>Message:</h3>
-            <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #007acc; border-radius: 4px;">
-              ${message.replace(/\n/g, "<br>")}
-            </div>
-            <hr>
-            <p><small>Submitted at: ${new Date().toLocaleString("en-GB", { timeZone: "Europe/London" })}</small></p>
-            <p><small>IP: ${clientIP}</small></p>
-            <p><small>User Agent: ${userAgent}</small></p>
-          `,
-          reply_to: email,
-        })
-
-        if (error) {
-          console.error("Resend error:", error)
-        } else {
-          console.log("✅ Email notification sent successfully:", data)
-        }
-      } catch (emailError) {
-        console.error("Email sending failed:", emailError)
-        // Don't fail the form submission if email fails
-      }
-    }
-
-    // Redirect to success page
-    redirect("/?success=true")
-  } catch (error) {
-    console.error("Contact form submission error:", error)
-    return {
-      success: false,
-      message:
-        "Sorry, there was an error submitting your enquiry. Please try again or contact us directly at info@nuvaru.co.uk",
-    }
+  } else {
+    console.log("[SERVER] ⚠️ No DATABASE_URL configured, contact logged to console")
   }
-}
 
-export async function submitConsultationForm(formData: FormData) {
-  return submitContactForm(formData)
+  // Try to send email notification
+  if (process.env.RESEND_API_KEY) {
+    try {
+      console.log("[SERVER] Attempting to send email notification...")
+
+      const baseUrl = process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : process.env.NODE_ENV === "development"
+          ? "http://localhost:3000"
+          : "https://nuvaru.com"
+
+      const response = await fetch(`${baseUrl}/api/send-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contactData),
+      })
+
+      if (response.ok) {
+        console.log("[SERVER] ✅ Email notification sent successfully")
+        emailSuccess = true
+      } else {
+        const errorData = await response.text()
+        console.error("[SERVER] ❌ Email send failed:", errorData)
+      }
+    } catch (error) {
+      console.error("[SERVER] ❌ Email send error:", error)
+    }
+  } else {
+    console.log("[SERVER] ⚠️ No RESEND_API_KEY configured, email not sent")
+  }
+
+  console.log("[SERVER] === SUBMISSION SUMMARY ===")
+  console.log("[SERVER] Database:", databaseSuccess ? "✅ Saved" : "❌ Failed")
+  console.log("[SERVER] Email:", emailSuccess ? "✅ Sent" : "❌ Failed")
+  console.log("[SERVER] Contact logged to console: ✅ Always")
+
+  return {
+    success: true,
+    message: "Thank you for your message! We'll get back to you soon.",
+    details: {
+      database: databaseSuccess,
+      email: emailSuccess,
+      logged: true,
+    },
+  }
 }

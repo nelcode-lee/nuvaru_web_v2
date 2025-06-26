@@ -5,22 +5,34 @@ export async function GET(request: NextRequest) {
   try {
     console.log("=== AUTH CHECK REQUEST ===")
 
-    const cookieStore = await cookies()
-    const sessionToken = cookieStore.get("admin-session")?.value
+    const cookieStore = cookies()
+    const sessionCookie = cookieStore.get("admin-session")
 
-    console.log("Session token exists:", !!sessionToken)
-    console.log("Session token value:", sessionToken)
+    console.log("Session cookie exists:", !!sessionCookie)
+    console.log("Session cookie value:", sessionCookie?.value)
 
-    // Simple session validation
-    if (sessionToken === "admin-authenticated") {
+    if (sessionCookie && sessionCookie.value === "authenticated") {
       console.log("✅ Authentication successful")
-      return NextResponse.json({ authenticated: true })
+      return NextResponse.json({
+        authenticated: true,
+        timestamp: new Date().toISOString(),
+      })
     } else {
       console.log("❌ Authentication failed")
-      return NextResponse.json({ authenticated: false }, { status: 401 })
+      return NextResponse.json({
+        authenticated: false,
+        timestamp: new Date().toISOString(),
+      })
     }
   } catch (error) {
     console.error("Auth check error:", error)
-    return NextResponse.json({ authenticated: false }, { status: 401 })
+    return NextResponse.json(
+      {
+        authenticated: false,
+        error: "Server error",
+        timestamp: new Date().toISOString(),
+      },
+      { status: 500 },
+    )
   }
 }

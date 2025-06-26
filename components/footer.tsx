@@ -1,123 +1,142 @@
+"use client"
+
 import Link from "next/link"
-import { Linkedin, Facebook, Music, Youtube } from "lucide-react"
+import Image from "next/image"
+import { MessageCircle, Mail, Phone, MapPin } from "lucide-react"
 
 export function Footer() {
+  const handleChatOpen = () => {
+    if (typeof window !== "undefined" && (window as any).openNuvaruChat) {
+      ;(window as any).openNuvaruChat()
+    }
+  }
+
   return (
-    <footer className="bg-gradient-to-br from-gray-900 to-violet-900 text-gray-300">
-      <div className="container mx-auto px-4 py-12 md:px-6">
-        <div className="grid gap-8 md:grid-cols-4">
+    <footer className="bg-gray-900 text-white">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Company Info */}
           <div className="space-y-4">
-            <h3 className="text-xl font-bold text-white">Nuvaru</h3>
-            <p className="text-gray-400">
-              Agentic AI transformation consultancy helping businesses leverage autonomous intelligent agents to drive
-              efficiency and optimise growth.
+            <div className="flex items-center">
+              <Image
+                src="/nuvaru-logo.png"
+                alt="Nuvaru Logo"
+                width={120}
+                height={50}
+                className="object-contain brightness-0 invert"
+              />
+            </div>
+            <p className="text-gray-300 text-sm">
+              Transform your business with agentic AI solutions. Custom AI development, process automation, and data
+              optimization services.
             </p>
             <div className="flex space-x-4">
-              <Link href="https://www.linkedin.com/in/lee-w-65413533b" className="hover:text-white">
-                <Linkedin size={20} />
-                <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link href="#" className="hover:text-white">
-                <Facebook size={20} />
-                <span className="sr-only">Facebook</span>
-              </Link>
-              <Link href="#" className="hover:text-white">
-                <Music size={20} />
-                <span className="sr-only">TikTok</span>
-              </Link>
-              <Link href="#" className="hover:text-white">
-                <Youtube size={20} />
-                <span className="sr-only">YouTube</span>
-              </Link>
+              <button
+                onClick={handleChatOpen}
+                className="flex items-center gap-2 text-brand-gold hover:text-brand-gold-dark transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span className="text-sm">Chat with AI</span>
+              </button>
             </div>
           </div>
 
-          <div>
-            <h3 className="mb-4 text-lg font-semibold text-white">Quick Links</h3>
-            <ul className="space-y-2">
+          {/* Services */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Services</h3>
+            <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/" className="hover:text-white">
-                  Home
+                <Link
+                  href="/services/website-development"
+                  className="text-gray-300 hover:text-brand-gold transition-colors"
+                >
+                  Website Development
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="hover:text-white">
-                  Services
+                <Link
+                  href="/services/web-app-development"
+                  className="text-gray-300 hover:text-brand-gold transition-colors"
+                >
+                  Web App Development
                 </Link>
               </li>
               <li>
-                <Link href="#case-studies" className="hover:text-white">
-                  Case Studies
+                <Link
+                  href="/services/custom-ai-solutions"
+                  className="text-gray-300 hover:text-brand-gold transition-colors"
+                >
+                  AI Solutions
                 </Link>
               </li>
               <li>
-                <Link href="#about" className="hover:text-white">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="#contact" className="hover:text-white">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <a href="#chat" className="hover:text-white">
-                  Chat with AI
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="mb-4 text-lg font-semibold text-white">Services</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="#" className="hover:text-white">
-                  AI Readiness Assessment
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white">
-                  Custom AI Solutions
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white">
+                <Link
+                  href="/services/process-automation"
+                  className="text-gray-300 hover:text-brand-gold transition-colors"
+                >
                   Process Automation
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white">
-                  Data Analysis
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white">
-                  AI Implementation
+                <Link
+                  href="/services/data-analysis-optimization"
+                  className="text-gray-300 hover:text-brand-gold transition-colors"
+                >
+                  Data Analytics
                 </Link>
               </li>
             </ul>
           </div>
 
-          <div>
-            <h3 className="mb-4 text-lg font-semibold text-white">Contact</h3>
-            <ul className="space-y-2">
-              <li>Hull, East Yorkshire, UK</li>
-              <li>info@nuvaru.co.uk</li>
+          {/* Company */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Company</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/#about" className="text-gray-300 hover:text-brand-gold transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link href="/case-studies" className="text-gray-300 hover:text-brand-gold transition-colors">
+                  Case Studies
+                </Link>
+              </li>
+              <li>
+                <Link href="/book-consultation" className="text-gray-300 hover:text-brand-gold transition-colors">
+                  Book Consultation
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy-policy" className="text-gray-300 hover:text-brand-gold transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Contact</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-center gap-2 text-gray-300">
+                <Mail className="w-4 h-4" />
+                <span>hello@nuvaru.co.uk</span>
+              </li>
+              <li className="flex items-center gap-2 text-gray-300">
+                <Phone className="w-4 h-4" />
+                <span>+44 (0) 20 7946 0958</span>
+              </li>
+              <li className="flex items-center gap-2 text-gray-300">
+                <MapPin className="w-4 h-4" />
+                <span>London, United Kingdom</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 border-t border-gray-800 pt-8 text-center text-sm">
-          <p>© {new Date().getFullYear()} Nuvaru. All rights reserved.</p>
-          <div className="mt-2 space-x-4">
-            <Link href="#" className="hover:text-white">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="hover:text-white">
-              Terms of Service
-            </Link>
-          </div>
+        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
+          <p className="text-gray-400 text-sm">© {new Date().getFullYear()} Nuvaru. All rights reserved.</p>
         </div>
       </div>
     </footer>

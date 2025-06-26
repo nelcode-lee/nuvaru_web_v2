@@ -1,18 +1,18 @@
-import { NextResponse } from "next/server"
+import { type NextRequest, NextResponse } from "next/server"
+import { cookies } from "next/headers"
 
-export async function POST() {
+export async function POST(request: NextRequest) {
   try {
     console.log("=== LOGOUT REQUEST ===")
 
-    const response = NextResponse.json({ success: true })
+    const cookieStore = cookies()
+    cookieStore.delete("admin-session")
 
-    // Clear authentication cookie
-    response.cookies.delete("admin-session")
+    console.log("Session cookie deleted")
 
-    console.log("✅ Logout successful")
-    return response
+    return NextResponse.json({ success: true })
   } catch (error) {
     console.error("Logout error:", error)
-    return NextResponse.json({ error: "Logout failed" }, { status: 500 })
+    return NextResponse.json({ success: false, error: "Server error" }, { status: 500 })
   }
 }

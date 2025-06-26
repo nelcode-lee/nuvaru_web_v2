@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "latest",
-    "@headlessui/react": "latest",
-    "@heroicons/react": "latest",
     "@hookform/resolvers": "^3.9.1",
     "@neondatabase/serverless": "latest",
     "@next/third-parties": "latest",

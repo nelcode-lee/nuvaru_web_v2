@@ -1,165 +1,365 @@
 "use client"
 
-import { Fragment, useState } from "react"
-import { Disclosure, Menu, Transition } from "@headlessui/react"
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline"
+import { useState, useRef, useEffect } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { Menu, X, ChevronDown, User, MessageCircle } from "lucide-react"
 
-const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "About", href: "#about", current: false },
-  { name: "Services", href: "#services", current: false },
-  { name: "Contact", href: "#contact", current: false },
-]
+export function Navbar() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const servicesRef = useRef<HTMLDivElement>(null)
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ")
-}
+  // Check login status on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await fetch("/api/auth/check")
+        const data = await response.json()
+        setIsLoggedIn(data.authenticated)
+      } catch (error) {
+        setIsLoggedIn(false)
+      }
+    }
+    checkAuth()
+  }, [])
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  const handleSectionScroll = (sectionId: string) => {
+    // First navigate to home page if not already there
+    if (window.location.pathname !== "/") {
+      window.location.href = `/#${sectionId}`
+      return
+    }
+
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" })
+    }
+    setIsMenuOpen(false)
+    setIsServicesOpen(false)
+  }
+
+  const handleChatOpen = () => {
+    // Trigger chat opening
+    if (typeof window !== "undefined" && (window as any).openNuvaruChat) {
+      ;(window as any).openNuvaruChat()
+    }
+    setIsMenuOpen(false)
+  }
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" })
+      setIsLoggedIn(false)
+      window.location.href = "/"
+    } catch (error) {
+      console.error("Logout failed:", error)
+    }
+  }
+
+  // Close services dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (servicesRef.current && !servicesRef.current.contains(event.target as Node)) {
+        setIsServicesOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
+  const servicesItems = [
+    {
+      title: "View All Services",
+      href: "/services",
+      isSection: false,
+    },
+    {
+      title: "Website Development",
+      href: "/services/website-development",
+      isSection: false,
+    },
+    {
+      title: "Web Portal Development",
+      href: "/services/web-portal-development",
+      isSection: false,
+    },
+    {
+      title: "Web App Development",
+      href: "/services/web-app-development",
+      isSection: false,
+    },
+    {
+      title: "AI Readiness Assessment",
+      href: "/services/ai-readiness-assessment",
+      isSection: false,
+    },
+    {
+      title: "AI Solution Development",
+      href: "/services/custom-ai-solutions",
+      isSection: false,
+    },
+    {
+      title: "Process Automation",
+      href: "/services/process-automation",
+      isSection: false,
+    },
+    {
+      title: "Data Analytics",
+      href: "/services/data-analysis-optimization",
+      isSection: false,
+    },
+    {
+      title: "GDPR Compliance Solutions",
+      href: "/services/gdpr-compliance-solutions",
+      isSection: false,
+    },
+    {
+      title: "AI Implementation & Training",
+      href: "/services/ai-implementation-training",
+      isSection: false,
+    },
+  ]
 
   return (
-    <Disclosure as="nav" className="bg-white shadow">
-      {({ open }) => (
-        <>
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex h-16 justify-between">
-              <div className="flex">
-                <div className="flex shrink-0 items-center">
-                  <img
-                    className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Your Company"
-                  />
-                  <img
-                    className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Your Company"
-                  />
-                </div>
-                <div className="hidden sm:ml-6 sm:flex sm:items-center">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? "bg-gray-100 text-gray-900" : "text-gray-700 hover:text-brand-gold",
-                          "px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                    <a
-                      href="#chat"
-                      className="text-gray-700 hover:text-brand-gold px-3 py-2 rounded-md text-sm font-medium transition-colors"
-                    >
-                      Chat with AI
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div className="hidden sm:ml-6 sm:flex items-center">
-                {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3">
-                  <div>
-                    <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099173936-5203891eb81f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-200"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}
-                          >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? "bg-gray-100" : "", "block px-4 py-2 text-sm text-gray-700")}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
-              </div>
-              <div className="-mr-2 flex items-center sm:hidden">
-                {/* Mobile menu button */}
-                <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                  <span className="sr-only">Open main menu</span>
-                  {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </Disclosure.Button>
-              </div>
+    <header className="sticky top-0 z-50 w-full border-b bg-white shadow-sm">
+      <div className="container mx-auto flex h-28 items-center justify-between px-4 md:px-6">
+        <div className="flex items-center justify-center">
+          <Link href="/" className="flex items-center">
+            <div className="relative h-16 w-40 flex items-center justify-start">
+              <Image
+                src="/nuvaru-logo.png"
+                alt="Nuvaru Logo"
+                width={154}
+                height={64}
+                className="object-contain"
+                priority
+              />
             </div>
+          </Link>
+        </div>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6">
+          <Link href="/" className="text-sm font-medium hover:text-brand-gold transition-colors">
+            Home
+          </Link>
+
+          {/* Services Dropdown */}
+          <div className="relative" ref={servicesRef}>
+            <button
+              onClick={() => setIsServicesOpen(!isServicesOpen)}
+              className="flex items-center text-sm font-medium hover:text-brand-gold transition-colors"
+            >
+              Services
+              <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
+            </button>
+
+            {isServicesOpen && (
+              <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+                <div className="py-2">
+                  {servicesItems.map((item, index) => (
+                    <div key={index}>
+                      {item.isSection ? (
+                        <button
+                          onClick={() => handleSectionScroll(item.sectionId!)}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-gold transition-colors"
+                        >
+                          {item.title}
+                        </button>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-gold transition-colors"
+                          onClick={() => setIsServicesOpen(false)}
+                        >
+                          {item.title}
+                        </Link>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pt-2 pb-3">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? "bg-gray-900 text-white" : "text-gray-700 hover:bg-gray-700 hover:text-white",
-                    "block px-3 py-2 rounded-md text-base font-medium",
-                  )}
-                  aria-current={item.current ? "page" : undefined}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-              <a
-                href="#chat"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-gold hover:bg-gray-50 rounded-md"
-                onClick={() => setIsOpen(false)}
+          <Link href="/case-studies" className="text-sm font-medium hover:text-brand-gold transition-colors">
+            Case Studies
+          </Link>
+          <button
+            onClick={() => handleSectionScroll("about")}
+            className="text-sm font-medium hover:text-brand-gold transition-colors"
+          >
+            About
+          </button>
+          <button
+            onClick={() => handleSectionScroll("contact")}
+            className="text-sm font-medium hover:text-brand-gold transition-colors"
+          >
+            Contact
+          </button>
+          <button
+            onClick={handleChatOpen}
+            className="flex items-center text-sm font-medium hover:text-brand-gold transition-colors"
+          >
+            <MessageCircle className="w-4 h-4 mr-1" />
+            Chat with AI
+          </button>
+        </nav>
+
+        <div className="hidden md:flex items-center gap-4">
+          {isLoggedIn ? (
+            <div className="flex items-center gap-2">
+              <Link
+                href="/admin/contacts"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white h-10 px-4 py-2"
               >
-                Chat with AI
-              </a>
+                <User className="w-4 h-4 mr-2" />
+                Admin
+              </Link>
+              <button
+                onClick={handleLogout}
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 text-gray-700 hover:bg-gray-50 h-10 px-4 py-2"
+              >
+                Logout
+              </button>
             </div>
-          </Disclosure.Panel>
-        </>
+          ) : (
+            <Link
+              href="/admin/login"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white h-10 px-4 py-2"
+            >
+              <User className="w-4 h-4 mr-2" />
+              Login
+            </Link>
+          )}
+
+          <Link
+            href="/book-consultation"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-brand-gold hover:bg-brand-gold-dark text-white h-10 px-4 py-2"
+          >
+            Book a Consultation
+          </Link>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button className="md:hidden p-2 rounded-md" onClick={toggleMenu}>
+          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white border-b shadow-sm">
+          <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+            <Link
+              href="/"
+              className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+
+            {/* Mobile Services Section */}
+            <div className="border-l-2 border-gray-200 pl-4">
+              <div className="text-sm font-medium py-2 text-gray-900 mb-2">Services</div>
+              {servicesItems.map((item, index) => (
+                <div key={index}>
+                  {item.isSection ? (
+                    <button
+                      onClick={() => handleSectionScroll(item.sectionId!)}
+                      className="block w-full text-left text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
+                    >
+                      {item.title}
+                    </button>
+                  ) : (
+                    <Link
+                      href={item.href}
+                      className="block text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/case-studies"
+              className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Case Studies
+            </Link>
+            <button
+              onClick={() => handleSectionScroll("about")}
+              className="block w-full text-left text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+            >
+              About
+            </button>
+            <button
+              onClick={() => handleSectionScroll("contact")}
+              className="block w-full text-left text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+            >
+              Contact
+            </button>
+            <button
+              onClick={handleChatOpen}
+              className="flex items-center text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+            >
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Chat with AI
+            </button>
+
+            {/* Mobile Admin/Login */}
+            {isLoggedIn ? (
+              <div className="border-t pt-4 mt-4">
+                <Link
+                  href="/admin/contacts"
+                  className="block text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Admin Panel
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout()
+                    setIsMenuOpen(false)
+                  }}
+                  className="block w-full text-left text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/admin/login"
+                className="text-sm font-medium py-2 hover:text-brand-gold transition-colors border-t pt-4 mt-4"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Admin Login
+              </Link>
+            )}
+
+            <Link
+              href="/book-consultation"
+              className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-brand-gold hover:bg-brand-gold-dark text-white h-10 px-4 py-2 mt-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Book a Consultation
+            </Link>
+          </div>
+        </div>
       )}
-    </Disclosure>
+    </header>
   )
 }
