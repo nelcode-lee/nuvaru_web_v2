@@ -375,12 +375,20 @@ export function WebsiteOptimizationSection() {
             search rankings.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white text-lg py-6 px-8">
+            <Button
+              className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white text-lg py-6 px-8"
+              onClick={() => {
+                const contactSection = document.getElementById("contact")
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: "smooth" })
+                }
+              }}
+            >
               Get Free Website Audit
             </Button>
             <Button
               variant="outline"
-              className="border-brand-purple text-brand-purple hover:bg-violet-50 text-lg py-6 px-8"
+              className="border-brand-purple text-brand-purple hover:bg-violet-50 text-lg py-6 px-8 bg-transparent"
             >
               View Our Portfolio <ArrowRight className="ml-2 h-5 w-5" />
             </Button>

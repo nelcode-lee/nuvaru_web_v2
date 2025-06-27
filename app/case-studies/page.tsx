@@ -145,7 +145,7 @@ export default function CaseStudiesPage() {
         costSavings: "£50k",
         reportingEfficiency: "95%",
       },
-      secondaryImage: "/uk-compliance-interface.png",
+      secondaryImage: "/ecohaulage-dashboard-interface.png",
     },
   ]
 
@@ -387,7 +387,10 @@ export default function CaseStudiesPage() {
                   costs and improve efficiency.
                 </p>
                 <Link href="#transport-manager">
-                  <Button variant="outline" className="w-full border-brand-blue text-brand-blue hover:bg-blue-50">
+                  <Button
+                    variant="outline"
+                    className="w-full border-brand-blue text-brand-blue hover:bg-blue-50 bg-transparent"
+                  >
                     View Logistics Case Studies
                   </Button>
                 </Link>
@@ -405,7 +408,10 @@ export default function CaseStudiesPage() {
                   customer satisfaction.
                 </p>
                 <Link href="#customer-service-agent">
-                  <Button variant="outline" className="w-full border-brand-purple text-brand-purple hover:bg-violet-50">
+                  <Button
+                    variant="outline"
+                    className="w-full border-brand-purple text-brand-purple hover:bg-violet-50 bg-transparent"
+                  >
                     View Customer Service Case Studies
                   </Button>
                 </Link>
@@ -423,7 +429,10 @@ export default function CaseStudiesPage() {
                   while reducing environmental impact and costs.
                 </p>
                 <Link href="#sustainability-compliance">
-                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
+                  <Button
+                    variant="outline"
+                    className="w-full border-green-600 text-green-600 hover:bg-green-50 bg-transparent"
+                  >
                     View Sustainability Case Studies
                   </Button>
                 </Link>
