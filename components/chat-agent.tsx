@@ -60,7 +60,7 @@ export function ChatAgent({ onClose }: ChatAgentProps) {
     setIsLoading(true)
 
     try {
-      const response = await fetch("/api/chat-agent", {
+      const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

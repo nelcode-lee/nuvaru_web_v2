@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
   try {
     console.log("=== AUTH CHECK REQUEST ===")
 
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const sessionCookie = cookieStore.get("admin-session")
 
     console.log("Session cookie exists:", !!sessionCookie)
