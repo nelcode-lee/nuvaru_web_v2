@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, ChevronDown, User, MessageCircle } from "lucide-react"
+import { Menu, X, ChevronDown, User } from "lucide-react"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -42,14 +42,6 @@ export function Navbar() {
     }
     setIsMenuOpen(false)
     setIsServicesOpen(false)
-  }
-
-  const handleChatOpen = () => {
-    // Trigger chat opening
-    if (typeof window !== "undefined" && (window as any).openNuvaruChat) {
-      ;(window as any).openNuvaruChat()
-    }
-    setIsMenuOpen(false)
   }
 
   const handleLogout = async () => {
@@ -200,19 +192,9 @@ export function Navbar() {
           >
             About
           </button>
-          <button
-            onClick={() => handleSectionScroll("contact")}
-            className="text-sm font-medium hover:text-brand-gold transition-colors"
-          >
+          <Link href="/contact" className="text-sm font-medium hover:text-brand-gold transition-colors">
             Contact
-          </button>
-          <button
-            onClick={handleChatOpen}
-            className="flex items-center text-sm font-medium hover:text-brand-gold transition-colors"
-          >
-            <MessageCircle className="w-4 h-4 mr-1" />
-            Chat with AI
-          </button>
+          </Link>
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
@@ -306,19 +288,13 @@ export function Navbar() {
             >
               About
             </button>
-            <button
-              onClick={() => handleSectionScroll("contact")}
-              className="block w-full text-left text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+            <Link
+              href="/contact"
+              className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+              onClick={() => setIsMenuOpen(false)}
             >
               Contact
-            </button>
-            <button
-              onClick={handleChatOpen}
-              className="flex items-center text-sm font-medium py-2 hover:text-brand-gold transition-colors"
-            >
-              <MessageCircle className="w-4 h-4 mr-2" />
-              Chat with AI
-            </button>
+            </Link>
 
             {/* Mobile Admin/Login */}
             {isLoggedIn ? (

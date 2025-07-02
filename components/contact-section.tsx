@@ -18,7 +18,7 @@ export function ContactSection() {
         <div className="mb-16 text-center">
           <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">Get in Touch</h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-500">
-            Ready to explore how AI can transform your business? Contact us today.
+            Ready to explore how Web, AI and Automation can transform your business? Contact us today.
           </p>
         </div>
 

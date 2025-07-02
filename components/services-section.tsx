@@ -61,7 +61,7 @@ export function ServicesSection() {
     <section id="services" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">Our Services</h2>
+          <h2 className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl">Our AI and Automations Services</h2>
           <p className="mx-auto max-w-3xl text-lg text-gray-600">
             Comprehensive AI solutions designed to transform your business operations and drive measurable results.
           </p>
