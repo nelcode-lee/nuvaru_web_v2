@@ -112,11 +112,11 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-brand-gold" />
-                <span className="text-gray-300">hello@nuvaru.co.uk</span>
+                <span className="text-gray-300">info@nuvaru.co.uk</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-brand-gold" />
-                <span className="text-gray-300">+44 (0) 123 456 7890</span>
+                <span className="text-gray-300">07741 654145</span>
               </li>
               <li className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-brand-gold mt-1" />

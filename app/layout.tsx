@@ -9,6 +9,7 @@ import { GoogleTag } from "@/components/google-tag"
 import { OrganizationStructuredData } from "@/components/structured-data"
 import { ChatButton } from "@/components/chat-button"
 import { Suspense } from "react"
+import Head from "next/head"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -93,9 +94,92 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <GoogleTag />
-      </head>
+      <Head>
+        <title>Nuvaru | AI, Web & Automation Solutions</title>
+        <meta name="description" content="Nuvaru helps UK businesses grow with AI, web development, and automation. Get a free website audit and discover how we can improve your performance, conversions, and SEO." />
+        <meta property="og:title" content="Nuvaru | AI, Web & Automation Solutions" />
+        <meta property="og:description" content="Nuvaru helps UK businesses grow with AI, web development, and automation." />
+        <meta property="og:image" content="/ai-logo.png" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.nuvaru.co.uk" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "Nuvaru",
+          "url": "https://www.nuvaru.co.uk",
+          "logo": "/ai-logo.png",
+          "description": "Nuvaru helps UK businesses grow with AI, web development, and automation.",
+          "sameAs": [
+            "https://www.linkedin.com/company/nuvaru/",
+            "https://twitter.com/nuvaru",
+            "https://facebook.com/nuvaru",
+            "https://instagram.com/nuvaru",
+            "https://youtube.com/@nuvaru"
+          ],
+          "contactPoint": [{
+            "@type": "ContactPoint",
+            "telephone": "+447741654145",
+            "contactType": "customer support",
+            "areaServed": "GB",
+            "availableLanguage": ["English"]
+          }]
+        }) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "AI, Web & Automation Solutions",
+          "provider": {
+            "@type": "Organization",
+            "name": "Nuvaru",
+            "url": "https://www.nuvaru.co.uk"
+          },
+          "areaServed": "GB",
+          "description": "Custom AI development, process automation, data analysis, and web development for UK businesses.",
+          "offers": {
+            "@type": "Offer",
+            "price": "Contact for quote",
+            "priceCurrency": "GBP"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Nuvaru Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Custom AI Solutions",
+                  "description": "Tailored AI agents and automation for your business."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Web Development",
+                  "description": "Modern, responsive websites built with React and Next.js."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Process Automation",
+                  "description": "Automate repetitive business processes to save time and money."
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Data Analysis & Optimization",
+                  "description": "Unlock insights and optimize your business with data-driven solutions."
+                }
+              }
+            ]
+          }
+        }) }} />
+      </Head>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Suspense fallback={null}>

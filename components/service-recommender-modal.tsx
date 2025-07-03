@@ -104,7 +104,7 @@ export function ServiceRecommenderModal({ open, onClose }: ServiceRecommenderMod
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-8 relative">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-4 sm:p-8 relative max-h-[90vh] overflow-y-auto">
         <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-600" onClick={onClose}>&times;</button>
         <h2 className="text-2xl font-bold mb-6 text-brand-purple">Personalised Service Recommender</h2>
         {/* Progress Bar */}
@@ -154,7 +154,7 @@ export function ServiceRecommenderModal({ open, onClose }: ServiceRecommenderMod
           <div className={`transition-all duration-300 ${animating ? 'opacity-0 translate-x-8 pointer-events-none' : 'opacity-100 translate-x-0'}`}>
             <div className="mb-6">
               <div className="text-lg font-medium mb-4">{current.label}</div>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 max-h-60 overflow-y-auto">
                 {current.options.map((option) => (
                   <button
                     key={option}

@@ -15,8 +15,18 @@ import {
   Palette,
   Globe,
 } from "lucide-react"
+import { useState } from "react"
+import dynamic from "next/dynamic"
+
+const MobileEcoDashboard = dynamic(() => import('@/components/mobile-eco-dashboard'), { ssr: false, loading: () => <div>Loading...</div> })
 
 export function WebsiteOptimizationSection() {
+  const [auditModalOpen, setAuditModalOpen] = useState(false)
+  const [url, setUrl] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [result, setResult] = useState<{ rating: number; improvements: string[] } | null>(null)
+  const [error, setError] = useState<string | null>(null)
+
   const painPoints = [
     {
       icon: <Clock className="h-8 w-8 text-red-500" />,
@@ -377,22 +387,83 @@ export function WebsiteOptimizationSection() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Button
               className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white text-lg py-6 px-8"
-              onClick={() => {
-                const contactSection = document.getElementById("contact")
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: "smooth" })
-                }
-              }}
+              onClick={() => setAuditModalOpen(true)}
             >
               Get Free Website Audit
             </Button>
-            <Button
-              variant="outline"
-              className="border-brand-purple text-brand-purple hover:bg-violet-50 text-lg py-6 px-8 bg-transparent"
-            >
-              View Our Portfolio <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
           </div>
+          {/* Audit Modal (full logic) */}
+          {auditModalOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+              <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative">
+                <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-600" onClick={() => {
+                  setAuditModalOpen(false)
+                  setUrl("")
+                  setResult(null)
+                  setError(null)
+                  setLoading(false)
+                }}>&times;</button>
+                <h2 className="text-2xl font-bold mb-4 text-brand-purple">Free Website Audit</h2>
+                <p className="mb-4 text-gray-700">Enter your website URL and get a free AI-powered audit with 4 improvement suggestions.</p>
+                {result ? (
+                  <div className="space-y-4">
+                    <div className="text-center">
+                      <div className="text-4xl font-bold text-brand-purple mb-2">{result.rating}/10</div>
+                      <div className="text-gray-600 mb-4">Website Rating</div>
+                    </div>
+                    <ul className="list-disc pl-6 text-gray-800 space-y-2">
+                      {result.improvements.map((imp, i) => (
+                        <li key={i}>{imp}</li>
+                      ))}
+                    </ul>
+                    <Button className="w-full mt-4" onClick={() => {
+                      setResult(null)
+                      setUrl("")
+                      setError(null)
+                    }}>Audit Another Website</Button>
+                  </div>
+                ) : (
+                  <form
+                    className="flex flex-col gap-4"
+                    onSubmit={async (e) => {
+                      e.preventDefault()
+                      setLoading(true)
+                      setError(null)
+                      setResult(null)
+                      try {
+                        const res = await fetch("/api/website-audit", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ url }),
+                        })
+                        const data = await res.json()
+                        if (!res.ok) throw new Error(data.error || "Unknown error")
+                        setResult({ rating: data.rating, improvements: data.improvements })
+                      } catch (err: any) {
+                        setError(err.message || "Something went wrong.")
+                      } finally {
+                        setLoading(false)
+                      }
+                    }}
+                  >
+                    <input
+                      type="url"
+                      placeholder="https://yourwebsite.com"
+                      className="border rounded px-4 py-2"
+                      required
+                      value={url}
+                      onChange={e => setUrl(e.target.value)}
+                      disabled={loading}
+                    />
+                    <Button type="submit" className="bg-gradient-to-r from-blue-600 to-violet-600 text-white" disabled={loading}>
+                      {loading ? "Auditing..." : "Get Audit"}
+                    </Button>
+                    {error && <div className="text-red-600 text-sm text-center">{error}</div>}
+                  </form>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
