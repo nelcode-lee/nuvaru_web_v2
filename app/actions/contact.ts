@@ -48,9 +48,9 @@ export async function submitContactForm(prevState: any, formData: FormData) {
 
         await sql`
           INSERT INTO contact_submissions (
-            name, email, phone, company, service_type, challenge, source, created_at
+            name, email, phone, company, service_type, message, source, status, created_at
           ) VALUES (
-            ${name}, ${email}, ${phone}, ${company}, ${serviceType}, ${challenge}, ${source}, NOW()
+            ${name}, ${email}, ${phone}, ${company}, ${serviceType}, ${challenge}, ${source}, 'new', NOW()
           )
         `
 

@@ -10,6 +10,7 @@ CREATE TABLE contact_submissions (
   phone VARCHAR(50),
   service_type VARCHAR(100),
   message TEXT NOT NULL,
+  source VARCHAR(100),
   status VARCHAR(50) DEFAULT 'new',
   notes TEXT,
   ip_address INET,

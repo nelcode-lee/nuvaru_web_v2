@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     console.log("=== ADMIN CONTACTS REQUEST ===")
 
     // Check authentication
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const sessionCookie = cookieStore.get("admin-session")
 
     console.log("Session cookie exists:", !!sessionCookie)
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     const sql = neon(databaseUrl)
 
     // Try to fetch contacts with retry logic for sleeping database
-    let contacts = []
+    let contacts: any[] = []
     let retries = 3
 
     while (retries > 0) {
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
         console.log(`Attempting to fetch contacts (${4 - retries}/3)...`)
 
         contacts = await sql`
-          SELECT id, name, email, company, message, created_at 
+          SELECT id, name, email, company, phone, message, created_at 
           FROM contact_submissions 
           ORDER BY created_at DESC
         `
@@ -69,6 +69,69 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ contacts })
   } catch (error: any) {
     console.error("Admin contacts error:", error)
+    return NextResponse.json(
+      {
+        error: "Server error",
+        details: error.message,
+      },
+      { status: 500 },
+    )
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  try {
+    console.log("=== ADMIN CONTACT UPDATE REQUEST ===")
+
+    // Check authentication
+    const cookieStore = await cookies()
+    const sessionCookie = cookieStore.get("admin-session")
+
+    if (!sessionCookie || sessionCookie.value !== "authenticated") {
+      console.log("❌ Unauthorized access attempt")
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    console.log("✅ Authentication successful")
+
+    // Get request body
+    const body = await request.json()
+    const { id, status, notes } = body
+
+    if (!id || !status) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    // Get database connection
+    const databaseUrl = process.env.DATABASE_URL
+    if (!databaseUrl) {
+      console.log("❌ No database URL configured")
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 })
+    }
+
+    const sql = neon(databaseUrl)
+
+    // Update contact in database
+    const result = await sql`
+      UPDATE contact_submissions 
+      SET status = ${status}, notes = ${notes || ""}, updated_at = NOW()
+      WHERE id = ${id}
+      RETURNING id, name, email, status, notes
+    `
+
+    if (result.length === 0) {
+      return NextResponse.json({ error: "Contact not found" }, { status: 404 })
+    }
+
+    console.log("✅ Contact updated successfully:", result[0])
+
+    return NextResponse.json({ 
+      success: true, 
+      contact: result[0] 
+    })
+
+  } catch (error: any) {
+    console.error("Admin contact update error:", error)
     return NextResponse.json(
       {
         error: "Server error",
