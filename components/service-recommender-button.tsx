@@ -1,7 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { ServiceRecommenderModal } from "./service-recommender-modal"
+import dynamic from "next/dynamic"
+
+const ServiceRecommenderModal = dynamic(() => import("./service-recommender-modal").then(mod => ({ default: mod.ServiceRecommenderModal })), {
+  ssr: false,
+  loading: () => null
+})
 
 interface ServiceRecommenderButtonProps {
   className?: string

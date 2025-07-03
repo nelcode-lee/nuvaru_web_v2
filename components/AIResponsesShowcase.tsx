@@ -142,14 +142,14 @@ export function AIResponsesShowcase() {
                 I can help you identify more opportunities like these in your business. Would you like me to analyze
                 your specific data and processes?
               </p>
-              <div className="mt-3 flex gap-2 animate-fade-in" style={{ animationDelay: "1s" }}>
-                <button className="px-3 py-1.5 bg-gradient-brand text-white text-sm rounded-md hover:opacity-90 transition-opacity">
-                  Request Analysis
-                </button>
-                <button className="px-3 py-1.5 border border-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-50 transition-colors">
-                  Learn More
-                </button>
-              </div>
+                              <div className="mt-3 flex gap-2 animate-fade-in" style={{ animationDelay: "1s" }}>
+                  <button className="px-3 py-1.5 bg-gradient-brand text-white text-sm rounded-md hover:opacity-90 transition-opacity">
+                    Request Analysis
+                  </button>
+                  <button className="px-3 py-1.5 border border-gray-300 text-gray-700 text-sm rounded-md hover:bg-gray-50 transition-colors">
+                    See AI Analysis Features
+                  </button>
+                </div>
             </div>
           </div>
         )}

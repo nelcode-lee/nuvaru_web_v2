@@ -91,7 +91,7 @@ export function ServicesSection() {
                   href={service.link}
                   className="inline-flex items-center text-purple-600 hover:text-purple-700 font-medium group"
                 >
-                  Learn more
+                  Discover {service.title.toLowerCase()}
                   <svg
                     className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
                     fill="none"
@@ -143,7 +143,7 @@ export function ServicesSection() {
                     convert visitors into customers.
                   </p>
                   <div className="flex items-center text-brand-purple font-medium group-hover:translate-x-1 transition-transform">
-                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                    Explore web design services <ChevronRight className="ml-1 h-4 w-4" />
                   </div>
                 </div>
               </div>
@@ -179,7 +179,7 @@ export function ServicesSection() {
                     authentication and role-based permissions.
                   </p>
                   <div className="flex items-center text-brand-purple font-medium group-hover:translate-x-1 transition-transform">
-                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                    Explore web portal solutions <ChevronRight className="ml-1 h-4 w-4" />
                   </div>
                 </div>
               </div>
@@ -215,7 +215,7 @@ export function ServicesSection() {
                     experiences through the browser.
                   </p>
                   <div className="flex items-center text-brand-purple font-medium group-hover:translate-x-1 transition-transform">
-                    Learn more <ChevronRight className="ml-1 h-4 w-4" />
+                    Explore web app development <ChevronRight className="ml-1 h-4 w-4" />
                   </div>
                 </div>
               </div>

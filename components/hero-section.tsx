@@ -1,6 +1,11 @@
-import { AIResponsesShowcase } from "./ai-responses-showcase"
+import dynamic from "next/dynamic"
 import Link from "next/link"
 import { ServiceRecommenderButton } from "./service-recommender-button"
+
+const AIResponsesShowcase = dynamic(() => import("./ai-responses-showcase").then(mod => ({ default: mod.AIResponsesShowcase })), {
+  ssr: false,
+  loading: () => <div className="bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-100 h-[450px] animate-pulse" />
+})
 
 export function HeroSection() {
   return (

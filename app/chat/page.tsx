@@ -1,7 +1,12 @@
 import type { Metadata } from "next"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { ChatInterface } from "@/components/chat-interface"
+import dynamic from "next/dynamic"
+
+const ChatInterface = dynamic(() => import("@/components/chat-interface").then(mod => ({ default: mod.ChatInterface })), {
+  ssr: false,
+  loading: () => <div className="bg-white rounded-lg shadow-lg p-6 h-96 animate-pulse" />
+})
 
 export const metadata: Metadata = {
   title: "AI Assistant | Nuvaru - AI Transformation Consultancy",
