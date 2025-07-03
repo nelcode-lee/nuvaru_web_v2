@@ -6,6 +6,8 @@ import { ServicesSection } from "@/components/services-section"
 import { CaseStudiesSection } from "@/components/case-studies-section"
 import { ContactSection } from "@/components/contact-section"
 import { PageSEO } from "@/components/page-seo"
+import { Navbar } from "@/components/navbar"
+import { Footer } from "@/components/footer"
 
 export const metadata: Metadata = {
   title: "Our Services | Nuvaru - AI & Automation Solutions",
@@ -16,16 +18,17 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <>
+      <Navbar />
       <PageSEO 
         title="Our Services | Nuvaru - AI & Automation Solutions"
         description="Discover Nuvaru's comprehensive AI and automation services. From AI readiness assessments to custom development, GDPR compliance, and process automation."
-        keywords="AI services, automation, AI readiness, custom AI development, GDPR compliance, process automation, web development"
+        keywords={["AI services", "automation", "AI readiness", "custom AI development", "GDPR compliance", "process automation", "web development"]}
       />
       
       {/* Hero Section */}
       <section className="relative bg-gradient-brand py-20 md:py-24">
         <div className="absolute inset-0 z-0 opacity-15">
-          <Image src="/network-pattern.png" alt="" fill className="object-cover" priority />
+          <Image src="/network-pattern.webp" alt="" fill className="object-cover" priority />
         </div>
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
@@ -51,6 +54,7 @@ export default function ServicesPage() {
       <ServicesSection />
       <CaseStudiesSection />
       <ContactSection />
+      <Footer />
     </>
   )
 }
