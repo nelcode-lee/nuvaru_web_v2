@@ -141,7 +141,7 @@ export default function CTOServicesPage() {
       <section className="relative bg-gradient-brand py-24 md:py-32 lg:py-40">
         {/* Network pattern overlay */}
         <div className="absolute inset-0 z-0 opacity-15">
-          <Image src="/network-pattern.png" alt="" fill className="object-cover" priority={false} />
+          <Image src="/network-pattern.webp" alt="Network pattern background" fill className="object-cover" priority={false} />
         </div>
 
         <div className="container relative z-10 mx-auto px-4 md:px-6">
@@ -168,11 +168,12 @@ export default function CTOServicesPage() {
               <div className="relative">
                 <div className="relative rounded-xl overflow-hidden shadow-2xl bg-blue-900/50">
                   <Image
-                    src="/puzzle-pieces.png"
+                    src="/puzzle-pieces.webp"
                     alt="AI, Logistics, Technology, and Data Integration"
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -300,11 +301,12 @@ export default function CTOServicesPage() {
               <div className="relative">
                 <div className="relative rounded-xl overflow-hidden shadow-xl">
                   <Image
-                    src="/timber-transport-truck.png"
+                    src="/timber-transport-truck.webp"
                     alt="UK Haulage Operation"
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
+                    loading="lazy"
                   />
                 </div>
               </div>

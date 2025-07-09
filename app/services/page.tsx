@@ -28,7 +28,7 @@ export default function ServicesPage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-brand py-20 md:py-24">
         <div className="absolute inset-0 z-0 opacity-15">
-          <Image src="/network-pattern.webp" alt="" fill className="object-cover" priority />
+          <Image src="/network-pattern.webp" alt="Network pattern background" fill className="object-cover" priority />
         </div>
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">

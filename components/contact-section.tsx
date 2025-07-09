@@ -75,7 +75,7 @@ export function ContactSection() {
                 </div>
               </div>
 
-              <div className="flex-grow rounded-lg overflow-hidden h-[400px] md:h-[450px]">
+              <div className="flex-grow rounded-lg overflow-hidden h-[300px] md:h-[400px] lg:h-[450px]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37385.66849250732!2d-0.3697365!3d53.7456709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4878bf4a1dbd7b93%3A0x4853184b9e920d98!2sHull!5e0!3m2!1sen!2suk!4v1651234567890!5m2!1sen!2suk"
                   width="100%"
@@ -214,9 +214,9 @@ export function ContactSection() {
               <Button
                 type="submit"
                 disabled={isPending}
-                className="w-full bg-gradient-brand hover:bg-brand-purple-dark"
+                className="w-full bg-gradient-brand hover:bg-brand-purple-dark text-lg py-4 font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                {isPending ? "Submitting..." : "Submit Enquiry"}
+                {isPending ? "Submitting..." : "Get Your Free Consultation →"}
               </Button>
             </form>
             {state && (

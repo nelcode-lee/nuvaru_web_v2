@@ -178,14 +178,15 @@ export default function DataAnalysisOptimizationPage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-brand py-20 md:py-24">
         <div className="absolute inset-0 z-0 opacity-15">
-          <Image src="/network-pattern.png" alt="" fill className="object-cover" priority />
+          <Image src="/network-pattern.webp" alt="Network pattern background" fill className="object-cover" priority />
         </div>
         <div className="absolute right-0 bottom-0 w-1/3 h-2/3 z-0 opacity-80 hidden lg:block">
           <Image
-            src="/analysis.jpg"
+            src="/analysis.webp"
             alt="Data analysis dashboard with visualizations and analytics metrics"
             fill
             className="object-contain object-right-bottom"
+            loading="lazy"
           />
         </div>
         <div className="container relative z-10 mx-auto px-4 md:px-6">
@@ -311,11 +312,12 @@ export default function DataAnalysisOptimizationPage() {
               <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 to-cyan-700 rounded-xl opacity-20 blur-lg"></div>
               <div className="relative rounded-xl overflow-hidden shadow-xl">
                 <Image
-                  src="/analysis.jpg"
+                  src="/analysis.webp"
                   alt="Interactive data dashboard with analytics visualizations and metrics"
                   width={600}
                   height={400}
                   className="w-full h-auto"
+                  loading="lazy"
                 />
               </div>
             </div>

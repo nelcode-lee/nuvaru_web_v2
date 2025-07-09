@@ -118,7 +118,7 @@ export function ServicesSection() {
               <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 h-full transition-all duration-300 hover:shadow-xl hover:border-violet-200 hover:-translate-y-1">
                 <div className="bg-gradient-to-r from-indigo-500 to-purple-700 p-6 relative h-48 overflow-hidden">
                   <div className="absolute inset-0 opacity-20">
-                    <Image src="/network-pattern.png" alt="" fill className="object-cover" />
+                    <Image src="/network-pattern.png" alt="Network pattern background" fill className="object-cover" />
                   </div>
                   <div className="relative z-10">
                     <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
@@ -154,7 +154,7 @@ export function ServicesSection() {
               <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 h-full transition-all duration-300 hover:shadow-xl hover:border-violet-200 hover:-translate-y-1">
                 <div className="bg-gradient-to-r from-blue-500 to-cyan-700 p-6 relative h-48 overflow-hidden">
                   <div className="absolute inset-0 opacity-20">
-                    <Image src="/network-pattern.png" alt="" fill className="object-cover" />
+                    <Image src="/network-pattern.png" alt="Network pattern background" fill className="object-cover" />
                   </div>
                   <div className="relative z-10">
                     <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
@@ -190,7 +190,7 @@ export function ServicesSection() {
               <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 h-full transition-all duration-300 hover:shadow-xl hover:border-violet-200 hover:-translate-y-1">
                 <div className="bg-gradient-to-r from-emerald-500 to-teal-700 p-6 relative h-48 overflow-hidden">
                   <div className="absolute inset-0 opacity-20">
-                    <Image src="/network-pattern.png" alt="" fill className="object-cover" />
+                    <Image src="/network-pattern.png" alt="Network pattern background" fill className="object-cover" />
                   </div>
                   <div className="relative z-10">
                     <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-4">
@@ -219,6 +219,22 @@ export function ServicesSection() {
                   </div>
                 </div>
               </div>
+            </Link>
+          </div>
+        </div>
+        
+        {/* CTA Section */}
+        <div className="mt-16 text-center">
+          <div className="bg-gradient-to-r from-brand-purple to-brand-gold rounded-2xl p-8 md:p-12 text-white">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">Ready to Transform Your Business?</h3>
+            <p className="text-lg mb-6 opacity-90">
+              Get a free AI readiness assessment and discover how our solutions can drive your business growth.
+            </p>
+            <Link
+              href="/#contact"
+              className="inline-flex items-center bg-white text-brand-purple hover:bg-gray-100 text-lg py-4 px-8 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg"
+            >
+              Start Your Free Assessment →
             </Link>
           </div>
         </div>

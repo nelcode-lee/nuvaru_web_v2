@@ -156,7 +156,7 @@ export default function CaseStudiesPage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-brand py-20 md:py-24">
         <div className="absolute inset-0 z-0 opacity-15">
-          <Image src="/network-pattern.png" alt="" fill className="object-cover" priority />
+          <Image src="/network-pattern.png" alt="Network pattern background" fill className="object-cover" priority />
         </div>
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
@@ -187,13 +187,14 @@ export default function CaseStudiesPage() {
                       <div className="relative rounded-xl overflow-hidden shadow-xl">
                         <Image
                           src={study.image || "/placeholder.svg"}
-                          alt={study.title}
+                          alt={`${study.title} image`}
                           width={600}
                           height={400}
                           className="w-full h-auto object-cover"
+                          loading="lazy"
                         />
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                          <Badge variant="purple" className="mb-2">
+                          <Badge variant="default" className="mb-2">
                             {study.industry}
                           </Badge>
                           <p className="text-white text-sm">
@@ -214,6 +215,7 @@ export default function CaseStudiesPage() {
                             width={600}
                             height={400}
                             className="w-full h-auto object-contain bg-white"
+                            loading="lazy"
                           />
                         </div>
                       )}

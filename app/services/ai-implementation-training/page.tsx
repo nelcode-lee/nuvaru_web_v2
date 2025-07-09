@@ -205,7 +205,7 @@ export default function AIImplementationTrainingPage() {
       {/* Hero Section */}
       <section className="relative bg-gradient-brand py-20 md:py-24">
         <div className="absolute inset-0 z-0 opacity-15">
-          <Image src="/network-pattern.png" alt="" fill className="object-cover" priority />
+          <Image src="/network-pattern.webp" alt="Network pattern background" fill className="object-cover" priority />
         </div>
         <div className="container relative z-10 mx-auto px-4 md:px-6">
           <div className="max-w-3xl">
@@ -217,10 +217,11 @@ export default function AIImplementationTrainingPage() {
         </div>
         <div className="absolute bottom-0 right-0 w-full md:w-1/2 h-full opacity-20 md:opacity-30">
           <Image
-            src="/training.jpg"
+            src="/training.webp"
             alt="AI implementation and training session with instructor and participants"
             fill
             className="object-contain object-right-bottom"
+            loading="lazy"
           />
         </div>
       </section>
@@ -528,11 +529,12 @@ export default function AIImplementationTrainingPage() {
               <div className="absolute -inset-4 bg-gradient-to-r from-brand-blue to-brand-purple rounded-xl opacity-20 blur-lg"></div>
               <div className="relative rounded-xl overflow-hidden shadow-xl">
                 <Image
-                  src="/training.jpg"
+                  src="/training.webp"
                   alt="AI implementation training session with instructor and participants"
                   width={600}
                   height={400}
                   className="w-full h-auto"
+                  loading="lazy"
                 />
               </div>
             </div>

@@ -127,6 +127,82 @@ html {
   }
 }
 
+/* Accessibility improvements */
+@layer base {
+  /* Improved focus styles */
+  *:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+  
+  /* High contrast focus for better visibility */
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 3px solid #1d4ed8;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  
+  /* Ensure sufficient color contrast */
+  .text-gray-600 {
+    color: #374151;
+  }
+  
+  .text-gray-700 {
+    color: #374151;
+  }
+  
+  /* Touch target improvements for mobile */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Mobile-specific improvements */
+  @media (max-width: 768px) {
+    /* Improve text readability on mobile */
+    .text-lg {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+    
+    .text-xl {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+    
+    /* Ensure buttons are large enough for touch */
+    button {
+      min-height: 48px;
+      padding: 12px 16px;
+    }
+    
+    /* Improve spacing for mobile */
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    /* Better mobile navigation */
+    nav a, nav button {
+      padding: 12px 16px;
+      min-height: 48px;
+    }
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
 @layer utilities {
   .animate-bounce-subtle {
     animation: bounce-subtle 2s ease-in-out infinite;

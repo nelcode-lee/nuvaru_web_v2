@@ -9,7 +9,10 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isServicesExpanded, setIsServicesExpanded] = useState(false)
   const servicesRef = useRef<HTMLDivElement>(null)
+  const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const firstMenuItemRef = useRef<HTMLAnchorElement>(null)
 
   // Check login status on mount
   useEffect(() => {
@@ -27,6 +30,12 @@ export function Navbar() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
+    // Focus first menu item when opening
+    if (!isMenuOpen) {
+      setTimeout(() => {
+        firstMenuItemRef.current?.focus()
+      }, 100)
+    }
   }
 
   const handleSectionScroll = (sectionId: string) => {
@@ -67,6 +76,22 @@ export function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [])
+
+  // Handle keyboard navigation for mobile menu
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isMenuOpen) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    if (isMenuOpen) {
+      document.addEventListener("keydown", handleKeyDown)
+      return () => {
+        document.removeEventListener("keydown", handleKeyDown)
+      }
+    }
+  }, [isMenuOpen])
 
   const servicesItems = [
     {
@@ -139,203 +164,165 @@ export function Navbar() {
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-6">
-          <Link href="/" className="text-sm font-medium hover:text-brand-gold transition-colors">
-            Home
-          </Link>
-
-          {/* Services Dropdown */}
-          <div className="relative" ref={servicesRef}>
-            <button
-              onClick={() => setIsServicesOpen(!isServicesOpen)}
-              className="flex items-center text-sm font-medium hover:text-brand-gold transition-colors"
-            >
-              Services
-              <ChevronDown className={`ml-1 h-4 w-4 transition-transform ${isServicesOpen ? "rotate-180" : ""}`} />
-            </button>
-
-            {isServicesOpen && (
-              <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-                <div className="py-2">
-                  {servicesItems.map((item, index) => (
-                    <div key={index}>
-                      {item.isSection ? (
-                        <button
-                          onClick={() => handleSectionScroll(item.sectionId!)}
-                          className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-gold transition-colors"
-                        >
-                          {item.title}
-                        </button>
-                      ) : (
-                        <Link
-                          href={item.href}
-                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-brand-gold transition-colors"
-                          onClick={() => setIsServicesOpen(false)}
-                        >
-                          {item.title}
-                        </Link>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          <Link href="/case-studies" className="text-sm font-medium hover:text-brand-gold transition-colors">
-            Case Studies
-          </Link>
-          <button
-            onClick={() => handleSectionScroll("about")}
-            className="text-sm font-medium hover:text-brand-gold transition-colors"
-          >
-            About
-          </button>
-          <Link href="/contact" className="text-sm font-medium hover:text-brand-gold transition-colors">
-            Contact
-          </Link>
-        </nav>
-
-        <div className="hidden md:flex items-center gap-4">
-          {isLoggedIn ? (
-            <div className="flex items-center gap-2">
-              <Link
-                href="/admin/contacts"
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white h-10 px-4 py-2"
-              >
-                <User className="w-4 h-4 mr-2" />
-                Admin
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-gray-300 text-gray-700 hover:bg-gray-50 h-10 px-4 py-2"
-              >
-                Logout
-              </button>
-            </div>
-          ) : (
-            <Link
-              href="/admin/login"
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white h-10 px-4 py-2"
-            >
-              <User className="w-4 h-4 mr-2" />
-              Login
-            </Link>
-          )}
-
-          <Link
-            href="/book-consultation"
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-brand-gold hover:bg-brand-gold-dark text-white h-10 px-4 py-2"
-          >
-            Book a Consultation
-          </Link>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button className="md:hidden p-2 rounded-md" onClick={toggleMenu}>
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        {/* Always show hamburger menu button */}
+        <button 
+          className="p-2 rounded-md" 
+          onClick={toggleMenu}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        >
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-b shadow-sm">
-          <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
+      {/* Hamburger Sidebar Overlay (all screen sizes) */}
+      <div
+        className={`fixed inset-0 z-50 transition-all duration-300 ${isMenuOpen ? 'block' : 'hidden'}`}
+        aria-label="Sidebar navigation overlay"
+        role="dialog"
+      >
+        {/* Backdrop */}
+        <div
+          className="absolute inset-0 bg-black bg-opacity-40"
+          onClick={() => setIsMenuOpen(false)}
+          aria-hidden="true"
+        />
+        {/* Sidebar (right-aligned) */}
+        <nav
+          id="mobile-menu"
+          className="fixed right-0 top-0 h-full w-full max-w-[340px] bg-white shadow-xl flex flex-col overflow-y-auto"
+          aria-label="Main navigation"
+          role="navigation"
+          ref={mobileMenuRef}
+        >
+          {/* Close button */}
+          <button
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl"
+            onClick={() => setIsMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <X size={28} />
+          </button>
+          <div className="px-6 py-8 flex flex-col gap-6 h-full">
+            {/* Logo */}
+            <Link href="/" className="flex items-center mb-4" onClick={() => setIsMenuOpen(false)}>
+              <div className="relative h-10 w-28 flex items-center justify-start">
+                <Image src="/nuvaru-logo.png" alt="Nuvaru Logo" width={112} height={40} className="object-contain" priority />
+              </div>
+            </Link>
+            {/* Home */}
             <Link
               href="/"
-              className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"
+              className="block text-lg font-semibold py-2 px-2 rounded hover:bg-gray-100 transition-colors"
               onClick={() => setIsMenuOpen(false)}
+              tabIndex={isMenuOpen ? 0 : -1}
+              ref={firstMenuItemRef}
             >
               Home
             </Link>
-
-            {/* Mobile Services Section */}
-            <div className="border-l-2 border-gray-200 pl-4">
-              <div className="text-sm font-medium py-2 text-gray-900 mb-2">Services</div>
-              {servicesItems.map((item, index) => (
-                <div key={index}>
-                  {item.isSection ? (
-                    <button
-                      onClick={() => handleSectionScroll(item.sectionId!)}
-                      className="block w-full text-left text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
-                    >
-                      {item.title}
-                    </button>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className="block text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {item.title}
-                    </Link>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <Link
-              href="/case-studies"
-              className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Case Studies
-            </Link>
-            <button
-              onClick={() => handleSectionScroll("about")}
-              className="block w-full text-left text-sm font-medium py-2 hover:text-brand-gold transition-colors"
-            >
-              About
-            </button>
-            <Link
-              href="/contact"
-              className="text-sm font-medium py-2 hover:text-brand-gold transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-            </Link>
-
-            {/* Mobile Admin/Login */}
-            {isLoggedIn ? (
-              <div className="border-t pt-4 mt-4">
-                <Link
-                  href="/admin/contacts"
-                  className="block text-sm font-medium py-2 hover:text-brand-gold transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Admin Panel
-                </Link>
-                <button
-                  onClick={() => {
-                    handleLogout()
-                    setIsMenuOpen(false)
-                  }}
-                  className="block w-full text-left text-sm py-2 text-gray-600 hover:text-brand-gold transition-colors"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <Link
-                href="/admin/login"
-                className="text-sm font-medium py-2 hover:text-brand-gold transition-colors border-t pt-4 mt-4"
-                onClick={() => setIsMenuOpen(false)}
+            {/* Services Group (Expandable) */}
+            <div>
+              <button
+                className="flex items-center w-full text-xs font-bold uppercase text-gray-500 tracking-wider mb-2 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+                aria-expanded={isServicesExpanded}
+                aria-controls="services-list"
+                onClick={() => setIsServicesExpanded(v => !v)}
+                tabIndex={isMenuOpen ? 0 : -1}
               >
-                Admin Login
+                <span className="flex-1 text-left">Services</span>
+                <ChevronDown className={`ml-2 transition-transform ${isServicesExpanded ? 'rotate-180' : ''}`} size={18} />
+              </button>
+              <div
+                id="services-list"
+                className={`flex flex-col gap-1 pl-2 transition-all duration-200 overflow-hidden ${isServicesExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}
+                aria-hidden={!isServicesExpanded}
+              >
+                {servicesItems.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                    tabIndex={isMenuOpen ? 0 : -1}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            {/* Other Groups */}
+            <div className="mt-4 flex flex-col gap-1">
+              <div className="text-xs font-bold uppercase text-gray-500 tracking-wider mb-2 pl-2">Explore</div>
+              <Link
+                href="/case-studies"
+                className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+                tabIndex={isMenuOpen ? 0 : -1}
+              >
+                Case Studies
               </Link>
-            )}
-
+              <button
+                onClick={() => { handleSectionScroll('about'); setIsMenuOpen(false) }}
+                className="block w-full text-left text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                tabIndex={isMenuOpen ? 0 : -1}
+                aria-label="Scroll to About section"
+              >
+                About
+              </button>
+              <Link
+                href="/contact"
+                className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+                tabIndex={isMenuOpen ? 0 : -1}
+              >
+                Contact
+              </Link>
+            </div>
+            {/* Admin/Login Group */}
+            <div className="mt-4 flex flex-col gap-1 border-t border-gray-200 pt-4">
+              <div className="text-xs font-bold uppercase text-gray-500 tracking-wider mb-2 pl-2">Admin</div>
+              {isLoggedIn ? (
+                <>
+                  <Link
+                    href="/admin/contacts"
+                    className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                    tabIndex={isMenuOpen ? 0 : -1}
+                  >
+                    Admin Panel
+                  </Link>
+                  <button
+                    onClick={() => { handleLogout(); setIsMenuOpen(false) }}
+                    className="block w-full text-left text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                    tabIndex={isMenuOpen ? 0 : -1}
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  href="/admin/login"
+                  className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                >
+                  Admin Login
+                </Link>
+              )}
+            </div>
+            {/* Book a Consultation CTA */}
             <Link
               href="/book-consultation"
-              className="w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-brand-gold hover:bg-brand-gold-dark text-white h-10 px-4 py-2 mt-2"
+              className="mt-6 w-full inline-flex items-center justify-center whitespace-nowrap rounded-md text-base font-semibold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-brand-gold hover:bg-brand-gold-dark text-white h-12 px-6 py-3"
               onClick={() => setIsMenuOpen(false)}
+              tabIndex={isMenuOpen ? 0 : -1}
             >
               Book a Consultation
             </Link>
           </div>
-        </div>
-      )}
+        </nav>
+      </div>
     </header>
   )
 }

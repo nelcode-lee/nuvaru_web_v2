@@ -13,9 +13,9 @@ export function AboutSection() {
         </div>
 
         <div className="grid gap-12 md:grid-cols-2 items-center">
-          <div className="relative h-[400px] w-full rounded-lg overflow-hidden shadow-xl">
+          <div className="relative h-[300px] md:h-[400px] w-full rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/the%20deep%20bcentre%20.jpg-uNtcH3fqxt3NbIyid5zmUt9PgBCq25.jpeg"
+              src="/placeholder.svg"
               alt="The Deep - Hull's iconic aquarium and marine research center on the waterfront"
               fill
               className="object-cover"

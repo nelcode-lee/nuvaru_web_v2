@@ -31,9 +31,9 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/#contact"
-                className="bg-brand-gold hover:bg-brand-gold-dark text-white text-lg py-6 px-8 rounded-md font-medium transition-colors"
+                className="bg-brand-gold hover:bg-brand-gold-dark text-white text-lg py-6 px-8 rounded-md font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                Start Today!
+                Get Your Free AI Assessment →
               </Link>
               <ServiceRecommenderButton />
             </div>

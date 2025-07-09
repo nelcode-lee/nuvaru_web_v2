@@ -105,6 +105,8 @@ export default function AdminLogin() {
                     type="button"
                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                     onClick={() => setShowPassword(!showPassword)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    aria-describedby="password-description"
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4 text-gray-400" />
@@ -112,6 +114,9 @@ export default function AdminLogin() {
                       <Eye className="h-4 w-4 text-gray-400" />
                     )}
                   </button>
+                  <span id="password-description" className="sr-only">
+                    {showPassword ? "Password is visible" : "Password is hidden"}
+                  </span>
                 </div>
               </div>
 

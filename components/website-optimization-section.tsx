@@ -18,13 +18,13 @@ import {
 import { useState } from "react"
 import dynamic from "next/dynamic"
 
-const MobileEcoDashboard = dynamic(() => import('@/components/mobile-eco-dashboard'), { ssr: false, loading: () => <div>Loading...</div> })
+const MobileEcoDashboard = dynamic(() => import('@/components/mobile-eco-dashboard').then(mod => mod.MobileEcoDashboard), { ssr: false, loading: () => <div>Loading...</div> })
 
 export function WebsiteOptimizationSection() {
   const [auditModalOpen, setAuditModalOpen] = useState(false)
   const [url, setUrl] = useState("")
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<{ rating: number; improvements: string[] } | null>(null)
+  const [result, setResult] = useState<{ rating: number; improvements: { issue: string; recommendation: string; impact: string }[] } | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const painPoints = [
@@ -406,14 +406,18 @@ export function WebsiteOptimizationSection() {
                 <h2 className="text-2xl font-bold mb-4 text-brand-purple">Free Website Audit</h2>
                 <p className="mb-4 text-gray-700">Enter your website URL and get a free AI-powered audit with 4 improvement suggestions.</p>
                 {result ? (
-                  <div className="space-y-4">
+                  <div className="space-y-4 overflow-y-auto max-h-[70vh]">
                     <div className="text-center">
                       <div className="text-4xl font-bold text-brand-purple mb-2">{result.rating}/10</div>
                       <div className="text-gray-600 mb-4">Website Rating</div>
                     </div>
-                    <ul className="list-disc pl-6 text-gray-800 space-y-2">
+                    <ul className="pl-0 text-gray-800 space-y-4">
                       {result.improvements.map((imp, i) => (
-                        <li key={i}>{imp}</li>
+                        <li key={i} className="border rounded p-3 bg-gray-50">
+                          <div className="font-semibold text-brand-purple mb-1">{imp.issue}</div>
+                          <div className="mb-1"><span className="font-medium text-gray-700">Recommendation:</span> {imp.recommendation}</div>
+                          <div className="text-sm text-green-700"><span className="font-medium">Impact:</span> {imp.impact}</div>
+                        </li>
                       ))}
                     </ul>
                     <Button className="w-full mt-4" onClick={() => {
@@ -461,6 +465,13 @@ export function WebsiteOptimizationSection() {
                     {error && <div className="text-red-600 text-sm text-center">{error}</div>}
                   </form>
                 )}
+                <Button className="w-full mt-6" variant="outline" onClick={() => {
+                  setAuditModalOpen(false)
+                  setUrl("")
+                  setResult(null)
+                  setError(null)
+                  setLoading(false)
+                }}>Close</Button>
               </div>
             </div>
           )}
