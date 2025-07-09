@@ -1,3 +1,5 @@
+"use client"
+
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import { ServiceRecommenderButton } from "./service-recommender-button"
@@ -17,10 +19,14 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Transform Your Business with AI
+              Supercharge Your Business with{" "}
+              <span className="text-yellow-300">Web, AI & Automation</span> Solutions
             </h1>
             <p className="text-xl text-white/90 mb-8">
-              Expert AI solutions and automation services to streamline operations, reduce costs, and drive growth for UK SMEs.
+              We help UK SMEs streamline operations, boost efficiency, and unlock growth through{" "}
+              <span className="text-yellow-300 font-semibold">smart websites</span>,{" "}
+              <span className="text-yellow-300 font-semibold">powerful AI tools</span>, and{" "}
+              <span className="text-yellow-300 font-semibold">tailored automation</span>.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link

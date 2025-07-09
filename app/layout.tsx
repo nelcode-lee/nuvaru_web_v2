@@ -4,17 +4,12 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
-import dynamic from "next/dynamic"
 import { GoogleTag } from "@/components/google-tag"
 import { OrganizationStructuredData } from "@/components/structured-data"
 import { ChatButton } from "@/components/chat-button"
 import { Suspense } from "react"
 import Head from "next/head"
-
-const Analytics = dynamic(() => import("@/components/analytics").then(mod => ({ default: mod.Analytics })), {
-  ssr: false,
-  loading: () => null
-})
+import { Analytics } from "@/components/analytics"
 
 const inter = Inter({ subsets: ["latin"] })
 

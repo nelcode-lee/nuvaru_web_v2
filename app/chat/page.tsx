@@ -1,4 +1,5 @@
-import type { Metadata } from "next"
+"use client"
+
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import dynamic from "next/dynamic"
@@ -7,11 +8,6 @@ const ChatInterface = dynamic(() => import("@/components/chat-interface").then(m
   ssr: false,
   loading: () => <div className="bg-white rounded-lg shadow-lg p-6 h-96 animate-pulse" />
 })
-
-export const metadata: Metadata = {
-  title: "AI Assistant | Nuvaru - AI Transformation Consultancy",
-  description: "Chat with our AI assistant to learn more about how AI can transform your business operations.",
-}
 
 export default function ChatPage() {
   return (

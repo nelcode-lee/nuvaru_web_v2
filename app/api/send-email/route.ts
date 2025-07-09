@@ -1,7 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Only create Resend instance if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,6 +12,11 @@ export async function POST(request: NextRequest) {
     const { name, email, phone, company, serviceType, challenge, source } = body
 
     console.log("📧 Sending email for:", { name, email, company })
+
+    if (!resend) {
+      console.error("❌ Resend not configured")
+      return NextResponse.json({ error: "Email service not configured" }, { status: 500 })
+    }
 
     // Send email using verified Resend domain
     const { data, error } = await resend.emails.send({

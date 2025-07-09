@@ -1,14 +1,15 @@
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Only create Resend instance if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null
 
 export async function GET() {
   try {
     console.log("=== EMAIL TEST ===")
     console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY)
 
-    if (!process.env.RESEND_API_KEY) {
+    if (!process.env.RESEND_API_KEY || !resend) {
       return NextResponse.json(
         {
           error: "RESEND_API_KEY not found in environment variables",
