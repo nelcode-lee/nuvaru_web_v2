@@ -251,33 +251,43 @@ export function Navbar() {
                 ))}
               </div>
             </div>
-            {/* Other Groups */}
-            <div className="mt-4 flex flex-col gap-1">
-              <div className="text-xs font-bold uppercase text-gray-500 tracking-wider mb-2 pl-2">Explore</div>
-              <Link
-                href="/case-studies"
-                className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-                tabIndex={isMenuOpen ? 0 : -1}
-              >
-                Case Studies
-              </Link>
-              <button
-                onClick={() => { handleSectionScroll('about'); setIsMenuOpen(false) }}
-                className="block w-full text-left text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
-                tabIndex={isMenuOpen ? 0 : -1}
-                aria-label="Scroll to About section"
-              >
-                About
-              </button>
-              <Link
-                href="/contact"
-                className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-                tabIndex={isMenuOpen ? 0 : -1}
-              >
-                Contact
-              </Link>
+            {/* Explore Group */}
+            <div className="mb-6">
+              <h3 className="text-xs font-bold uppercase text-gray-500 tracking-wider mb-3 pl-2">Explore</h3>
+              <div className="space-y-1">
+                <Link
+                  href="/case-studies"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                >
+                  Case Studies
+                </Link>
+                <Link
+                  href="/about"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                >
+                  About
+                </Link>
+                <Link
+                  href="/contact"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                >
+                  Contact
+                </Link>
+                <Link
+                  href="/business-audit"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+                >
+                  Business Capability Audit
+                </Link>
+              </div>
             </div>
             {/* Admin/Login Group */}
             <div className="mt-4 flex flex-col gap-1 border-t border-gray-200 pt-4">

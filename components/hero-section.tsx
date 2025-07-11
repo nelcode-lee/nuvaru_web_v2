@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import { ServiceRecommenderButton } from "./service-recommender-button"
+import { Button } from "./ui/button"
 
 const AIResponsesShowcase = dynamic(() => import("./ai-responses-showcase").then(mod => ({ default: mod.AIResponsesShowcase })), {
   ssr: false,
@@ -17,25 +18,31 @@ export function HeroSection() {
       </div>
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-              Supercharge Your Business with{" "}
-              <span className="text-yellow-300">Web, AI & Automation</span> Solutions
+          <div className="space-y-6">
+            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+              Transform Your Business with{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
+                AI & Automation
+              </span>
             </h1>
-            <p className="text-xl text-white/90 mb-8">
-              We help UK SMEs streamline operations, boost efficiency, and unlock growth through{" "}
-              <span className="text-yellow-300 font-semibold">smart websites</span>,{" "}
-              <span className="text-yellow-300 font-semibold">powerful AI tools</span>, and{" "}
-              <span className="text-yellow-300 font-semibold">tailored automation</span>.
+            <p className="text-xl text-gray-600 max-w-2xl">
+              We help businesses unlock their potential through intelligent automation, 
+              data-driven insights, and custom AI solutions that drive growth and efficiency.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/#contact"
-                className="bg-brand-gold hover:bg-brand-gold-dark text-white text-lg py-6 px-8 rounded-md font-semibold transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              <Button
+                className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white text-lg py-4 px-8"
+                asChild
               >
-                Get Your Free AI Assessment →
-              </Link>
-              <ServiceRecommenderButton />
+                <Link href="/contact">Book a Consultation</Link>
+              </Button>
+              <Button
+                variant="outline"
+                className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 text-lg py-4 px-8"
+                asChild
+              >
+                <Link href="/business-audit">Business Capability Audit</Link>
+              </Button>
             </div>
           </div>
           <div className="relative">

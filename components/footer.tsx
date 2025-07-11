@@ -61,6 +61,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/business-audit" className="text-gray-300 hover:text-white transition-colors">
+                  Business Capability Audit
+                </Link>
+              </li>
+              <li>
                 <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
                   Contact
                 </Link>

@@ -15,8 +15,8 @@ export function AboutSection() {
         <div className="grid gap-12 md:grid-cols-2 items-center">
           <div className="relative h-[300px] md:h-[400px] w-full rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="/placeholder.svg"
-              alt="The Deep - Hull's iconic aquarium and marine research center on the waterfront"
+              src="/the-deep-hull.jpg"
+              alt="The Deep, Hull – a symbol of innovation and transformation on the Humber waterfront."
               fill
               className="object-cover"
             />
