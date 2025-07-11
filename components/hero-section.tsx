@@ -1,14 +1,7 @@
 "use client"
 
-import dynamic from "next/dynamic"
 import Link from "next/link"
-import { ServiceRecommenderButton } from "./service-recommender-button"
 import { Button } from "./ui/button"
-
-const AIResponsesShowcase = dynamic(() => import("./ai-responses-showcase").then(mod => ({ default: mod.AIResponsesShowcase })), {
-  ssr: false,
-  loading: () => <div className="bg-white rounded-lg shadow-2xl overflow-hidden border border-gray-100 h-[450px] animate-pulse" />
-})
 
 export function HeroSection() {
   return (
@@ -17,21 +10,19 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-purple/20 to-brand-gold/20"></div>
       </div>
       <div className="container relative z-10 mx-auto px-4 md:px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid gap-12 items-center lg:grid-cols-2">
           <div className="space-y-6">
-            <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
+            <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
               Transform Your Business with{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
-                AI & Automation
-              </span>
+              <span className="text-brand-gold">AI & Automation</span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl">
+            <p className="text-xl text-white max-w-2xl">
               We help businesses unlock their potential through intelligent automation, 
               data-driven insights, and custom AI solutions that drive growth and efficiency.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button
-                className="bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 text-white text-lg py-4 px-8"
+                className="bg-brand-gold hover:bg-brand-gold-dark text-white text-lg py-4 px-8"
                 asChild
               >
                 <Link href="/contact">Book a Consultation</Link>
@@ -45,8 +36,17 @@ export function HeroSection() {
               </Button>
             </div>
           </div>
-          <div className="relative">
-            <AIResponsesShowcase />
+          <div className="relative w-full max-w-xl mx-auto">
+            <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/9' }}>
+              <iframe
+                src="https://share.synthesia.io/embeds/videos/bbe81560-76f4-4214-9445-6d3552a14671"
+                loading="lazy"
+                title="Synthesia video player - website transparent"
+                allowFullScreen
+                allow="encrypted-media; fullscreen;"
+                style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, border: 'none', padding: 0, margin: 0, overflow: 'hidden' }}
+              />
+            </div>
           </div>
         </div>
       </div>

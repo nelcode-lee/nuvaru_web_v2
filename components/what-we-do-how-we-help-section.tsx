@@ -125,20 +125,6 @@ export function WhatWeDoHowWeHelpSection() {
             <Link href="/business-audit">Start Business Audit</Link>
           </Button>
         </div>
-        {/* Embedded Synthesia Video */}
-        <div className="text-center mt-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">See How Nuvaru Can Transform Your Business</h3>
-          <div style={{position: 'relative', overflow: 'hidden', aspectRatio: '1920/1080'}}>
-            <iframe
-              src="https://share.synthesia.io/embeds/videos/bbe81560-76f4-4214-9445-6d3552a14671"
-              loading="lazy"
-              title="Synthesia video player - website transparent"
-              allowFullScreen
-              allow="encrypted-media; fullscreen;"
-              style={{position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, border: 'none', padding: 0, margin: 0, overflow: 'hidden'}}
-            />
-          </div>
-        </div>
         {/* Placeholder for future video embed */}
         <div className="text-center mt-8" />
       </div>
