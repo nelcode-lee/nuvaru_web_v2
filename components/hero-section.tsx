@@ -37,7 +37,7 @@ export function HeroSection() {
             </div>
           </div>
           <div className="relative w-full max-w-xl mx-auto">
-            <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/9' }}>
+            <div className="shadow-2xl rounded-lg overflow-hidden" style={{ position: 'relative', overflow: 'hidden', aspectRatio: '16/9' }}>
               <iframe
                 src="https://share.synthesia.io/embeds/videos/bbe81560-76f4-4214-9445-6d3552a14671"
                 loading="lazy"
