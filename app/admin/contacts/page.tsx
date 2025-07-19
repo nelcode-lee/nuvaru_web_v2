@@ -102,6 +102,12 @@ export default function AdminContactsPage() {
                 Contacts
               </Button>
             </Link>
+            <Link href="/admin/contacts/submissions">
+              <Button variant="outline" className="flex items-center gap-2">
+                <FileText className="h-4 w-4" />
+                Form Submissions
+              </Button>
+            </Link>
             <Link href="/admin/blog">
               <Button variant="outline" className="flex items-center gap-2">
                 <FileText className="h-4 w-4" />
