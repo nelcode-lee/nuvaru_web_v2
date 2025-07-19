@@ -87,14 +87,14 @@ Respond in JSON: {\"rating\": number, \"improvements\": [{\"issue\": \"...\", \"
 
     try {
       console.log("[AUDIT] Sending request to Anthropic Claude");
-      const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'x-api-key': ANTHROPIC_API_KEY,
+    const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': ANTHROPIC_API_KEY,
           'anthropic-version': '2023-06-01',
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify({
           model: 'claude-3-haiku-20240307', // Faster model
           max_tokens: 800, // Reduced tokens
           system: systemPrompt,
@@ -105,38 +105,38 @@ Respond in JSON: {\"rating\": number, \"improvements\": [{\"issue\": \"...\", \"
 
       clearTimeout(timeoutId);
 
-      if (!anthropicRes.ok) {
+    if (!anthropicRes.ok) {
         const errText = await anthropicRes.text();
         console.log("[AUDIT] Anthropic API error:", errText);
         return NextResponse.json({ error: `Anthropic API error: ${errText}` }, { status: 500 });
-      }
+    }
 
       const data = await anthropicRes.json();
       let aiText = data?.content?.[0]?.text || "";
       console.log("[AUDIT] Received response from Anthropic. Length:", aiText.length);
 
-      // Try to parse JSON from the AI's response
+    // Try to parse JSON from the AI's response
       let rating = null;
       let improvements = [];
-      try {
+    try {
         const match = aiText.match(/\{[\s\S]*\}/);
-        if (match) {
+      if (match) {
           const parsed = JSON.parse(match[0]);
           rating = parsed.rating;
           improvements = parsed.improvements;
-        } else {
+      } else {
           throw new Error("No JSON found in AI response.");
-        }
-      } catch (err) {
+      }
+    } catch (err) {
         console.log("[AUDIT] Failed to parse AI response:", aiText);
         return NextResponse.json({ error: "Failed to parse AI response.\n" + aiText }, { status: 500 });
-      }
+    }
 
       console.log("[AUDIT] Audit complete. Returning response.");
-      return NextResponse.json({
-        url,
-        rating,
-        improvements
+    return NextResponse.json({
+      url,
+      rating,
+      improvements
       });
     } catch (err) {
       clearTimeout(timeoutId);

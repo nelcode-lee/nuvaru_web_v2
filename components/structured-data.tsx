@@ -15,11 +15,11 @@ export function OrganizationStructuredData() {
     },
     contactPoint: [
       {
-        "@type": "ContactPoint",
-        email: "info@nuvaru.co.uk",
-        contactType: "customer service",
+      "@type": "ContactPoint",
+      email: "info@nuvaru.co.uk",
+      contactType: "customer service",
         availableLanguage: "English"
-      },
+    },
       {
         "@type": "ContactPoint",
         telephone: "+44-7741-654145",

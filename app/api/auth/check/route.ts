@@ -7,23 +7,50 @@ export async function GET(request: NextRequest) {
 
     const cookieStore = await cookies()
     const sessionCookie = cookieStore.get("admin-session")
+    const timestampCookie = cookieStore.get("admin-timestamp")
 
     console.log("Session cookie exists:", !!sessionCookie)
-    console.log("Session cookie value:", sessionCookie?.value)
+    console.log("Session cookie value:", sessionCookie?.value ? "present" : "missing")
+    console.log("Timestamp cookie exists:", !!timestampCookie)
 
-    if (sessionCookie && sessionCookie.value === "authenticated") {
-      console.log("✅ Authentication successful")
-      return NextResponse.json({
-        authenticated: true,
-        timestamp: new Date().toISOString(),
-      })
-    } else {
-      console.log("❌ Authentication failed")
-      return NextResponse.json({
-        authenticated: false,
-        timestamp: new Date().toISOString(),
-      })
+    // Check if session exists and is valid
+    if (sessionCookie && sessionCookie.value) {
+      // Handle old session format (just "authenticated")
+      if (sessionCookie.value === "authenticated") {
+        console.log("✅ Authentication successful (old format)")
+        return NextResponse.json({
+          authenticated: true,
+          timestamp: new Date().toISOString(),
+          sessionAge: 0,
+        })
+      }
+      
+      // Handle new session format (with timestamp)
+      if (timestampCookie) {
+        const sessionAge = Date.now() - parseInt(timestampCookie.value)
+        const maxAge = 24 * 60 * 60 * 1000 // 24 hours
+
+        if (sessionAge < maxAge) {
+          console.log("✅ Authentication successful")
+          return NextResponse.json({
+            authenticated: true,
+            timestamp: new Date().toISOString(),
+            sessionAge: Math.floor(sessionAge / 1000 / 60), // minutes
+          })
+        } else {
+          console.log("❌ Session expired")
+          // Clear expired cookies
+          cookieStore.delete("admin-session")
+          cookieStore.delete("admin-timestamp")
+        }
+      }
     }
+
+    console.log("❌ Authentication failed")
+    return NextResponse.json({
+      authenticated: false,
+      timestamp: new Date().toISOString(),
+    })
   } catch (error) {
     console.error("Auth check error:", error)
     return NextResponse.json(

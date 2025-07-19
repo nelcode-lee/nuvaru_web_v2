@@ -29,6 +29,7 @@ export function Navbar() {
   }, [])
 
   const toggleMenu = () => {
+    console.log('Toggle menu clicked, current state:', isMenuOpen)
     setIsMenuOpen(!isMenuOpen)
     // Focus first menu item when opening
     if (!isMenuOpen) {
@@ -165,8 +166,8 @@ export function Navbar() {
         </div>
 
         {/* Always show hamburger menu button */}
-        <button 
-          className="p-2 rounded-md" 
+        <button
+          className="p-2 rounded-md hover:bg-gray-100 transition-colors border border-gray-300 bg-white relative z-50" 
           onClick={toggleMenu}
           aria-expanded={isMenuOpen}
           aria-controls="mobile-menu"
@@ -178,7 +179,7 @@ export function Navbar() {
 
       {/* Hamburger Sidebar Overlay (all screen sizes) */}
       <div
-        className={`fixed inset-0 z-50 transition-all duration-300 ${isMenuOpen ? 'block' : 'hidden'}`}
+        className={`fixed inset-0 z-40 transition-all duration-300 ${isMenuOpen ? 'block' : 'hidden'}`}
         aria-label="Sidebar navigation overlay"
         role="dialog"
       >
@@ -209,7 +210,7 @@ export function Navbar() {
             <Link href="/" className="flex items-center mb-4" onClick={() => setIsMenuOpen(false)}>
               <div className="relative h-10 w-28 flex items-center justify-start">
                 <Image src="/nuvaru-logo.png" alt="Nuvaru Logo" width={112} height={40} className="object-contain" priority />
-              </div>
+            </div>
             </Link>
             {/* Home */}
             <Link
@@ -223,7 +224,7 @@ export function Navbar() {
             </Link>
             {/* Services Group (Expandable) */}
             <div>
-              <button
+                    <button
                 className="flex items-center w-full text-xs font-bold uppercase text-gray-500 tracking-wider mb-2 pl-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
                 aria-expanded={isServicesExpanded}
                 aria-controls="services-list"
@@ -232,53 +233,69 @@ export function Navbar() {
               >
                 <span className="flex-1 text-left">Services</span>
                 <ChevronDown className={`ml-2 transition-transform ${isServicesExpanded ? 'rotate-180' : ''}`} size={18} />
-              </button>
+                    </button>
               <div
                 id="services-list"
                 className={`flex flex-col gap-1 pl-2 transition-all duration-200 overflow-hidden ${isServicesExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 pointer-events-none'}`}
                 aria-hidden={!isServicesExpanded}
               >
                 {servicesItems.map((item, index) => (
-                  <Link
+                    <Link
                     key={index}
-                    href={item.href}
+                      href={item.href}
                     className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
-                    onClick={() => setIsMenuOpen(false)}
+                      onClick={() => setIsMenuOpen(false)}
                     tabIndex={isMenuOpen ? 0 : -1}
-                  >
-                    {item.title}
-                  </Link>
+                    >
+                      {item.title}
+                    </Link>
                 ))}
-              </div>
+                </div>
             </div>
             {/* Explore Group */}
             <div className="mb-6">
               <h3 className="text-xs font-bold uppercase text-gray-500 tracking-wider mb-3 pl-2">Explore</h3>
               <div className="space-y-1">
-                <Link
-                  href="/case-studies"
+            <Link
+              href="/projects"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+              onClick={() => setIsMenuOpen(false)}
                   tabIndex={isMenuOpen ? 0 : -1}
-                >
-                  Case Studies
-                </Link>
+            >
+              Projects
+            </Link>
+            <Link
+              href="/blog"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+            >
+              Blog
+            </Link>
+            <Link
+              href="/case-studies"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+            >
+              Case Studies
+            </Link>
                 <Link
                   href="/about"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                   tabIndex={isMenuOpen ? 0 : -1}
-                >
-                  About
+            >
+              About
                 </Link>
-                <Link
-                  href="/contact"
+            <Link
+              href="/contact"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
+              onClick={() => setIsMenuOpen(false)}
                   tabIndex={isMenuOpen ? 0 : -1}
-                >
-                  Contact
-                </Link>
+            >
+              Contact
+            </Link>
                 <Link
                   href="/business-audit"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-purple transition-colors"
@@ -300,26 +317,26 @@ export function Navbar() {
                     onClick={() => setIsMenuOpen(false)}
                     tabIndex={isMenuOpen ? 0 : -1}
                   >
-                    Admin Panel
-                  </Link>
-                  <button
+                  Admin Panel
+                </Link>
+                <button
                     onClick={() => { handleLogout(); setIsMenuOpen(false) }}
                     className="block w-full text-left text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
                     tabIndex={isMenuOpen ? 0 : -1}
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <Link
-                  href="/admin/login"
-                  className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                  tabIndex={isMenuOpen ? 0 : -1}
                 >
-                  Admin Login
-                </Link>
-              )}
+                  Logout
+                </button>
+                </>
+            ) : (
+              <Link
+                href="/admin/login"
+                  className="block text-base py-2 px-4 rounded hover:bg-brand-gold/10 hover:text-brand-gold transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+                  tabIndex={isMenuOpen ? 0 : -1}
+              >
+                Admin Login
+              </Link>
+            )}
             </div>
             {/* Book a Consultation CTA */}
             <Link
@@ -332,7 +349,7 @@ export function Navbar() {
             </Link>
           </div>
         </nav>
-      </div>
+        </div>
     </header>
   )
 }

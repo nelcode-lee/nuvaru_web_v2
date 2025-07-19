@@ -85,7 +85,7 @@ export const metadata: Metadata = {
   verification: {
     google: "your-google-verification-code",
   },
-  generator: 'v0.dev'
+    generator: 'v0.dev'
 }
 
 export const viewport: Viewport = {
@@ -131,7 +131,7 @@ export default function RootLayout({
         {/* Structured Data for SEO and Accessibility */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            "@context": "https://schema.org",
+          "@context": "https://schema.org",
             "@type": "Organization",
             "name": "Nuvaru",
             "url": "https://www.nuvaru.co.uk",
@@ -154,32 +154,32 @@ export default function RootLayout({
             "serviceArea": {
               "@type": "Country",
               "name": "United Kingdom"
-            },
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
               "name": "AI Services",
-              "itemListElement": [
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
                     "name": "AI Readiness Assessment",
                     "description": "Evaluate your organisation's AI readiness and build a strategic roadmap"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
                     "name": "Custom AI Solutions",
                     "description": "Tailored AI development for UK SMEs"
-                  }
-                },
-                {
-                  "@type": "Offer",
-                  "itemOffered": {
-                    "@type": "Service",
-                    "name": "Process Automation",
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Process Automation",
                     "description": "AI-driven process automation for business efficiency"
                   }
                 }
@@ -221,11 +221,11 @@ export default function RootLayout({
           <Suspense fallback={null}>
             <GoogleTag />
           </Suspense>
-          <OrganizationStructuredData />
-          {children}
+            <OrganizationStructuredData />
+            {children}
           <Toaster />
-          <ChatButton />
-          <Analytics />
+            <ChatButton />
+            <Analytics />
           <CookieConsent />
         </ThemeProvider>
       </body>

@@ -9,11 +9,38 @@ export async function GET(request: NextRequest) {
     // Check authentication
     const cookieStore = await cookies()
     const sessionCookie = cookieStore.get("admin-session")
+    const timestampCookie = cookieStore.get("admin-timestamp")
 
     console.log("Session cookie exists:", !!sessionCookie)
-    console.log("Session cookie value:", sessionCookie?.value)
+    console.log("Session cookie value:", sessionCookie?.value ? "present" : "missing")
+    console.log("Timestamp cookie exists:", !!timestampCookie)
 
-    if (!sessionCookie || sessionCookie.value !== "authenticated") {
+    // Check if session exists and is valid
+    let isAuthenticated = false
+    
+    if (sessionCookie && sessionCookie.value) {
+      // Handle old session format (just "authenticated")
+      if (sessionCookie.value === "authenticated") {
+        isAuthenticated = true
+      }
+      
+      // Handle new session format (with timestamp)
+      if (timestampCookie) {
+        const sessionAge = Date.now() - parseInt(timestampCookie.value)
+        const maxAge = 24 * 60 * 60 * 1000 // 24 hours
+
+        if (sessionAge < maxAge) {
+          isAuthenticated = true
+        } else {
+          console.log("❌ Session expired")
+          // Clear expired cookies
+          cookieStore.delete("admin-session")
+          cookieStore.delete("admin-timestamp")
+        }
+      }
+    }
+
+    if (!isAuthenticated) {
       console.log("❌ Unauthorized access attempt")
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -66,7 +93,10 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ contacts })
+    return NextResponse.json({ 
+      success: true, 
+      contacts 
+    })
   } catch (error: any) {
     console.error("Admin contacts error:", error)
     return NextResponse.json(
@@ -86,8 +116,34 @@ export async function PATCH(request: NextRequest) {
     // Check authentication
     const cookieStore = await cookies()
     const sessionCookie = cookieStore.get("admin-session")
+    const timestampCookie = cookieStore.get("admin-timestamp")
 
-    if (!sessionCookie || sessionCookie.value !== "authenticated") {
+    // Check if session exists and is valid
+    let isAuthenticated = false
+    
+    if (sessionCookie && sessionCookie.value) {
+      // Handle old session format (just "authenticated")
+      if (sessionCookie.value === "authenticated") {
+        isAuthenticated = true
+      }
+      
+      // Handle new session format (with timestamp)
+      if (timestampCookie) {
+        const sessionAge = Date.now() - parseInt(timestampCookie.value)
+        const maxAge = 24 * 60 * 60 * 1000 // 24 hours
+
+        if (sessionAge < maxAge) {
+          isAuthenticated = true
+        } else {
+          console.log("❌ Session expired")
+          // Clear expired cookies
+          cookieStore.delete("admin-session")
+          cookieStore.delete("admin-timestamp")
+        }
+      }
+    }
+
+    if (!isAuthenticated) {
       console.log("❌ Unauthorized access attempt")
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
@@ -132,6 +188,95 @@ export async function PATCH(request: NextRequest) {
 
   } catch (error: any) {
     console.error("Admin contact update error:", error)
+    return NextResponse.json(
+      {
+        error: "Server error",
+        details: error.message,
+      },
+      { status: 500 },
+    )
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    console.log("=== ADMIN CONTACT DELETE REQUEST ===")
+
+    // Check authentication
+    const cookieStore = await cookies()
+    const sessionCookie = cookieStore.get("admin-session")
+    const timestampCookie = cookieStore.get("admin-timestamp")
+
+    // Check if session exists and is valid
+    let isAuthenticated = false
+    
+    if (sessionCookie && sessionCookie.value) {
+      // Handle old session format (just "authenticated")
+      if (sessionCookie.value === "authenticated") {
+        isAuthenticated = true
+      }
+      
+      // Handle new session format (with timestamp)
+      if (timestampCookie) {
+        const sessionAge = Date.now() - parseInt(timestampCookie.value)
+        const maxAge = 24 * 60 * 60 * 1000 // 24 hours
+
+        if (sessionAge < maxAge) {
+          isAuthenticated = true
+        } else {
+          console.log("❌ Session expired")
+          // Clear expired cookies
+          cookieStore.delete("admin-session")
+          cookieStore.delete("admin-timestamp")
+        }
+      }
+    }
+
+    if (!isAuthenticated) {
+      console.log("❌ Unauthorized access attempt")
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    console.log("✅ Authentication successful")
+
+    // Get contact ID from URL params
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('id')
+
+    if (!id) {
+      return NextResponse.json({ error: "Missing contact ID" }, { status: 400 })
+    }
+
+    // Get database connection
+    const databaseUrl = process.env.DATABASE_URL
+    if (!databaseUrl) {
+      console.log("❌ No database URL configured")
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 })
+    }
+
+    const sql = neon(databaseUrl)
+
+    // Delete contact from database
+    const result = await sql`
+      DELETE FROM contact_submissions 
+      WHERE id = ${parseInt(id)}
+      RETURNING id, name, email
+    `
+
+    if (result.length === 0) {
+      return NextResponse.json({ error: "Contact not found" }, { status: 404 })
+    }
+
+    console.log("✅ Contact deleted successfully:", result[0])
+
+    return NextResponse.json({ 
+      success: true, 
+      message: "Contact deleted successfully",
+      contact: result[0] 
+    })
+
+  } catch (error: any) {
+    console.error("Admin contact delete error:", error)
     return NextResponse.json(
       {
         error: "Server error",
