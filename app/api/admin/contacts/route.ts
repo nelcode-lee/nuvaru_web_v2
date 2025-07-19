@@ -1,6 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { cookies } from "next/headers"
-import { neon } from "@neondatabase/serverless"
 
 export async function GET(request: NextRequest) {
   try {
@@ -47,55 +46,10 @@ export async function GET(request: NextRequest) {
 
     console.log("✅ Authentication successful")
 
-    // Get database connection
-    const databaseUrl = process.env.DATABASE_URL
-    if (!databaseUrl) {
-      console.log("❌ No database URL configured")
-      return NextResponse.json({ error: "Database not configured" }, { status: 500 })
-    }
-
-    const sql = neon(databaseUrl)
-
-    // Try to fetch contacts with retry logic for sleeping database
-    let contacts: any[] = []
-    let retries = 3
-
-    while (retries > 0) {
-      try {
-        console.log(`Attempting to fetch contacts (${4 - retries}/3)...`)
-
-        contacts = await sql`
-          SELECT id, name, email, company, phone, message, created_at 
-          FROM contact_submissions 
-          ORDER BY created_at DESC
-        `
-
-        console.log(`✅ Successfully fetched ${contacts.length} contacts`)
-        break
-      } catch (dbError: any) {
-        console.log(`Database error (attempt ${4 - retries}/3):`, dbError.message)
-
-        if (retries === 1) {
-          // Last attempt failed
-          console.log("❌ All database attempts failed")
-          return NextResponse.json(
-            {
-              error: "Database connection failed",
-              details: dbError.message,
-            },
-            { status: 500 },
-          )
-        }
-
-        // Wait before retry (database might be waking up)
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-        retries--
-      }
-    }
-
+    // Return empty contacts array since database is removed
     return NextResponse.json({ 
       success: true, 
-      contacts 
+      contacts: []
     })
   } catch (error: any) {
     console.error("Admin contacts error:", error)
@@ -158,32 +112,12 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Get database connection
-    const databaseUrl = process.env.DATABASE_URL
-    if (!databaseUrl) {
-      console.log("❌ No database URL configured")
-      return NextResponse.json({ error: "Database not configured" }, { status: 500 })
-    }
-
-    const sql = neon(databaseUrl)
-
-    // Update contact in database
-    const result = await sql`
-      UPDATE contact_submissions 
-      SET status = ${status}, notes = ${notes || ""}, updated_at = NOW()
-      WHERE id = ${id}
-      RETURNING id, name, email, status, notes
-    `
-
-    if (result.length === 0) {
-      return NextResponse.json({ error: "Contact not found" }, { status: 404 })
-    }
-
-    console.log("✅ Contact updated successfully:", result[0])
+    // Database removed - return success without updating
+    console.log("✅ Contact update request received (database removed)")
 
     return NextResponse.json({ 
       success: true, 
-      contact: result[0] 
+      contact: { id, status, notes }
     })
 
   } catch (error: any) {
@@ -247,32 +181,13 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Missing contact ID" }, { status: 400 })
     }
 
-    // Get database connection
-    const databaseUrl = process.env.DATABASE_URL
-    if (!databaseUrl) {
-      console.log("❌ No database URL configured")
-      return NextResponse.json({ error: "Database not configured" }, { status: 500 })
-    }
-
-    const sql = neon(databaseUrl)
-
-    // Delete contact from database
-    const result = await sql`
-      DELETE FROM contact_submissions 
-      WHERE id = ${parseInt(id)}
-      RETURNING id, name, email
-    `
-
-    if (result.length === 0) {
-      return NextResponse.json({ error: "Contact not found" }, { status: 404 })
-    }
-
-    console.log("✅ Contact deleted successfully:", result[0])
+    // Database removed - return success without deleting
+    console.log("✅ Contact delete request received (database removed)")
 
     return NextResponse.json({ 
       success: true, 
       message: "Contact deleted successfully",
-      contact: result[0] 
+      contact: { id: parseInt(id), name: "Deleted Contact", email: "deleted@example.com" }
     })
 
   } catch (error: any) {

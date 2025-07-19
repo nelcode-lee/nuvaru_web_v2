@@ -1,9 +1,5 @@
 "use server"
 
-import { neon } from "@neondatabase/serverless"
-
-const sql = neon(process.env.DATABASE_URL!)
-
 export async function submitContactForm(prevState: any, formData: FormData) {
   try {
     console.log("📝 Contact form submission started")
@@ -40,34 +36,8 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       timestamp: new Date().toISOString(),
     })
 
-    // Try to save to database with retry logic
-    let dbSaved = false
-    for (let attempt = 1; attempt <= 3; attempt++) {
-      try {
-        console.log(`💾 Database save attempt ${attempt}/3`)
-
-        await sql`
-          INSERT INTO contact_submissions (
-            name, email, phone, company, service_type, message, source, status, created_at
-          ) VALUES (
-            ${name}, ${email}, ${phone}, ${company}, ${serviceType}, ${challenge}, ${source}, 'new', NOW()
-          )
-        `
-
-        console.log("✅ Contact saved to database successfully")
-        dbSaved = true
-        break
-      } catch (dbError: any) {
-        console.log(`❌ Database attempt ${attempt} failed:`, dbError.message)
-
-        if (attempt === 3) {
-          console.log("❌ All database attempts failed, but continuing...")
-        } else {
-          // Wait before retry (database might be sleeping)
-          await new Promise((resolve) => setTimeout(resolve, 2000))
-        }
-      }
-    }
+    // Database removed - log submission only
+    console.log("📝 Contact submission logged (database removed)")
 
     // Try to send email notification (non-blocking)
     try {
