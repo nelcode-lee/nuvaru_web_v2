@@ -137,15 +137,13 @@ export default function AdminLogin() {
 
             <div className="mt-4 p-3 bg-gray-50 rounded-lg">
               <p className="text-sm text-gray-600">
-                <strong>Default credentials:</strong>
+                <strong>Security Notice:</strong>
               </p>
               <p className="text-sm text-gray-500">
-                Username: admin
-                <br />
-                Password: nuvaru2024!
+                Please use your admin credentials to access the panel.
               </p>
               <p className="text-xs text-gray-400 mt-2">
-                Change these in your environment variables for production use.
+                Contact your system administrator if you need access.
               </p>
             </div>
           </CardContent>

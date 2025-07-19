@@ -7,8 +7,8 @@ export async function GET() {
     const envVars = {
       DATABASE_URL: false, // Database removed
       RESEND_API_KEY: !!process.env.RESEND_API_KEY,
-      ADMIN_USERNAME: process.env.ADMIN_USERNAME || "admin",
-      ADMIN_PASSWORD: !!process.env.ADMIN_PASSWORD,
+      ADMIN_USERNAME: "***", // Hidden for security
+      ADMIN_PASSWORD: "***", // Hidden for security
       NODE_ENV: process.env.NODE_ENV,
       VERCEL_URL: process.env.VERCEL_URL,
     }

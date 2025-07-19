@@ -40,6 +40,15 @@ export async function POST(request: NextRequest) {
 
     const adminUsername = process.env.ADMIN_USERNAME || "admin"
     const adminPassword = process.env.ADMIN_PASSWORD || "nuvaru2024!"
+    
+    // Require strong password in production
+    if (process.env.NODE_ENV === "production" && (!adminPassword || adminPassword === "nuvaru2024!")) {
+      console.error("❌ Weak password detected in production")
+      return NextResponse.json(
+        { success: false, error: "Server configuration error" }, 
+        { status: 500 }
+      )
+    }
 
     console.log("Expected username:", adminUsername)
     console.log("Expected password exists:", !!adminPassword)
